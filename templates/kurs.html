@@ -1,0 +1,22 @@
+<ion-view title="Kurs" id="page1">
+  <ion-nav-buttons side="left" class="has-header">
+    <button class="button button-icon icon ion-ios-minus-outline" ng-click="newCourse()"></button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-drag"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <ion-list id="kurs-list1" class="manual-list-fullwidth">
+      <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
+        <i class="icon ion-ios-people-outline"></i>{{course.title}} - {{course.pupils.length}}
+        <ion-option-button class="button-assertive">Löschen</ion-option-button>
+        <ion-option-button class="button-positive" ng-click="deleteCourse(course)">Ändern</ion-option-button>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="width: 300px; height: 14px;"></div>
+    <ion-list id="kurs-list4" ng-click="" class="manual-list-fullwidth">
+      <ion-item class="item-icon-left positive" id="kurs-list-item4" ng-click="newCourse()">
+        <i class="icon ion-ios-plus-empty"></i>Kurs erstellen</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

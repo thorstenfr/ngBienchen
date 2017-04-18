@@ -1,0 +1,13 @@
+<ion-view title="Teilnehmer" id="page3">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-ios-personadd-outline" ng-click="newPupil()"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <ion-list id="teilnehmer-list3">
+      <ion-item id="teilnehmer-list-item3" ng-repeat="pupil  in activeCourse.pupils" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} - {{pupil.bienchen}}
+        <ion-option-button class="button-assertive" ng-click="delete(pupil)">Löschen</ion-option-button>
+        <ion-option-button class="button-positive">Ändern</ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
