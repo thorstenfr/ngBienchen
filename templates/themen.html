@@ -1,12 +1,13 @@
-<ion-view title="Themen" id="page3">
+<ion-view title="Themen" cache-view="false" id="page3">
   <ion-nav-buttons side="right" class="has-header">
-    <button class="button button-icon icon ion-drag" ng-click="newSubject()"></button>
+    <button class="button button-icon icon ion-drag" ng-click="toggle('showReorder')"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
-    <ion-list id="themen-list3">
-      <ion-item id="themen-list-item3" ui-sref="teilnehmer" ng-repeat="subject  in activeCourse.subjects" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{subject.title}}
-        <ion-option-button class="button-assertive" ng-click="delete(pupil)">Löschen</ion-option-button>
+    <ion-list id="themen-list3" show-reorder="showReorder">
+      <ion-item id="themen-list-item3" ui-sref="teilnehmer" ng-repeat="subject  in activeCourse.subjects" ng-click="selectSubject(subject, $index)">{{subject.title}}
+        <ion-option-button class="button-assertive" ng-click="delete(subject)">Löschen</ion-option-button>
         <ion-option-button class="button-positive">Ändern</ion-option-button>
+        <ion-reorder-button class="ion-navicon" on-reorder="reorder(subject, $fromIndex, $toIndex)"></ion-reorder-button>
       </ion-item>
     </ion-list>
     <div class="spacer" style="width: 300px; height: 13px;"></div>

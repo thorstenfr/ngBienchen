@@ -29,6 +29,7 @@ function ($scope, $stateParams, Courses) {
     $scope.selectCourse = function(course, index) {
         $scope.activeCourse = course;
         Courses.setLastActiveIndex(index);
+        Courses.save($scope.courses);
         
     };
     
@@ -57,9 +58,6 @@ function ($scope, $stateParams, Courses) {
         // löschen
         $scope.courses.splice(fromIndex, 1);
         $scope.courses.splice(toIndex, 0, course);
-        
-        
-        
     }
     
   
@@ -101,12 +99,34 @@ function ($scope, $stateParams, Courses) {
         Courses.save($scope.courses);
     };
     
+    // Called to select the given subject
+    $scope.selectSubject = function(subject, index) {
+        $scope.activeSubject = subject;
+        
+      
+        Courses.setLastActiveSubjectIndex(index);
+        
+        // Nicht effinzient ...
+        Courses.save($scope.courses);
+        
+    };
     // Thema löschen
     $scope.delete = function(subject) {
         $scope.activeCourse.subjects.splice($scope.activeCourse.subjects.indexOf(subject), 1);
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
-        };
+        
+    };
+     $scope.toggle= function (v) {
+        $scope[v] = !$scope[v];
+    };
+    
+    // Kurse anordnen
+    $scope.reorder = function(subject, fromIndex, toIndex) {
+        // löschen
+        $scope.activeCourse.subjects.splice(fromIndex, 1);
+        $scope.activeCourse.subjects.splice(toIndex, 0, subject);
+    }
 }])
    
 .controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -129,15 +149,19 @@ function ($scope, $stateParams, Courses) {
     // A utility function for creating a new pupil
     // with the given pupilName
     var createPupil = function(pupilName) {
+        console.log("createPupil : " + pupilName);
         if (!$scope.activeCourse || !pupilName) {
             return;
         }
+        
         $scope.activeCourse.pupils.push({
             name : pupilName,
             bienchen : 0, // ratings - teufelchen
             ratings : [],
             teufelchen : []
         });
+        
+        
         
         // Nicht effinzient ...
         Courses.save($scope.courses);
