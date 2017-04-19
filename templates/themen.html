@@ -1,0 +1,17 @@
+<ion-view title="Themen" id="page3">
+  <ion-nav-buttons side="right" class="has-header">
+    <button class="button button-icon icon ion-drag" ng-click="newSubject()"></button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <ion-list id="themen-list3">
+      <ion-item id="themen-list-item3" ui-sref="teilnehmer" ng-repeat="subject  in activeCourse.subjects" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{subject.title}}
+        <ion-option-button class="button-assertive" ng-click="delete(pupil)">Löschen</ion-option-button>
+        <ion-option-button class="button-positive">Ändern</ion-option-button>
+      </ion-item>
+    </ion-list>
+    <div class="spacer" style="width: 300px; height: 13px;"></div>
+    <ion-list id="themen-list6">
+      <ion-item class="positive" id="themen-list-item7" ng-click="newSubject()">+ Thema erstellen</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

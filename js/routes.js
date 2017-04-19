@@ -16,8 +16,14 @@ angular.module('app.routes', [])
     controller: 'kursCtrl'
   })
 
-  .state('teilnehmer', {
+  .state('themen', {
     url: '/page3',
+    templateUrl: 'templates/themen.html',
+    controller: 'themenCtrl'
+  })
+
+  .state('teilnehmer', {
+    url: '/page4',
     templateUrl: 'templates/teilnehmer.html',
     controller: 'teilnehmerCtrl'
   })

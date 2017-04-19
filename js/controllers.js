@@ -5,6 +5,8 @@ angular.module('app.controllers', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses) {
     $scope.courses =  Courses.all();
+    $scope.showDelete = false;
+    
     
     // Called to create a new course
     $scope.newCourse = function() {
@@ -29,10 +31,12 @@ function ($scope, $stateParams, Courses) {
         Courses.setLastActiveIndex(index);
         
     };
+    
+    // Kurs löschen
     $scope.deleteCourse = function(course) {  
-        console.log(' Soll course löschen (' + $scope.courses[$scope.courses.indexOf(course)].pupils.length);
+    
         // Sicherheitshalber nur löschen, wenn keine Schüler mehr vorhanden sind
-        if($scope.courses[$scope.courses.indexOf(course)].pupils.length != 0) {
+        if($scope.courses[$scope.courses.indexOf(course)].pupils.length !== 0) {
             alert("Kurs hat Schüler!");
             
         }
@@ -43,8 +47,66 @@ function ($scope, $stateParams, Courses) {
             
         }
 	};
+	
+    $scope.toggle= function (v) {
+        $scope[v] = !$scope[v];
+    };
+    
+    // Kurse anordnen
+    $scope.reorder = function(course, fromIndex, toIndex) {
+        // löschen
+        $scope.courses.splice(fromIndex, 1);
+        $scope.courses.splice(toIndex, 0, course);
+        
+        
+        
+    }
+    
   
 
+}])
+   
+.controller('themenCtrl', ['$scope', '$stateParams', 'Courses', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, Courses) {
+    $scope.courses =  Courses.all();
+    $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
+    
+    
+    
+    // Called to create a new subject
+    $scope.newSubject = function() {
+        var subjectTitle = prompt('Thema');
+        if(subjectTitle) {
+            createSubject(subjectTitle);
+        }
+    };
+    
+    // A utility function for creating a new subject
+    // with the given subjectTitle
+    var createSubject = function(subjectTitle) {
+        if (!$scope.activeCourse || !subjectTitle) {
+            return;
+        }
+        $scope.activeCourse.subjects.push({
+            title : subjectTitle,
+            firstRating : '' , // Datum des ersten Rating zum Thema
+            lastRating : '', // Datum des letzten Ratings zum Thema
+            ratings : 0, // Anzahl der zum Thema erfassten ratings
+            finished : 0 // 0 = noch nicht fertig, 1 = fertig
+        });
+        
+        // Nicht effinzient ...
+        Courses.save($scope.courses);
+    };
+    
+    // Thema löschen
+    $scope.delete = function(subject) {
+        $scope.activeCourse.subjects.splice($scope.activeCourse.subjects.indexOf(subject), 1);
+        // Inefficient, but save all the subjects
+        Courses.save($scope.courses);
+        };
 }])
    
 .controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -53,7 +115,7 @@ function ($scope, $stateParams, Courses) {
 function ($scope, $stateParams, Courses) {
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-    $scope.activeSubject = "kein Thema"
+    $scope.activeSubject = $scope.courses[Courses.getLastActiveSubjectIndex()];
     
     
     // Called to create a new pupil

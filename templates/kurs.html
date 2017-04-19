@@ -1,16 +1,15 @@
 <ion-view title="Kurs" id="page1">
-  <ion-nav-buttons side="left" class="has-header">
-    <button class="button button-icon icon ion-ios-minus-outline" ng-click="newCourse()"></button>
-  </ion-nav-buttons>
   <ion-nav-buttons side="right" class="has-header">
-    <button class="button button-icon icon ion-drag"></button>
+    <button class="button button-icon icon ion-drag" ng-click="toggle('showReorder')"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
-    <ion-list id="kurs-list1" class="manual-list-fullwidth">
-      <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
+    <ion-list id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+      <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="themen" ng-repeat="course in courses">
         <i class="icon ion-ios-people-outline"></i>{{course.title}} - {{course.pupils.length}}
-        <ion-option-button class="button-assertive">Löschen</ion-option-button>
-        <ion-option-button class="button-positive" ng-click="deleteCourse(course)">Ändern</ion-option-button>
+        <ion-option-button class="button-assertive" ng-click="deleteCourse(course)">Löschen</ion-option-button>
+        <ion-option-button class="button-positive">Ändern</ion-option-button>
+        <ion-delete-button class="ion-minus-circled"></ion-delete-button>
+        <ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
       </ion-item>
     </ion-list>
     <div class="spacer" style="width: 300px; height: 14px;"></div>
