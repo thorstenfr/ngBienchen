@@ -101,6 +101,7 @@ function ($scope, $stateParams, Courses) {
     
     // Called to select the given subject
     $scope.selectSubject = function(subject, index) {
+		console.log("Selecting subject ... " + subject.title); 
         $scope.activeSubject = subject;
         
       
@@ -134,8 +135,9 @@ function ($scope, $stateParams, Courses) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses) {
     $scope.courses =  Courses.all();
-    $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-    $scope.activeSubject = $scope.courses[Courses.getLastActiveSubjectIndex()];
+    $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];	
+    $scope.activeSubject = $scope.activeCourse.subjects[Courses.getLastActiveSubjectIndex()];
+	
     
     
     // Called to create a new pupil
@@ -207,7 +209,8 @@ function ($scope, $stateParams, Courses) {
         }
         // Rating hinzufügen
         pupil.teufelchen.push({
-            datum : now
+            datum : now,
+            thema : $scope.activeSubject.title
         });
         // Bienchen-Anzahl anpassen
         pupil.bienchen = pupil.bienchen - 1;
