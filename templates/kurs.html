@@ -1,9 +1,9 @@
-<ion-view title="Kurs" cache-view="false" id="page1">
+<ion-view title="Kurs" cache-view="false" id="page1" style="background-color:#F7F7F7">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-drag" ng-click="toggle('showReorder')"></button>
   </ion-nav-buttons>
-  <ion-content padding="true" class="has-header">
-    <ion-list id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+  <ion-content padding="true" class="has-header" >
+    <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
       <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="themen" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
         <i class="icon ion-ios-people-outline"></i>{{course.title}} - {{course.pupils.length}}
         <ion-option-button class="button-assertive" ng-click="deleteCourse(course)">Löschen</ion-option-button>
