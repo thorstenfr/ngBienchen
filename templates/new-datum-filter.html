@@ -1,0 +1,33 @@
+	<div class="modal" >
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">Nach Datum filtern</h1>
+      <button ng-click="closeNewDatumFilter()" class="button button-clear button-positive">Abbruch</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+    
+     <form ng-submit="setzeDatum(von, bis)">
+        <div class="list">
+        <label class="item item-input">
+          Von-Datum: 		  
+            <input id="von_input" type="Date" ng-model="von">
+          </label>
+		  
+          <label class="item item-input">
+          BisDatum:  		  
+            <input id="name_input" type="date" ng-model="bis">
+          </label>
+           
+        </div>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Datumfilter setzen</button>
+        </div>
+      </form>
+
+    </ion-content>
+
+  </div>
+

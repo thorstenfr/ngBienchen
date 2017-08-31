@@ -2,7 +2,7 @@
 
 APP zur Verwaltung von Schülerleistungen.
 
-- ionic Projekt erstellen (ionic start ngBienchen --type ionic1)
+- ionic Projekt erstellen
 - www - Ordner des neu erstellten Projekts löschen
 - das rep nach www clonen
 - ionic build

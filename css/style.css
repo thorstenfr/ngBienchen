@@ -1,0 +1,31 @@
+.erledigt {
+  opacity: 0.8;
+  text-decoration : line-through;
+}
+.hervorgehoben {
+	border-color: #506c4e;
+    background-color: #668964;
+    color: #fff;
+    text-align: center;
+    width : 20%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left : auto;  
+    margin-right: auto;
+ }
+ .termin_ueberschritten {
+ 		color:  red;
+ }
+ .termin {
+ 	color : blue;
+ }
+ .rot {
+ 	color: red;
+ 	}
+ 	.blau {
+ 		color: blue;
+ 	}
+ 
+input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    blue;
+}

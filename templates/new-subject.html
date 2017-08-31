@@ -1,0 +1,33 @@
+	<div class="modal" >
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">{{activeSubject.title}}</h1>
+      <button ng-click="closeNewSubject()" class="button button-clear button-positive">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+    
+     <form ng-submit="closeEditSubject(subject)">
+        <div class="list">
+        <label class="item item-input">
+          Name: 		  
+            <input id="name_input" type="text" placeholder="Unterrichtsthema eingeben" ng-model="subject.title">
+          </label>
+		  
+          <label class="item item-input">
+          Geplant für Datum:  		  
+            <input id="name_input" type="date" placeholder="Geplant für Datum" ng-model="subject.geplant_fuer">
+          </label>
+           
+        </div>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Erstelle Kurs</button>
+        </div>
+      </form>
+
+    </ion-content>
+
+  </div>
+

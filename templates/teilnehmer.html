@@ -1,27 +1,50 @@
-<ion-view title="Teilnehmer" id="page4">
+<ion-view title="{{activeSubject.title}}" cache-view="false" id="page4">
   <ion-nav-buttons side="right" class="has-header">
     <button class="button button-icon icon ion-ios-personadd-outline" ng-click="newPupil()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <ion-list id="teilnehmer-list5">
-      <ion-item id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} - {{pupil.bienchen}}
+    	<div class="hervorgehoben">Von: {{vonDatum | date: short}} Bis: {{bisDatum | date: short}}</div>
+      <ion-item id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length - teufelchen.length}} </span>
         <ion-option-button class="button-assertive" ng-click="delete(pupil)">Löschen</ion-option-button>
         <ion-option-button class="button-positive">Ändern</ion-option-button>
-		<h3>Bienchen</h3>
-		<p ng-repeat="rating in pupil.ratings">{{rating.datum | date : "HH:mm:ss dd.MM.y"}} - {{rating.thema}}</p>
-		<h3>Teufelchen</h3>
-		<p ng-repeat="teufelchen in pupil.teufelchen">{{teufelchen.datum | date : "HH:mm:ss dd.MM.y"}} - {{teufelchen.thema}}</p>
+        <!--alle Bienchen und alle Teufelchen ausgeben -->
+		<div ng-show="myShow">
 		
+		<p>Bienchen {{bienchen.length}}</p>
+		<pre ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen " >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}} {{x.thema}}</pre>
+		<p>Teufelchen {{teufelchen.length}}</p>
+		<pre ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}} {{x.thema}}</pre>
+		
+		
+		</div>
       </ion-item>
     </ion-list>
   </ion-content>
-  <ion-footer-bar align-title="left" class="bar-balanced">
-	  <div class="buttons">
-	    <button class="button">Left Button</button>
-	  </div>
-	  <h1 class="title">Title!</h1>
-	  <div class="buttons" ng-click="doSomething()">
-	    <button class="button">Right Button</button>
-	  </div>
-  </ion-footer-bar>
+  
+  </ion-content>
+      	<div class="tabs tabs-icon-left">
+			<a class="tab-item" ng-click="show()">
+    			<i class="icon ion-arrow-up-c"></i>
+    			A-z
+  			</a>
+  			<a class="tab-item" ng-click="newDatumFilter()">
+    			<i class="icon ion-calendar"></i>
+    			Datum
+  			</a>
+  			
+			<a class="tab-item" ng-class="myActive" ng-click="toggle('myShow')"> 
+    			<i class="icon ion-information-circled"></i>
+    			Details
+  			</a>
+  			<!--
+			<input type="date" ng-model="myVonDate" name="" value="" />
+			
+			<input type="date" ng-model="myBisDate" name="" value="" />
+			-->
+			
+			
+	</div>
+  
+  
 </ion-view>
