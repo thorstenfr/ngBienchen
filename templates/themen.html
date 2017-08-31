@@ -7,7 +7,7 @@
   <ion-content  padding="true" class="has-header">
     <ion-list  id="themen-list3" show-delete="showDelete"   show-reorder="showReorder">
       <ion-item id="themen-list-item3" ui-sref="teilnehmer" ng-if="!subject.finished" ng-repeat="subject  in activeCourse.subjects" on-hold="openEditSubject(subject, $index)" ng-click="selectSubject(subject, $index)">    
-{{subject.title}} <br /><pre>{{subject.geplant_fuer}} today: {{today}} &lt {{subject.geplant_fuer <= today}} </pre> <small ng-class="subject.geplant_fuer <= today ? 'rot' : 'blau'"> {{subject.geplant_fuer | date : "EEE.  dd. MMM"}}</small>
+{{subject.title}} <br /><pre>Termin: {{subject.geplant_fuer}} <br>Heute: {{today}} <br>Termin überschritte: {{subject.termin_ueberschritten}}</pre> <small ng-class="subject.termin_ueberschritten ? 'rot' : 'blau'"> {{subject.geplant_fuer | date : "EEE.  dd. MMM"}}</small>
 	<ion-delete-button  class="ion-android-checkbox-outline-blank" ></ion-delete-button>
       
       <ion-option-button class="button-assertive ion-trash-a" ng-click="delete(subject)"></ion-option-button>

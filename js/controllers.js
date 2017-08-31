@@ -161,6 +161,13 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     	}
     	
     			$scope.activeSubject.geplant_fuer = subject.geplant_fuer;
+				if(subject.geplant_fuer < $scope.today) {
+					
+					$scope.activeSubject.termin_ueberschritten = true;
+				}
+				else {
+					$scope.activeSubject.termin_ueberschritten = false;
+				}
     	
 				// Inefficient, but save all the subjects
 				Courses.save($scope.courses);
@@ -197,6 +204,7 @@ function ($scope, $stateParams, Courses, $ionicModal) {
             lastRating : '', // Datum des letzten Ratings zum Thema
             ratings : 0, // Anzahl der zum Thema erfassten ratings
             geplant_fuer : subject.geplant_fuer, // Falls Datum des Themas geplant wird
+			termin_ueberschritten : false,
             finished : false // true: Thema erledit
         });
         
