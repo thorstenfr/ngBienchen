@@ -24,7 +24,6 @@ function ($scope, $stateParams, Courses) {
     };
     
     $scope.createCourse = function(course) {
-    console.log("course: " + course.title);
     		if (course.title) {
     			var nc = Courses.newCourse(course.title);
     			$scope.courses.push(nc);
