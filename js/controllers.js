@@ -161,6 +161,7 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.closeEditSubject = function(subject) {
     	if(subject && subject.title) {
     			$scope.activeSubject.title = subject.title;	
+    			subject.title = "";
     	}
     	
     			$scope.activeSubject.geplant_fuer = subject.geplant_fuer;
