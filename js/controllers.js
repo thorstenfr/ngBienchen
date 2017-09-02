@@ -267,7 +267,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicModa
 	$scope.setzeDatum = function(von, bis) {
 		$scope.vonDatum = von;
 		$scope.bisDatum = bis;
-		$scope.closeNewDatumFilter();
+		$scope.datumModal.hide();
 		
 	}
     $scope.courses =  Courses.all();
@@ -288,6 +288,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicModa
     	$scope.datumModal.show();
     }
     $scope.closeNewDatumFilter = function() {
+    	$scope.vonDatum = "";
+    	$scope.bisDatum = "";
     	$scope.datumModal.hide();
     }
 	
