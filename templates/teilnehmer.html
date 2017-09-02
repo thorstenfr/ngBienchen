@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header">
     <ion-list id="teilnehmer-list5">
-    	<div class="hervorgehoben">Von: {{vonDatum | date: short}} Bis: {{bisDatum | date: short}}</div>
+	<div ng-if="datumfilter" class="hervorgehoben">Filter von: {{vonDatum | date: short}} Bis: {{bisDatum | date: short}}</div>
       <ion-item id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length - teufelchen.length}} </span>
         <ion-option-button class="button-assertive" ng-click="delete(pupil)">Löschen</ion-option-button>
         <ion-option-button class="button-positive">Ändern</ion-option-button>

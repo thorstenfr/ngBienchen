@@ -262,9 +262,11 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicModal) {
-
+	
+	$scope.datumfilter = false;
 
 	$scope.setzeDatum = function(von, bis) {
+		$scope.datumfilter = true;
 		$scope.vonDatum = von;
 		$scope.bisDatum = bis;
 		$scope.datumModal.hide();
@@ -284,10 +286,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicModa
 
     
     	
-    $scope.newDatumFilter = function() {
+    $scope.newDatumFilter = function() {		
     	$scope.datumModal.show();
     }
     $scope.closeNewDatumFilter = function() {
+		$scope.datumfilter = false;
     	$scope.vonDatum = "";
     	$scope.bisDatum = "";
     	$scope.datumModal.hide();
