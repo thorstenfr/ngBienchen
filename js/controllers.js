@@ -243,6 +243,10 @@ function ($scope, $stateParams, Courses, $ionicModal) {
         // löschen
         $scope.activeCourse.subjects.splice(fromIndex, 1);
         $scope.activeCourse.subjects.splice(toIndex, 0, subject);
+
+        // Inefficient, but save all the subjects
+        Courses.save($scope.courses);
+
     };
    
      // Thema auf erledigt setzen oder wieder zurück
