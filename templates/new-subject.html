@@ -12,14 +12,14 @@
     
      <form ng-submit="closeEditSubject(subject)">
         <div class="list">
-        <label class="item item-input item-floating-label">
-          Thema: 		  
-            <input id="name_input" type="text" placeholder="{{activeSubject.title}}" ng-model="subject.title">
+        <label class="item item-input item-stacked-label">
+			<span class="input-label">Thema: {{activeSubject.title}} </span>
+          	<input type="text" placeholder="Thema" ng-model="subject.title">	             
           </label>
 		  
-          <label class="item item-input item-floating-label">
-          Geplant für Datum:  		  
-            <input id="name_input" type="date" placeholder="Geplant für Datum" ng-model="subject.geplant_fuer">
+          <label class="item item-input item-stacked-label">
+          Geplant für Datum: {{activeSubject.geplant_fuer | date}}  		  
+            <input id="name_input" type="date" placeholder="Planzeit eingeben" ng-model="subject.geplant_fuer">
           </label>
            
         </div>

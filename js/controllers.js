@@ -105,6 +105,11 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
     
+	$scope.reorderItems = function(event) {
+		alert("Hello");
+		
+	}
+	
     $scope.tolate = function(s){
     	return s.geplant_fuer<$scope.today;
     }

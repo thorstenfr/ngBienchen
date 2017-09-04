@@ -5,7 +5,7 @@
   
   </ion-nav-buttons>
   <ion-content  padding="true" class="has-header">
-    <ion-list  id="themen-list3" show-delete="showDelete"   show-reorder="showReorder">
+    <ion-list  (ionItemReorder)="reorderItems($event)" id="themen-list3" show-delete="showDelete"   show-reorder="showReorder" >
       <ion-item id="themen-list-item3" ui-sref="teilnehmer" ng-if="!subject.finished" ng-repeat="subject  in activeCourse.subjects" on-hold="openEditSubject(subject, $index)" ng-click="selectSubject(subject, $index)">    
 {{subject.title}} <br /><small ng-class="(subject.geplant_fuer | date : 'yyyyMMdd') <= (today | date : 'yyyyMMdd') ? 'rot' : 'blau'"> {{subject.geplant_fuer | date : "EEE.  dd. MMM"}}</small>
 	<ion-delete-button  class="ion-android-checkbox-outline-blank" ></ion-delete-button>
