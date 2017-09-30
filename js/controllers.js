@@ -1,10 +1,29 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses) {
+function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.courses =  Courses.all();
+	  
+	// Create our modal
+	$ionicModal.fromTemplateUrl('templates/modal-kurs.html', function(modal)
+	{
+    	$scope.courseModal = modal;
+    }, {
+    	scope: $scope
+  	});
+	
+	$scope.changeCourse = function(course) {
+		$scope.activeCourse = course;
+	    $scope.courseModal.show();
+		
+	}
+	$scope.closeEditCourse = function(course) {
+		$scope.activeCourse.title = course.title;
+	    
+		$scope.courseModal.hide();	
+	}
     
     $scope.data = {
     	'title': 'test123'
@@ -267,11 +286,13 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 }])
 
    
-.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicModal',    // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal',    // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicModal) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal) {
 	
+	 $scope.modalData = { "msg" : "Test!" };
+	 
 	$scope.datumfilter = false;
 
 	$scope.setzeDatum = function(von, bis) {
@@ -414,16 +435,50 @@ $scope.asFilterDatum= function() {
 	    };
 	
 
+		// Triggered on a button click, or some other target
+	 $scope.editPupil = function(pupil) {
+		 pupil.isExistent = true;
+		 $scope.pupilModal.show();
+	 
+	};
 
 	
-    
+    // Create our modal
+	$ionicModal.fromTemplateUrl('templates/new-pupil.html', function(modal)
+	{
+    	$scope.pupilModal = modal;
+    	}, {
+    		scope: $scope
+  	});
+	
+	$scope.closeNewPupil = function() {
+		$scope.pupilModal.hide();
+	}
+	
+	 $scope.closeEditPupil = function(pupil) {
+    	if(pupil && pupil.name) {
+			alert("name: " + pupil.name + " isExistent: " + pupil.isExistent);
+			if (!pupil.isExistent) {
+				createPupil(pupil.name);			
+			}
+			pupil.name = "";
+    	}
+    	
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+		
+    	
+		$scope.pupilModal.hide();	
+    	
+    }
     
     // Called to create a new pupil
     $scope.newPupil = function() {
-        var pupilName = prompt('Schülername');
-        if(pupilName) {
-            createPupil(pupilName);
-        }
+		$scope.pupilModal.show();
+        // var pupilName = prompt('Schülername');
+        // if(pupilName) {
+        //    createPupil(pupilName);
+        //}
     };
     
     // A utility function for creating a new pupil
@@ -437,6 +492,7 @@ $scope.asFilterDatum= function() {
             name : pupilName,
             bienchen : 0, // ratings - teufelchen
             ratings : [],
+			isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
             teufelchen : []
         });
         
