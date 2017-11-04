@@ -33,9 +33,10 @@
   		
 	</form>
  
-    <div ng-if="finished.length" class="hervor_positiv">Erledigte Themen: {{finished.length}}</div>
-    
-    <ion-list>
+ 	<div style="text-align: center;">
+    <p ng-click="toggleShowFinished('showFinished')" ng-if="finished.length" class="hervor_positiv">{{showFinishedText}}</p>
+    </div>
+    <ion-list ng-show="showFinished">
 
     	<ion-item class="erledigt" ng-click="toogleFinished(subject)" ng-repeat="subject  in activeCourse.subjects | filter:{finished: 'true'} | filter:q as finished" ng-click="selectSubject(subject, $index)">{{subject.title}}
     	</ion-item>

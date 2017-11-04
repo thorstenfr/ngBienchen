@@ -16,11 +16,13 @@
  }
  .hervor_positiv {
  	color: white;
- 	background-color: green;
- 	width: 40%;
- 	margin: auto;
- 	padding: 10px;
- 	}
+ 	background-color: #668964;
+ 	margin: 0 auto 10 auto;
+ 	padding: 5px;
+ 	opacity: 0.8;
+ 	display : inline-block;
+ 	/* width: 60%; */
+ }
  .termin_ueberschritten {
  		color:  red;
  }
@@ -32,6 +34,9 @@
  	}
  	.blau {
  		color: blue;
+ 	}
+ 	.abstand {
+ 		margin-bottom: 10px;
  	}
  
 input::-webkit-input-placeholder { /* WebKit, Blink, Edge */

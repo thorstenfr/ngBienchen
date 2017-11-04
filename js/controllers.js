@@ -124,6 +124,10 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
     
+    $scope.showFinished = true;
+    $scope.showFinishedText="Erledigte Themen verbergen";
+    
+    
 	$scope.reorderItems = function(event) {
 		alert("Hello");
 		
@@ -276,6 +280,15 @@ function ($scope, $stateParams, Courses, $ionicModal) {
         Courses.save($scope.courses);
         
     };
+    $scope.toggleShowFinished = function (v) {
+        $scope[v] = !$scope[v];
+        if($scope[v]){
+        	$scope.showFinishedText="Erledigte Themen verbergen";
+        } else {
+        	$scope.showFinishedText="Erledigte Themen anzeigen";
+        }
+    };
+    
     /*
       $scope.compiltedFilter(object) {
    		return object.finished === true;
@@ -307,7 +320,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.activeSubject = $scope.activeCourse.subjects[Courses.getLastActiveSubjectIndex()];
 
       // Create our modal
-	  $ionicModal.fromTemplateUrl('templates/new-datum-filter.html', function(modal)
+	  $ionicModal.fromTemplateUrl('templates/modal-new-datum-filter.html', function(modal)
 	  {
     		$scope.datumModal = modal;
     	}, {
@@ -457,7 +470,7 @@ $scope.asFilterDatum= function() {
 	
 	 $scope.closeEditPupil = function(pupil) {
     	if(pupil && pupil.name) {
-			alert("name: " + pupil.name + " isExistent: " + pupil.isExistent);
+		//	alert("name: " + pupil.name + " isExistent: " + pupil.isExistent);
 			if (!pupil.isExistent) {
 				createPupil(pupil.name);			
 			}
