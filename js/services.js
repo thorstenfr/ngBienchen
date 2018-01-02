@@ -18,6 +18,8 @@ angular.module('app.services', [])
             // Add a new course
             return {
                 title: courseTitle,
+                maxBienchen : 0,
+                maxBienchenName : '',
                 subjects: [],
                 pupils: []
             };

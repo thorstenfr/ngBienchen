@@ -5,6 +5,7 @@ angular.module('app.controllers', ['ionic'])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.courses =  Courses.all();
+      		
 	  
 	// Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-kurs.html', function(modal)
@@ -18,6 +19,9 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 		$scope.activeCourse = course;
 	    $scope.courseModal.show();
 		
+	}
+	$scope.closeModalCourse = function () {
+		$scope.courseModal.hide();
 	}
 	$scope.closeEditCourse = function(course) {
 		$scope.activeCourse.title = course.title;
@@ -45,6 +49,10 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     $scope.createCourse = function(course) {
     		if (course.title) {
     			var nc = Courses.newCourse(course.title);
+    			nc.mittel=0;
+    			nc.maxBienchen=0;
+    			nc.maxBienchenName='';
+    			
     			$scope.courses.push(nc);
     		
     		// Nicht effinzient ...
@@ -56,7 +64,12 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     
     $scope.addCourse = function(kurs) {
         if(kurs && kurs.titel) {
-        	createCourse(kurs.titel);
+        	kurs.bienchen = 0;
+        	kurs.maxBienchen = 0;
+        	kurs.maxBienchenName='';
+        	
+        	
+        	createCourse(kurs);
         }
         $scope.reset();
         
@@ -305,9 +318,10 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal) {
 	
 	 $scope.modalData = { "msg" : "Test!" };
+	$scope.showNormal = true;
 	 
 	$scope.datumfilter = false;
-
+	
 	$scope.setzeDatum = function(von, bis) {
 		$scope.datumfilter = true;
 		$scope.vonDatum = von;
@@ -317,7 +331,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	}
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];	
-    $scope.activeSubject = $scope.activeCourse.subjects[Courses.getLastActiveSubjectIndex()];
+    
 
       // Create our modal
 	  $ionicModal.fromTemplateUrl('templates/modal-new-datum-filter.html', function(modal)
@@ -339,66 +353,96 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     	$scope.datumModal.hide();
     }
 	
-	$scope.show = function() {
 	
-	// Show the action sheet
-   var hideSheet = $ionicActionSheet.show({
-     buttons: [
-       { text: '<ion-icon name="heart"></ion-icon>Nach Name aufsteigend' },
-	   { text: 'Nach Name absteigend' },
-       { text: 'Nach Bienchen aufsteigend' },
-	   { text: 'Nach Bienchen absteigend' }
-     ],
-     // destructiveText: 'Delete',
-     titleText: 'Sortieren der Teilnehmer',
-     cancelText: 'Cancel',
-     cancel: function() {
-          // add cancel code..
+	// Action Sheet "Sortierung"
+	$scope.showView = function() {
+		
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+       			{ text: 'Normale Anzeige' },
+				{ text: 'Übersicht (keine Klicks)' },
+			    { text: 'Detail-Anzeige (keine Klicks)' }
+			],
+     	// destructiveText: 'Delete',
+     	titleText: 'Anzeige',
+     	cancelText: 'Abbruch',
+     	cancel: function() {
+        	  // add cancel code..
         },
-     buttonClicked: function(index) {
-     	   switch (index) {
-	  	case 0:
-		  	$scope.orderByMe('name');
-		   	break;
-		case 1:
-			$scope.orderByMe('-name');
-		   	break;
-		case 2:
-			$scope.orderByMe('bienchen');
-			break;
-		case 3:
-			$scope.orderByMe('-bienchen');
-		   break;
-		   
-	   }
-
-       
-		 
-		 return true;
-     }
-   });
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+	  			$scope.showNormal = true;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = false;
+			  	break;
+			case 1:
+				$scope.showNormal = false;
+	  			$scope.showUebersicht = true;
+	  			$scope.showDetail = false;
+			
+				break;
+			case 2:
+				$scope.showNormal = true;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = true;
+			
+				break;
+		}
+		return true;
+		}
+	});
    // For example's sake, hide the sheet after two seconds
    $timeout(function() {
-     hideSheet();
+    	 hideSheet();
    }, 20000);
 };
-/*
-  // Create our modal
-  $ionicModal.fromTemplateUrl('datum-modal.html', function(modal) {
-    $scope.datumModal = modal;
-  }, {
-    scope: $scope
-  });
-
-
-  // Modal-Dialog zur Auswahl des Datum-Filters
-  $scope.datumFilter = function() {
-    $scope.datumModal.show();
-  };
-    $scope.closedatumFilter = function() {
-    $scope.datumModal.hide();
-  }
-*/
+	
+	
+	
+	// old
+	
+	// Action Sheet "Sortierung"
+	$scope.showOrder = function() {
+	
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+       			{ text: 'Nach Name aufsteigend' },
+				{ text: 'Nach Name absteigend' },
+			    { text: 'Nach Bienchen aufsteigend' },
+				{ text: 'Nach Bienchen absteigend' }
+     		],
+     	// destructiveText: 'Delete',
+     	titleText: 'Sortieren der Teilnehmer',
+     	cancelText: 'Abbruch',
+     	cancel: function() {
+        	  // add cancel code..
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+		  		$scope.orderByMe('name');
+		   	break;
+			case 1:
+				$scope.orderByMe('-name');
+		   		break;
+			case 2:
+				$scope.orderByMe('bienchen');
+				break;
+			case 3:
+				$scope.orderByMe('-bienchen');
+		   		break;
+		   	}
+			return true;
+		}
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
 
 $scope.asFilterDatum= function() {
 	
@@ -521,7 +565,24 @@ $scope.asFilterDatum= function() {
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
         };
+        
+    // Berechne max/min/mittel
+    $scope.calcMaxMinMittel = function(pupil) {
     
+    // Max berechnen
+    if ($scope.activeCourse.maxBienchen < pupil.bienchen)
+    {
+   
+    	  $scope.activeCourse.maxBienchen = pupil.bienchen;
+    	  $scope.activeCourse.maxBienchenName = pupil.name;
+    	  
+    	  
+    }
+    
+    
+    $scope.activeCourse.mittelBienchen = Math.round($scope.activeCourse.bienchen / $scope.activeCourse.pupils.length);
+    
+    }
     // Rating hinzufügen
     $scope.addRating = function(pupil) {
         
@@ -531,13 +592,38 @@ $scope.asFilterDatum= function() {
             return;
             
         }
+        
+        // Bienchen des Kurses erhöhen
+        if (isNaN($scope.activeCourse.bienchen)) {
+        	$scope.activeCourse.bienchen = 0;
+        	}
+        	
+        $scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
+        
+        // Werte berechnen
+        $scope.calcMaxMinMittel(pupil);
+        
+        
+        
+        
         // Rating hinzufügen
         pupil.ratings.push({
-            datum : now,
-            thema : $scope.activeSubject.title
+            datum : now
         });
         // Bienchen-Anzahl anpassen
         pupil.bienchen = pupil.bienchen + 1;
+    
+    /*
+    
+        if(isNaN($scope.activeCourse.maxBienchen)) {
+        	$scope.activeCourse.maxBienchen=0;
+        	}
+        if (pupil.bienchen>$scope.activeCourse.maxBienchen) {
+        	$scope.activeCourse.maxBienchen = pupil.bienchen;
+        	}
+        
+        	
+      */  	
         
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
@@ -555,16 +641,35 @@ $scope.asFilterDatum= function() {
         }
         // Rating hinzufügen
         pupil.teufelchen.push({
-            datum : now,
-            thema : $scope.activeSubject.title
+            datum : now
         });
         // Bienchen-Anzahl anpassen
         pupil.bienchen = pupil.bienchen - 1;
+        // Bienchenanzahl des Kurses reduzieren
+        $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - 1;
+        
+        // min max berechnen
+        $scope.calcMaxMinMittel(pupil);
+        
         
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
     
     }
+  $scope.filterMaxBienchen = function(pupil) {
+  	var max;
+  	if (isNaN(max)) {
+  		max = 0;
+  	}
+  	
+  	if (pupil.bienchen>max) {
+  		max = pupil.bienchen;
+  		return true;
+  	} else {
+  		return false
+  	}
+  	return true;
+  };
         
     
 }])

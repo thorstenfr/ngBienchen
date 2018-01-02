@@ -4,8 +4,11 @@
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header" >
     <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
-      <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="themen" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
-        <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small>Schüler: {{course.pupils.length}}<br /> Unterrichtsthemen: {{course.subjects.length}}</small> 
+      <ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
+        <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">Schüler: {{course.pupils.length}} 
+        Bienchen: {{course.bienchen}} Mittel: {{course.mittelBienchen}} </small><br />
+        <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
+        </small> </span>
         <ion-option-button class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
         <ion-delete-button class="ion-minus-circled"></ion-delete-button>
