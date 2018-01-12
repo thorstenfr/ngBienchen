@@ -320,13 +320,16 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	 $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
 	 
-	$scope.datumfilter = false;
+	// $scope.datumfilter = false;
 	
-	$scope.setzeDatum = function(von, bis) {
-		$scope.datumfilter = true;
-		$scope.vonDatum = von;
-		$scope.bisDatum = bis;
+	$scope.setzeDatum = function() {
+		$scope.activeCourse.datumfilter = true;
+		$scope.activeCourse.vonDatum = von;
+		$scope.activeCourse.bisDatum = bis;
 		$scope.datumModal.hide();
+		
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
 		
 	}
     $scope.courses =  Courses.all();
@@ -346,11 +349,24 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.newDatumFilter = function() {		
     	$scope.datumModal.show();
     }
-    $scope.closeNewDatumFilter = function() {
-		$scope.datumfilter = false;
-    	$scope.vonDatum = "";
-    	$scope.bisDatum = "";
+    $scope.setNewDatumFilter = function() {
+    	$scope.activeCourse.datumfilter = true;
+    
     	$scope.datumModal.hide();
+    	
+    //	Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+    	
+    }
+    $scope.closeNewDatumFilter = function() {
+		$scope.activeCourse.datumfilter = false;
+    	$scope.activeCourse.vonDatum = "";
+    	$scope.activeCourse.bisDatum = "";
+    	$scope.datumModal.hide();
+		
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+		
     }
 	
 	
@@ -537,6 +553,18 @@ $scope.asFilterDatum= function() {
         //    createPupil(pupilName);
         //}
     };
+    $scope.createPupilEx = function(pupil) {
+    	
+    	createPupil(pupil.name);
+    	pupil.name = "";
+    	
+    }
+    
+    // Zufallsgenerator
+    $scope.zufallGen = function() {
+    	
+    }
+    
     
     // A utility function for creating a new pupil
     // with the given pupilName
@@ -656,6 +684,8 @@ $scope.asFilterDatum= function() {
         Courses.save($scope.courses);
     
     }
+
+	   		
   $scope.filterMaxBienchen = function(pupil) {
   	var max;
   	if (isNaN(max)) {

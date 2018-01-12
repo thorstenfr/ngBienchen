@@ -9,7 +9,9 @@ angular.module('app.filters', ['ionic'])
         	out.push(wertung)
         }
       }
+      
     })
+    
     return out;
   }
 })

@@ -3,12 +3,12 @@
 <ion-view title="{{activeCourse.title}}" cache-view="false" id="page4">
 	
   <ion-nav-buttons side="right" class="has-header">
-    <button class="button button-icon icon ion-ios-personadd-outline" ng-click="newPupil()"></button>
+    <button class="button button-icon icon ion-ios-personadd-outline" ng-click="zufallGen()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer">
-  
+  <button onclick="window.plugins.toast.showShortTop('Hello there!', function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)})">Toast showShortTop</button>
     <ion-list id="teilnehmer-list5">
-    <div ng-if="datumfilter" class="hervorgehoben">Filter von: {{vonDatum | date: "dd.MM.y"}} Bis: {{bisDatum | date: "dd.MM.y"}}
+    <div ng-if="activeCourse.datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} Bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}
 	</div>
 	
 	
@@ -20,15 +20,15 @@
 	
 		<div ng-show="showDetail">
 			<p>Bienchen {{bienchen.length}}</p>
-			<pre ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
+			<pre ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
 			<p>Teufelchen {{teufelchen.length}}</p>
-			<pre ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
+			<pre ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
 		</div>
       </ion-item>
       <div ng-show="showUebersicht" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" class="klein">
-		  <span ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen">
+		  <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 		  </span>
-		  <span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
+		  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
 		  </span>
 		  <p class="t_klein">{{pupil.name}}</p> <p class="b_klein">{{bienchen.length-teufelchen.length}}</p>
 		  
@@ -36,6 +36,19 @@
       
       
     </ion-list>
+    
+    <form name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
+    <div class="list list-inset">
+    	<label class="item item-input">
+  		<i class="icon ion-ios-plus-empty"></i>
+  		<input name="textInput" type="text" id="pupil_name" placeholder="Teilnehmer hinzufügen" ng-model="pupil.name">
+  		</label>
+  		</div>
+  		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
+  		
+	</form>
+    
+    
   </ion-content>
       	<div class="tabs tabs-icon-left">
 			<a class="tab-item" ng-click="showOrder()">
