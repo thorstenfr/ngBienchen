@@ -320,12 +320,22 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	 $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
 	 
-	// $scope.datumfilter = false;
+//	$scope.activeCourse.datumfilter = false;
+	
+	$scope.myFunction = function() {
+    var x = document.getElementById("snackbar")
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+	 $scope.toggle= function (v) {
+        $scope[v] = !$scope[v];
+    };
 	
 	$scope.setzeDatum = function() {
 		$scope.activeCourse.datumfilter = true;
-		$scope.activeCourse.vonDatum = von;
-		$scope.activeCourse.bisDatum = bis;
+		$scope.activeCourse.vonDatum = new Date(von);
+		$scope.activeCourse.bisDatum = new Date(bis);
 		$scope.datumModal.hide();
 		
 		// Inefficient, but save all the subjects
@@ -347,12 +357,17 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     
     	
     $scope.newDatumFilter = function() {		
+    
     	$scope.datumModal.show();
     }
-    $scope.setNewDatumFilter = function() {
-    	$scope.activeCourse.datumfilter = true;
-    
+    $scope.setNewDatumFilter = function(von,bis) {
+    	$scope.datumfilter = true;    
     	$scope.datumModal.hide();
+    	$scope.vonDatum = von;
+    	$scope.activeCourse.vonDatum= von;
+    	$scope.activeCourse.bis = bis;
+    	
+    	$scope.bisDatum = bis;
     	
     //	Inefficient, but save all the subjects
 		Courses.save($scope.courses);
@@ -361,7 +376,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.closeNewDatumFilter = function() {
 		$scope.activeCourse.datumfilter = false;
     	$scope.activeCourse.vonDatum = "";
+    	$scope.vonDatum="";
+    	
     	$scope.activeCourse.bisDatum = "";
+    	$scope.bisDatum="";
+    	
     	$scope.datumModal.hide();
 		
 		// Inefficient, but save all the subjects
@@ -701,6 +720,15 @@ $scope.asFilterDatum= function() {
   	return true;
   };
         
+   $scope.reorder = function(pupil, fromIndex, toIndex) {
+        // löschen
+        $scope.activeCourse.pupils.splice(fromIndex, 1);
+        $scope.activeCourse.pupils.splice(toIndex, 0, pupil);
+
+        // Inefficient, but save all the subjects
+        Courses.save($scope.courses);
+
+    };
     
 }])
  
