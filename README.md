@@ -8,4 +8,4 @@ APP zur Verwaltung von Schülerleistungen.
 - ionic build
 
 ToDo:
-- kurs.html: Bienchen-Durchschnitt berücksichtigt nicht die Teufelchen
+- kurs.html: beim Bienchen-Durchschnitt werden Bienchen von gelöschte Schüler mit gezählt.
