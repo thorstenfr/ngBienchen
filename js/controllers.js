@@ -614,23 +614,7 @@ $scope.asFilterDatum= function() {
         Courses.save($scope.courses);
         };
         
-    // Berechne max/min/mittel
-    $scope.calcMaxMinMittel = function(pupil) {
-    
-    // Max berechnen
-    if ($scope.activeCourse.maxBienchen < pupil.bienchen)
-    {
-   
-    	  $scope.activeCourse.maxBienchen = pupil.bienchen;
-    	  $scope.activeCourse.maxBienchenName = pupil.name;
-    	  
-    	  
-    }
-    
-    
-    $scope.activeCourse.mittelBienchen = Math.round($scope.activeCourse.bienchen / $scope.activeCourse.pupils.length);
-    
-    }
+		
     // Rating hinzufügen
     $scope.addRating = function(pupil) {
         
@@ -648,30 +632,14 @@ $scope.asFilterDatum= function() {
         	
         $scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
         
-        // Werte berechnen
-        $scope.calcMaxMinMittel(pupil);
-        
-        
-        
-        
-        // Rating hinzufügen
+		// Rating hinzufügen
         pupil.ratings.push({
             datum : now
         });
         // Bienchen-Anzahl anpassen
         pupil.bienchen = pupil.bienchen + 1;
     
-    /*
-    
-        if(isNaN($scope.activeCourse.maxBienchen)) {
-        	$scope.activeCourse.maxBienchen=0;
-        	}
-        if (pupil.bienchen>$scope.activeCourse.maxBienchen) {
-        	$scope.activeCourse.maxBienchen = pupil.bienchen;
-        	}
-        
-        	
-      */  	
+		
         
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
@@ -696,10 +664,7 @@ $scope.asFilterDatum= function() {
         // Bienchenanzahl des Kurses reduzieren
         $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - 1;
         
-        // min max berechnen
-        $scope.calcMaxMinMittel(pupil);
-        
-        
+		     
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
     
