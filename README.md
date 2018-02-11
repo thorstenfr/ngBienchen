@@ -6,3 +6,6 @@ APP zur Verwaltung von Schülerleistungen.
 - www - Ordner des neu erstellten Projekts löschen
 - das rep nach www clonen
 - ionic build
+
+ToDo:
+- kurs.html: Bienchen-Durchschnitt berücksichtigt nicht die Teufelchen
