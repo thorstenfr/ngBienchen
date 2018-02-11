@@ -609,6 +609,7 @@ $scope.asFilterDatum= function() {
     // Schüler löschen
     $scope.delete = function(pupil) {
         $scope.activeCourse.pupils.splice($scope.activeCourse.pupils.indexOf(pupil), 1);
+		$scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
         };
