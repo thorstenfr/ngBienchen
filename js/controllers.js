@@ -150,7 +150,13 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	 $scope.toggle= function (v) {
         $scope[v] = !$scope[v];
-    };
+    };	
+	
+	$scope.changePupil = function(pupil) {
+		$scope.activeCourse.activePupil = pupil;
+	    $scope.pupilModal.show();
+		
+	}
 	
 	$scope.setzeDatum = function() {
 		$scope.activeCourse.datumfilter = true;
@@ -356,7 +362,7 @@ $scope.asFilterDatum= function() {
 
 	
     // Create our modal
-	$ionicModal.fromTemplateUrl('templates/new-pupil.html', function(modal)
+	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
     	$scope.pupilModal = modal;
     	}, {
@@ -367,23 +373,12 @@ $scope.asFilterDatum= function() {
 		$scope.pupilModal.hide();
 	}
 	
-	 $scope.closeEditPupil = function(pupil) {
-    	if(pupil && pupil.name) {
-		//	alert("name: " + pupil.name + " isExistent: " + pupil.isExistent);
-			if (!pupil.isExistent) {
-				createPupil(pupil.name);			
-			}
-			pupil.name = "";
-    	}
-    	
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
-		
-    	
+	$scope.closeEditPupil = function(pupil) {
+		$scope.activeCourse.activePupil.name = pupil.name;
+	    
 		$scope.pupilModal.hide();	
-    	
-    }
-    
+	}
+	
     // Called to create a new pupil
     $scope.newPupil = function() {
 		$scope.pupilModal.show();
