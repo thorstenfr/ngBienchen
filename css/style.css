@@ -52,7 +52,7 @@
  		color: white;
  		float: right;
  		padding : 1px 1px 1px 1px;
- 		margin : 1px 10px 1px 0px;
+ 		margin : 1px 5px 1px 0px;
     border-radius: 0px;
 
  		}
@@ -61,11 +61,15 @@
  		overflow : hidden;
  		text-overflow: ellipsis;
  		float : left;
- 		width : 90%;
+ 		width : calc(100%-10px);
  		padding: 1px 0px 1px 10px;
  		margin : 0px;
 
 
+ 	}
+ 	#detail .small {
+ 		color:grey;
+ 		font-size: small;
  	}
 
 input::-webkit-input-placeholder { /* WebKit, Blink, Edge */

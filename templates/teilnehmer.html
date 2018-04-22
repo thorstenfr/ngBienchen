@@ -17,24 +17,35 @@
 
 
 
-    <div ng-if="datumfilter" class="hervorgehoben">Filter von: {{vonDatum | date: "dd.MM.y"}} bis: {{bisDatum | date: "dd.MM.y"}}
-	</div>
-
+    <div ng-show="datumfilter" class="hervorgehoben">Filter von: {{vonDatum | date: "dd.MM.y"}} bis: {{bisDatum | date: "dd.MM.y"}}</div>
 
       <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="delete(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
-        <!--alle Bienchen und alle Teufelchen ausgeben -->
+        <span ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen">
+			  </span>
+			  <span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
+			  </span>
+			  
+        </ion-item>  
 
-		<div ng-show="showDetail">
-			<p>Bienchen {{bienchen.length}}</p>
-			<pre ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
-			<p>Teufelchen {{teufelchen.length}}</p>
-			<pre ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</pre>
-		</div>
-      </ion-item>
-
+    <ul id="detail" class="list" ng-show="showDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
+			
+		
+			<li class="item">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
+			  
+    				<ul>Bienchen: {{bienchen.length}}
+  			
+						<li class="item-note" ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</li>
+					</ul>	
+			
+			Teufelchen: {{teufelchen.length}}
+			<span class="item-note" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</span>
+			
+			</li>
+		</ul>
+      
       <div ng-show="showUebersicht" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" class="klein">
 			  <span ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen">
 			  </span>

@@ -54,11 +54,16 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     			nc.maxBienchenName='';
 
     			$scope.courses.push(nc);
-
-    		// Nicht effinzient ...
+    			console.log("selectCourse");
+    			
+        $scope.selectCourse(nc, $scope.courses.length-1);
+          
+    	// Nicht effinzient ...
         Courses.save($scope.courses);
 
         course.title = "";
+    
+        
     		}
     }
 
@@ -93,6 +98,7 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 
     // Called to select the given course
     $scope.selectCourse = function(course, index) {
+    	console.log("selectCourse " + index);
         $scope.activeCourse = course;
         Courses.setLastActiveIndex(index);
         Courses.save($scope.courses);
@@ -137,10 +143,10 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal) {
 
-	 $scope.modalData = { "msg" : "Test!" };
+ $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
 
-//	$scope.activeCourse.datumfilter = false;
+
 
 	$scope.myFunction = function() {
     var x = document.getElementById("snackbar")
@@ -186,31 +192,53 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
     	$scope.datumModal.show();
     }
-    $scope.setNewDatumFilter = function(von,bis) {
+
+    function daysInMonth (month, year) {
+      return new Date(year, month, 0).getDate();
+    }
+    $scope.setNewDatumFilter = function(von,bis,set_monat) {
     	$scope.datumfilter = true;
+
+      if (set_monat)
+      {
+        var heute = new Date(); // aktuelles Datum und aktuelle Zeit
+        //var monat = heute.getMonth();
+        var monat = ("0" + (heute.getMonth() + 1)).slice(-2)
+        var jahr = heute.getFullYear();
+        var monat_von = jahr + "-" + monat + "-01";
+        var monat_bis = jahr + "-" + monat + "-" + daysInMonth(monat,jahr);
+        var d = new Date(monat_von);
+        var e = new Date(monat_bis);
+      
+        $scope.vonDatum = d;
+        $scope.bisDatum = e;
+      	$scope.activeCourse.vonDatum= $scope.vonDatum;
+      	$scope.activeCourse.bis = $scope.bisDatum;
+
+      }
+      else {
+      	$scope.vonDatum=von;
+      	$scope.bisDatum=bis;
+      }
     	$scope.datumModal.hide();
-    	$scope.vonDatum = von;
-    	$scope.activeCourse.vonDatum= von;
-    	$scope.activeCourse.bis = bis;
 
-    	$scope.bisDatum = bis;
 
-    //	Inefficient, but save all the subjects
+    //	Inefficient, but save all the subjects'
 		Courses.save($scope.courses);
 
     }
     $scope.closeNewDatumFilter = function() {
-		$scope.activeCourse.datumfilter = false;
-    	$scope.activeCourse.vonDatum = "";
+
+      $scope.datumfilter = false;
+      $scope.activeCourse.datumfilter=false;
+      $scope.activeCourse.vonDatum = "";
     	$scope.vonDatum="";
-
-    	$scope.activeCourse.bisDatum = "";
+      $scope.activeCourse.bisDatum = "";
     	$scope.bisDatum="";
+      $scope.datumModal.hide();
 
-    	$scope.datumModal.hide();
-
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
+      // Inefficient, but save all the subjects
+		  Courses.save($scope.courses);
 
     }
 
@@ -245,7 +273,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 				break;
 			case 2:
-				$scope.showNormal = true;
+				$scope.showNormal = false;
 	  			$scope.showUebersicht = false;
 	  			$scope.showDetail = true;
 

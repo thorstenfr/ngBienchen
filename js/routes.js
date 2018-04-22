@@ -7,19 +7,13 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
+
+
 
       .state('kurs', {
     url: '/page1',
     templateUrl: 'templates/kurs.html',
     controller: 'kursCtrl'
-  })
-
-  .state('themen', {
-    url: '/page3',
-    templateUrl: 'templates/themen.html',
-    controller: 'themenCtrl'
   })
 
   .state('teilnehmer', {
@@ -30,6 +24,6 @@ angular.module('app.routes', [])
 
 $urlRouterProvider.otherwise('/page1')
 
-  
+
 
 });
