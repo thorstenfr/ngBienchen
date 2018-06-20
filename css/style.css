@@ -68,10 +68,15 @@
 
  	}
  	#detail .small {
+		margin-left:  10px;
  		color:grey;
  		font-size: small;
+		
  	}
-
+	ul.fett {
+		font-weight: bold;
+	}
+	
 input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    blue;
 }

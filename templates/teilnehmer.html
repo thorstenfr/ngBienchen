@@ -35,14 +35,15 @@
 		
 			<li class="item">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
 			  
-    				<ul>Bienchen: {{bienchen.length}}
+    				<ul class="small">{{bienchen.length}} Bienchen:
   			
-						<li class="item-note" ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</li>
+						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</li>
 					</ul>	
-			
-			Teufelchen: {{teufelchen.length}}
-			<span class="item-note" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</span>
-			
+					<ul class="small">{{teufelchen.length}} Teufelchen:
+  			
+						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</li>
+					</ul>	
+					
 			</li>
 		</ul>
       
