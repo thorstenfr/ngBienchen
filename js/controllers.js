@@ -52,18 +52,21 @@ function ($scope, $stateParams, Courses, $ionicModal) {
     			nc.mittel=0;
     			nc.maxBienchen=0;
     			nc.maxBienchenName='';
+          nc.vonDatum='';
+          nc.bisDatum='';
+          nc.datumfilter=false;
 
     			$scope.courses.push(nc);
     			console.log("selectCourse");
-    			
+
         $scope.selectCourse(nc, $scope.courses.length-1);
-          
+
     	// Nicht effinzient ...
         Courses.save($scope.courses);
 
         course.title = "";
-    
-        
+
+
     		}
     }
 
@@ -169,6 +172,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.activeCourse.vonDatum = new Date(von);
 		$scope.activeCourse.bisDatum = new Date(bis);
 		$scope.datumModal.hide();
+    console.log("Setze Datum!");
 
 		// Inefficient, but save all the subjects
 		Courses.save($scope.courses);
@@ -198,6 +202,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     }
     $scope.setNewDatumFilter = function(von,bis,set_monat) {
     	$scope.datumfilter = true;
+    	$scope.activeCourse.datumfilter=true;
 
       if (set_monat)
       {
@@ -209,11 +214,13 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
         var monat_bis = jahr + "-" + monat + "-" + daysInMonth(monat,jahr);
         var d = new Date(monat_von);
         var e = new Date(monat_bis);
-      
+
         $scope.vonDatum = d;
         $scope.bisDatum = e;
       	$scope.activeCourse.vonDatum= $scope.vonDatum;
-      	$scope.activeCourse.bis = $scope.bisDatum;
+      	$scope.activeCourse.bisDatum = $scope.bisDatum;
+        $scope.activeCourse.datumfilter=true;
+
 
       }
       else {
