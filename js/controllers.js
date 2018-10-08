@@ -148,6 +148,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
  $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
+	var mytoggle=true;
 
 
 
@@ -297,7 +298,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 
 
-	// old
+	
 
 	// Action Sheet "Sortierung"
 	$scope.showOrder = function() {
@@ -305,10 +306,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-       			{ text: 'Nach Name aufsteigend' },
-				{ text: 'Nach Name absteigend' },
-			    { text: 'Nach Bienchen aufsteigend' },
-				{ text: 'Nach Bienchen absteigend' }
+       			{ text: 'Nach Name' },
+				{ text: 'Nach Bienchen' }				
      		],
      	// destructiveText: 'Delete',
      	titleText: 'Sortieren der Teilnehmer',
@@ -319,17 +318,26 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-		  		$scope.orderByMe('name');
-		   	break;
+				mytoggle=!mytoggle;
+				if (mytoggle) {
+					$scope.orderByMe('name');
+				}
+				else {
+					$scope.orderByMe('-name')
+				}				
+		  		break;
+				
 			case 1:
-				$scope.orderByMe('-name');
-		   		break;
-			case 2:
-				$scope.orderByMe('bienchen');
+				mytoggle	=!mytoggle;
+				if (mytoggle) {
+					$scope.orderByMe('bienchen');
+				}
+				else {
+					$scope.orderByMe('-bienchen')
+				}	
+				
 				break;
-			case 3:
-				$scope.orderByMe('-bienchen');
-		   		break;
+				
 		   	}
 			return true;
 		}

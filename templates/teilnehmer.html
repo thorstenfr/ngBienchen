@@ -1,7 +1,7 @@
 
 <ion-view title="{{activeCourse.title}}" cache-view="false" id="page4">
 
-  <ion-nav-buttons side="right" class="has-header">
+  <ion-nav-buttons side="right" class="has-header has-footer">
 
   <button class="button button-icon icon ion-drag" ng-click="toggle('showReorder')"></button>
 
@@ -10,16 +10,21 @@
 
   <ion-content padding="true" class="has-header has-footer">
 
+      <form ng-show="showNormal" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
+    	<div class="list list-inset">
+	    	<label class="item item-input">
+	  		<i class="icon ion-ios-plus-empty"></i>
+	  		<input name="textInput" type="text" id="pupil_name" placeholder="Teilnehmer hinzufügen" ng-model="pupil.name">
+	  		</label>
+  		</div>
+  		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
+	</form>
+	
 
   <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+      <div ng-show="activeCourse.datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
 
-
-
-
-
-    <div ng-show="activeCourse.datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
-
-      <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy:true" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="delete(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -53,29 +58,13 @@
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
 			  </span>
 			  <p class="t_klein">{{pupil.name}}</p> <p class="b_klein">{{bienchen.length-teufelchen.length}}</p>
-			</div>
+	 </div>
 
 
     </ion-list>
 
-    <form ng-show="showNormal" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
-    <div class="list list-inset">
-    	<label class="item item-input">
-  		<i class="icon ion-ios-plus-empty"></i>
-  		<input name="textInput" type="text" id="pupil_name" placeholder="Teilnehmer hinzufügen" ng-model="pupil.name">
-  		</label>
-  		</div>
-  		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
-
-	</form>
-
-
-	</a>
-  			<a class="tab-item" ng-click="newDatumFilter()">
-    			<i class="icon ion-calendar"></i>
-    			Datum
-  			</a>
-
+	
+	
   </ion-content>
       	<div class="tabs tabs-icon-left">
 			<a class="tab-item" ng-click="showOrder()">
