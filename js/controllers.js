@@ -130,6 +130,7 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 
     // Kurse anordnen
     $scope.reorder = function(course, fromIndex, toIndex) {
+		console.log("From: " + fromIndex + " toIndex: " + toIndex + " course " + course.title);
         // löschen
         $scope.courses.splice(fromIndex, 1);
         $scope.courses.splice(toIndex, 0, course);
@@ -548,12 +549,14 @@ $scope.asFilterDatum= function() {
   };
 
    $scope.reorder = function(pupil, fromIndex, toIndex) {
+   
+   		 console.log("From: " + fromIndex + " toIndex: " + toIndex + " pupil " + pupil.name);
+   		 
         // löschen
         $scope.activeCourse.pupils.splice(fromIndex, 1);
         $scope.activeCourse.pupils.splice(toIndex, 0, pupil);
 
-        // Inefficient, but save all the subjects
-        Courses.save($scope.courses);
+		
 
     };
 

@@ -41,22 +41,28 @@
 
  	.klein {
  		width : calc(50% - 1px);
- 		background-color: white;
  		color : black;
  		margin : 0px 1px 2px 0px;
  		float : left;
  		overflow: hidden;
+		border : 1px solid #DDDDDD;
  	}
+	.b_normal {
+		background-color: #DDDDDD;
+ 		color: #111111;
+		
+	}
  	.b_klein {
- 		background-color: red;
- 		color: white;
+ 		background-color: #DDDDDD;
+ 		color: #111111;
  		float: right;
  		padding : 1px 1px 1px 1px;
  		margin : 1px 5px 1px 0px;
-    border-radius: 0px;
+    	border-radius: 0px;
 
  		}
  	.t_klein {
+		
  		white-space: nowrap;
  		overflow : hidden;
  		text-overflow: ellipsis;

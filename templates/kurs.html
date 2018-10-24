@@ -3,6 +3,9 @@
     <button class="button button-icon icon ion-drag" ng-click="toggle('showReorder')"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header" >
+  
+  
+  
     <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
 	      
