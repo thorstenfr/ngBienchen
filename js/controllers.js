@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', '$ionicModal', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicModal) {
+function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
     $scope.courses =  Courses.all();
 
 
@@ -130,11 +130,54 @@ function ($scope, $stateParams, Courses, $ionicModal) {
 
     // Kurse anordnen
     $scope.reorder = function(course, fromIndex, toIndex) {
-		console.log("From: " + fromIndex + " toIndex: " + toIndex + " course " + course.title);
-        // löschen
-        $scope.courses.splice(fromIndex, 1);
+		
+		$scope.courses.splice(fromIndex, 1);
         $scope.courses.splice(toIndex, 0, course);
+        
+        // Nicht effinzient ...
+        Courses.save($scope.courses);
+
     }
+	
+	// Triggered on a button click, or some other target
+		 $scope.showPopup = function() {
+		   $scope.data = {}
+		
+		   // An elaborate, custom popup
+		   var myPopup = $ionicPopup.show({
+		     template: '<input type="text" ng-model="data.neuerKurs">',
+		     title: 'Neuer Kurs',
+		     subTitle: 'z.B. Kursbezeichnung oder Klassenname',
+		     scope: $scope,
+		     buttons: [
+		       { text: 'Abbruch' },
+		       {
+		         text: '<b>Speichern</b>',
+		         type: 'button-positive',
+		         onTap: function(e) {
+					 /*
+		            if (!$scope.data.wifi) {
+		             //don't allow the user to close unless he enters wifi password
+					 } else {
+		             return $scope.data.wifi;
+		           }
+				   */
+				   
+				  createCourseEx($scope.data.neuerKurs);
+				   
+					 
+				   
+		         }
+		       },
+		     ]
+		   });
+		   myPopup.then(function(res) {
+		     console.log('Tapped!', res);
+		   });
+		   $timeout(function() {
+		      myPopup.close(); //close the popup after 3 seconds for some reason
+		   }, 30000);
+	   };
 
 
 
@@ -431,8 +474,8 @@ $scope.asFilterDatum= function() {
 		$scope.pupilModal.show();
         // var pupilName = prompt('Schülername');
         // if(pupilName) {
-        //    createPupil(pupilName);
-        //}
+        //   createPupil(pupilName);
+       //  }
     };
     $scope.createPupilEx = function(pupil) {
 
@@ -450,10 +493,12 @@ $scope.asFilterDatum= function() {
     // A utility function for creating a new pupil
     // with the given pupilName
     var createPupil = function(pupilName) {
+		console.log("Neuer Schüler: " + pupilName);
         if (!$scope.activeCourse || !pupilName) {
             return;
         }
 
+		
         $scope.activeCourse.pupils.push({
             name : pupilName,
             bienchen : 0, // ratings - teufelchen
@@ -550,14 +595,57 @@ $scope.asFilterDatum= function() {
 
    $scope.reorder = function(pupil, fromIndex, toIndex) {
    
-   		 console.log("From: " + fromIndex + " toIndex: " + toIndex + " pupil " + pupil.name);
    		 
         // löschen
         $scope.activeCourse.pupils.splice(fromIndex, 1);
         $scope.activeCourse.pupils.splice(toIndex, 0, pupil);
 
+
+    	// Nicht effinzient ...
+        Courses.save($scope.courses);
+
 		
 
     };
+	
+	 // Triggered on a button click, or some other target
+		 $scope.showPopup = function() {
+		   $scope.data = {}
+		
+		   // An elaborate, custom popup
+		   var myPopup = $ionicPopup.show({
+		     template: '<input type="text" ng-model="data.neuerschueler">',
+		     title: 'Neuer Schüler',
+		     subTitle: 'z.B. Vor- und Zuname oder Nick',
+		     scope: $scope,
+		     buttons: [
+		       { text: 'Abbruch' },
+		       {
+		         text: '<b>Speichern</b>',
+		         type: 'button-positive',
+		         onTap: function(e) {
+					 /*
+		            if (!$scope.data.wifi) {
+		             //don't allow the user to close unless he enters wifi password
+					 } else {
+		             return $scope.data.wifi;
+		           }
+				   */
+				   
+				  
+				    createPupil($scope.data.neuerschueler);
+					 
+				   
+		         }
+		       },
+		     ]
+		   });
+		   myPopup.then(function(res) {
+		     console.log('Tapped!', res);
+		   });
+		   $timeout(function() {
+		      myPopup.close(); //close the popup after 3 seconds for some reason
+		   }, 30000);
+		};
 
 }])
