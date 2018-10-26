@@ -1,12 +1,57 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
+function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet, ) {
     $scope.courses =  Courses.all();
+	var mytoggle = true;
+	
+	// A confirm dialog
+   $scope.showConfirm = function(course) {
+     var confirmPopup = $ionicPopup.confirm({
+       title: 'Kurs ' + course.title + ' hat Schüler',
+       template: 'Sind Sie sicher, dass Sie den Kurs löschen wollen?'
+     });
+     confirmPopup.then(function(res) {
+       if(res) {	         
+			$scope.courses.splice($scope.courses.indexOf(course), 1);
+			// Nicht effinzient ...
+			Courses.save($scope.courses);
+       } else {
+         console.log('You are not sure');
+		 
+       }
+     });
+   };
+
+   
+	
+	$scope.showAlert = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Erfassen Ihren ersten Kurs!',
+	     template: 'Sie können später über "+ Neu" weitere hinzufügen.'
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	   });
+	};
 
 
+	// 
+	// Noch keine Kurse
+	//
+	if($scope.courses.length == 0) {
+		// An alert dialog
+		$scope.showAlert();
+		$scope.noCourses=true;
+	} else {
+		$scope.noCourses=false;
+	}
+	
+	
+	
 	// Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-kurs.html', function(modal)
 	{
@@ -47,17 +92,18 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
     };
 
     $scope.createCourse = function(course) {
-    		if (course.title) {
+		console.log("Erzeuge Kurs " + course.title);
+    	if (course.title) {
     			var nc = Courses.newCourse(course.title);
     			nc.mittel=0;
     			nc.maxBienchen=0;
     			nc.maxBienchenName='';
-          nc.vonDatum='';
-          nc.bisDatum='';
-          nc.datumfilter=false;
+        	  nc.vonDatum='';
+          	nc.bisDatum='';
+          	nc.datumfilter=false;
 
-    			$scope.courses.push(nc);
-    			console.log("selectCourse");
+			$scope.courses.push(nc);
+		console.log("selectCourse");
 
         $scope.selectCourse(nc, $scope.courses.length-1);
 
@@ -111,10 +157,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
     // Kurs löschen
     $scope.deleteCourse = function(course) {
 
-        // Sicherheitshalber nur löschen, wenn keine Schüler mehr vorhanden sind
+        // Sicherheitsabfrage, falls Schüler vorhanden sind
         if($scope.courses[$scope.courses.indexOf(course)].pupils.length !== 0) {
-            alert("Kurs hat Schüler!");
-
+			$scope.showConfirm(course);
         }
         else {
             $scope.courses.splice($scope.courses.indexOf(course), 1);
@@ -125,7 +170,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
 	};
 
     $scope.toggle= function (v) {
+		console.log("toggle in kursCtrl: " + v);
         $scope[v] = !$scope[v];
+		console.log("dann: (" + $scope[v] + ")");
     };
 
     // Kurse anordnen
@@ -178,7 +225,62 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup,) {
 		      myPopup.close(); //close the popup after 3 seconds for some reason
 		   }, 30000);
 	   };
-
+	   
+	   
+	   // Filter zum Sortieren nach Name oder Bienchen
+	$scope.orderByMe = function(x) {
+	        $scope.myOrderBy = x;
+	    };
+		
+		// Action Sheet "Sortierung"
+			$scope.showOrder = function() {
+				
+				// Show the action sheet
+		   		var hideSheet = $ionicActionSheet.show({
+		     		buttons: [
+		       			{ text: 'Nach Name' }
+									
+		     		],
+		     	// destructiveText: 'Delete',
+		     	titleText: 'Sortieren der Kurse',
+		     	cancelText: 'Abbruch',
+		     	cancel: function() {
+		        	  // add cancel code..
+		        },
+		     	buttonClicked: function(index) {
+		     	   	switch (index) {
+			  		case 0:
+						mytoggle=!mytoggle;
+						if (mytoggle) {
+							console.log("if mytoggle true");
+							$scope.orderByMe('title');
+						}
+						else {
+							console.log("if mytoggle false");
+							$scope.orderByMe('-title')
+						}				
+				  		break;
+						
+					case 1:
+						mytoggle	=!mytoggle;
+						if (mytoggle) {
+							$scope.orderByMe('bienchen');
+						}
+						else {
+							$scope.orderByMe('-bienchen')
+						}	
+						
+						break;
+						
+				   	}
+					return true;
+				}
+			});
+		   // For example's sake, hide the sheet after two seconds
+		   $timeout(function() {
+		    	 hideSheet();
+		   }, 20000);
+		};
 
 
 }])
@@ -194,17 +296,15 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.showNormal = true;
 	var mytoggle=true;
 
-
+	
 
 	$scope.myFunction = function() {
-    var x = document.getElementById("snackbar")
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-}
+	    var x = document.getElementById("snackbar")
+	    x.className = "show";
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	};
 
-	 $scope.toggle= function (v) {
-        $scope[v] = !$scope[v];
-    };
+	
 
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;
@@ -225,6 +325,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	}
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
+	
+	
+	
 
 
       // Create our modal
@@ -241,6 +344,54 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
     	$scope.datumModal.show();
     }
+	
+	
+		
+		// Try to create the first project, make sure to defer
+  // this by using $timeout so everything is initialized
+  // properly
+  /*
+  $timeout(function() {
+    if($scope.activeCourse.pupils.length == 0) {
+      while(true) {
+        var projectTitle = prompt('Your first project title:');
+        if(projectTitle) {
+          createPupil(projectTitle);
+          break;
+        }
+      }
+    }
+  }, 1000);
+*/
+
+
+	$scope.showAlert = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Erfassen Sie die Teilnehmer!',
+	     template: 'Sie können später über "+ Neu" weitere Teilnehmer hinzufügen.'
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	   });
+	};
+
+
+	// 
+	// Noch keine Schüler
+	//
+	if($scope.activeCourse.pupils.length == 0) {
+		// An alert dialog
+		$scope.showAlert();
+		$scope.nopupils=true;
+	} else {
+		$scope.nopupils=false;
+	}
+	
+	
+
+	
+	
 
     function daysInMonth (month, year) {
       return new Date(year, month, 0).getDate();
@@ -622,7 +773,7 @@ $scope.asFilterDatum= function() {
 		       { text: 'Abbruch' },
 		       {
 		         text: '<b>Speichern</b>',
-		         type: 'button-positive',
+		         type: 'button-dark',
 		         onTap: function(e) {
 					 /*
 		            if (!$scope.data.wifi) {
@@ -647,5 +798,10 @@ $scope.asFilterDatum= function() {
 		      myPopup.close(); //close the popup after 3 seconds for some reason
 		   }, 30000);
 		};
+		
+		 $scope.toggle = function (v) {
+		 console.log("toogle in teilnehmerCtrl: " + v);
+        $scope[v] = !$scope[v];
+    };
 
 }])

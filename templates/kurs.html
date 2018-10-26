@@ -7,7 +7,7 @@
   
   
     <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
-	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses" ng-click="selectCourse(course, $index)">
+	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
 	      
         <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">Schüler: {{course.pupils.length}} 
         Bienchen: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
@@ -22,9 +22,24 @@
     </ion-list>
     <div class="spacer" style="width: 300px; height: 14px;"></div>
 
+	<form ng-if="noCourses" name="form.coursesForm" role="form" ng-submit="createCourse(course)">
+    <div class="list list-inset">
+    	<label class="item item-input">
+  		<i class="icon ion-ios-plus-empty"></i>
+  		<input name="textInput" type="text" id="course_title" placeholder="Kurs hinzufügen" ng-model="course.title">
+  		</label>
+  		</div>
+  		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
+  		
+	</form>
  
+	
+	
    </ion-content>
-   <div class="tabs tabs-footer tabs-icon-left">
+   
+   
+   
+   <div class="tabs tabs-footer tabs-icon-left tabs-dark">
 	  	<a class="tab-item" ng-click="showPopup()">
 			<i class="icon ion-plus"></i>
 			Neu
@@ -33,14 +48,7 @@
 			<i class="icon ion-arrow-up-c"></i>
 			A-z
 		</a>
-		<a class="tab-item" ng-click="newDatumFilter()">
-			<i class="icon ion-calendar"></i>
-			Datum
-		</a>
-		<a class="tab-item" ng-click="showView()">
-			<i class="icon ion-eye"></i>
-			Anzeige
-		</a>
+		
 	</div>
   
 </ion-view>

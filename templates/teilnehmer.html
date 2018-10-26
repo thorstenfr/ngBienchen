@@ -55,9 +55,24 @@
 
     </ion-list>
 	
+	<form ng-show="showNormal" ng-if="nopupils" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
+	    <div class="list list-inset">
+	    	<label class="item item-input">
+	  		<i class="icon ion-ios-plus-empty"></i>
+	  		<input name="textInput" type="text" id="pupil_name" placeholder="Teilnehmer hinzufügen" ng-model="pupil.name">
+	  		</label>
+  		</div>
+  		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
+
+	</form>
+	
+	
   </ion-content>
-  <div class="tabs tabs-footer tabs-icon-left">
-	  	<a class="tab-item" ng-click="showPopup()">
+  
+  
+  <div class="tabs tabs-footer tabs-icon-left tabs-dark">
+	  
+	  	<a class="tab-item" ng-click="showPopup()" on-hold="toogle('nopupils')">
 			<i class="icon ion-plus"></i>
 			Neu
 		</a>
