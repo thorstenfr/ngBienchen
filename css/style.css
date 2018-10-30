@@ -1,3 +1,26 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+:root {
+    --main-bg-color-positive: #387ef5;
+    --main-txt-color: blue;    
+    --main-padding: 15px;    
+}
+
 .erledigt {
   opacity: 0.8;
   text-decoration : line-through;
@@ -53,8 +76,8 @@
 		
 	}
  	.b_klein {
- 		background-color: #DDDDDD;
- 		color: #111111;
+ 	 	background-color: var(--main-bg-color-positive);  
+ 		color: white;
  		float: right;
  		padding : 1px 1px 1px 1px;
  		margin : 1px 5px 1px 0px;

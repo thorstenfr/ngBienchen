@@ -5,7 +5,60 @@ angular.module('app.controllers', ['ionic'])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet, ) {
     $scope.courses =  Courses.all();
+	$scope.firstRun = Courses.getFirstRun();
+
+	
+	// Aktuelles Datum
+	var d = new Date();
+
+
+	$scope.$on("$ionicView.loaded", function(event, data){
+	   		// handle event
+	   		console.log("State Params: ", data.stateParams);
+			   // Prüfen, ob es Zeit für einen Kaffee wäre
+			var nr = Courses.getTotalNumberOfRatings();
+			if (nr>30) 
+			{
+				//alert("Sie scheinen Bienchen häufiger zu Verwenden!");
+				$scope.buyPro();
+			}
+	});	
+	
+		
+	if($scope.firstRun=='0') {
+	   	Courses.setFirstRun(d);
+		
+	}
+	
+	// Setze Datum
+	Courses.setLastRun(d);
+	
+	
 	var mytoggle = true;
+	
+	var delCourse = function(course) {
+	        $scope.courses.splice($scope.courses.indexOf(course), 1);
+            
+			// Inefficient, but save all the subjects
+            Courses.save($scope.courses);
+            
+            // Prüfe, ob kein Kurs da
+            firstCourse();
+            
+	}
+	
+	var firstCourse = function() {
+		// 
+		// Noch keine Kurse
+		//
+		if($scope.courses.length == 0) {
+			$scope.showAlert();
+			$scope.noCourses=true;
+		} else {
+			$scope.noCourses=false;
+		}
+	}
+	
 	
 	// A confirm dialog
    $scope.showConfirm = function(course) {
@@ -15,9 +68,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
      });
      confirmPopup.then(function(res) {
        if(res) {	         
-			$scope.courses.splice($scope.courses.indexOf(course), 1);
-			// Nicht effinzient ...
-			Courses.save($scope.courses);
+			delCourse(course);
+			
        } else {
          console.log('You are not sure');
 		 
@@ -27,10 +79,11 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
    
 	
-	$scope.showAlert = function() {
+
+	$scope.showHowto = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'Erfassen Ihren ersten Kurs!',
-	     template: 'Sie können später über "+ Neu" weitere hinzufügen.'
+	     title: 'In die Kursansicht wechseln!',
+	     template: 'Sobald Sie einen Kurs angelegt haben, klicken Sie auf den Kurs, um die Teilnehmer zu erfassen'
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -39,16 +92,36 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	};
 
 
-	// 
-	// Noch keine Kurse
-	//
-	if($scope.courses.length == 0) {
-		// An alert dialog
-		$scope.showAlert();
-		$scope.noCourses=true;
-	} else {
-		$scope.noCourses=false;
-	}
+
+	$scope.showAlert = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Willkommen bei Bienchen!',
+	     template: 'Erfassen Sie als erstes Ihre Kurse. Sie können später über "+ Neu" weitere hinzufügen.'
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	      $scope.showHowto();
+	   });
+	};
+
+	$scope.buyPro = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Update to Pro-Version!',
+	     template: 'Schön, dass Sie <b>Bienchen</b> nutzen. Kaufen Sie die Pro-Version, um diese Meldung nicht mehr zu sehen und um zusätzliche Funktionen freizuschalten!'
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not buying my bienchen app');
+		 newStart=false;
+	      
+	   });
+   };
+
+   // Prüfe, ob erster Kurs
+	firstCourse();
+	
+	
 	
 	
 	
@@ -144,6 +217,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
         $scope.selectCourse(newCourse, $scope.courses.length-1);
         Courses.save($scope.courses);
     };
+    
+    // Utility function: checks if no courses and
+    // show help
+     
 
     // Called to select the given course
     $scope.selectCourse = function(course, index) {
@@ -162,10 +239,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			$scope.showConfirm(course);
         }
         else {
-            $scope.courses.splice($scope.courses.indexOf(course), 1);
-            // Inefficient, but save all the subjects
-            Courses.save($scope.courses);
-
+			// Lösche Kurs
+			delCourse(course);
         }
 	};
 
@@ -296,15 +371,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.showNormal = true;
 	var mytoggle=true;
 
-	
-
-	$scope.myFunction = function() {
-	    var x = document.getElementById("snackbar")
-	    x.className = "show";
-	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-	};
-
-	
 
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;
@@ -325,6 +391,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	}
     $scope.courses =  Courses.all();
     $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
+    $scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
 	
 	
 	
@@ -365,6 +432,32 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 */
 
 
+	$scope.showDone = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Gratulation!',
+	     template: 'Sie haben Ihr erstes Bienchen vergeben. So können Sie direkt Leistungen und Nicht-Leistungen festhalten.'
+	   });
+	
+	   alertPopup.then(function(res) {
+	   	
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	   });
+	};
+
+
+	$scope.showHowto = function() {
+	   var alertPopup = $ionicPopup.alert({
+	     title: 'Bienchen erfassen!',
+	     template: 'Sobald Sie Teilnehmer angelegt haben, klicken Sie auf einen Teilnehmer, um ihm ein <b>Bienchen</b> zu geben. Tappen Sie auf einen Teilnehmer, um ihm ein <b>Teufelchen</b> zu geben.'
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	   });
+	};
+
+
+
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
 	     title: 'Erfassen Sie die Teilnehmer!',
@@ -372,9 +465,13 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	   });
 	
 	   alertPopup.then(function(res) {
+	   $scope.showHowto();
 	     console.log('Thank you for not eating my delicious ice cream cone');
+	     // $scope.showHowto();
 	   });
 	};
+	
+	
 
 
 	// 
@@ -629,7 +726,12 @@ $scope.asFilterDatum= function() {
        //  }
     };
     $scope.createPupilEx = function(pupil) {
-
+    
+    if ($scope.nopupils && $scope.first) {
+    		
+    		$scope.showHowto();
+    }
+	
     	createPupil(pupil.name);
     	pupil.name = "";
 
@@ -682,11 +784,19 @@ $scope.asFilterDatum= function() {
             return;
 
         }
+        
+        // Ratings komplett erhöhen
+        if ($scope.totalNumberOfRatings == 0) {
+			$scope.showDone();
+		}
+        console.log("Bienchen insgesamt: " + $scope.totalNumberOfRatings);
+        $scope.totalNumberOfRatings = $scope.totalNumberOfRatings + 1;
+        
 
         // Bienchen des Kurses erhöhen
         if (isNaN($scope.activeCourse.bienchen)) {
         	$scope.activeCourse.bienchen = 0;
-        	}
+        }
 
         $scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
 
@@ -701,6 +811,7 @@ $scope.asFilterDatum= function() {
 
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
+		Courses.setTotalNumberOfRatings($scope.totalNumberOfRatings);
 
     }
 
@@ -722,9 +833,18 @@ $scope.asFilterDatum= function() {
         // Bienchenanzahl des Kurses reduzieren
         $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - 1;
 
+		
+		 // Ratings komplett erhöhen
+        if ($scope.totalNumberOfRatings == 0) {
+			$scope.showDone();
+		}
+      
+        $scope.totalNumberOfRatings = $scope.totalNumberOfRatings + 1;
+		
 
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
+		Courses.setTotalNumberOfRatings($scope.totalNumberOfRatings);
 
     }
 

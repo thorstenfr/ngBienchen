@@ -13,6 +13,7 @@ angular.module('app.services', [])
         save: function(courses) {
            
             window.localStorage['courses'] = angular.toJson(courses);
+			
         },
         newCourse: function(courseTitle) {
             // Add a new course
@@ -25,8 +26,32 @@ angular.module('app.services', [])
             };
             
         },
+        getTotalNumberOfRatings: function() {
+            return parseInt(window.localStorage['totalNumberOfRatings']) || 0;
+            
+        },
+        getFirstRun: function() {
+            return window.localStorage['firstRun'] || '0';
+            
+        },
+		getLastRun: function() {
+            return window.localStorage['lastRun'] || '0';
+            
+        },
         getLastActiveIndex: function() {
             return parseInt(window.localStorage['lastActiveCourse']) || 0;
+            
+        },
+        setTotalNumberOfRatings: function(ratings) {
+            window.localStorage['totalNumberOfRatings'] = ratings;
+            
+        },
+        setFirstRun: function(wann) {
+            window.localStorage['firstRun'] = wann;
+            
+        },
+		setLastRun: function(wann) {
+            window.localStorage['lastRun'] = wann;
             
         },
         setLastActiveIndex: function(index) {

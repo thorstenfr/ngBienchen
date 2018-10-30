@@ -16,7 +16,7 @@
   <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
       <div ng-show="activeCourse.datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
 
-      <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-stable"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="delete(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -30,7 +30,7 @@
     <ul id="detail" class="list" ng-show="showDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
 
 
-			<li class="item">{{pupil.name}} <span class="badge badge-assertive"> {{bienchen.length-teufelchen.length}} </span>
+			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 
     				<ul class="small">{{bienchen.length}} Bienchen:
 
@@ -49,7 +49,7 @@
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
 			  </span>
-			  <p class="t_klein">{{pupil.name}}</p> <p class="b_klein">{{bienchen.length-teufelchen.length}}</p>
+			  <p class="t_klein">{{pupil.name}}</p> <p class="b_klein ">{{bienchen.length-teufelchen.length}}</p>
 	 </div>
 
 
@@ -70,7 +70,7 @@
   </ion-content>
   
   
-  <div class="tabs tabs-footer tabs-icon-left tabs-dark">
+  <div class="tabs tabs-footer tabs-icon-left tabs-positive">
 	  
 	  	<a class="tab-item" ng-click="showPopup()" on-hold="toogle('nopupils')">
 			<i class="icon ion-plus"></i>
