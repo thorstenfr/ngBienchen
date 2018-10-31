@@ -307,6 +307,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		// Action Sheet "Sortierung"
 			$scope.showOrder = function() {
 				
+				
 				// Show the action sheet
 		   		var hideSheet = $ionicActionSheet.show({
 		     		buttons: [
@@ -670,6 +671,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	// Action Sheet "Sortierung"
 	$scope.showOrder = function() {
+		
 
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
@@ -1000,5 +1002,11 @@ $scope.asFilterDatum= function() {
 		 console.log("toogle in teilnehmerCtrl: " + v);
         $scope[v] = !$scope[v];
     };
+	
+	$scope.showReor = function() {
+		$scope.orderByMe('');
+		
+		$scope.toggle('showReorder');
+	};
 
 }])
