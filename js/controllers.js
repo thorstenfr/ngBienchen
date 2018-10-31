@@ -17,7 +17,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	   		console.log("State Params: ", data.stateParams);
 			   // Prüfen, ob es Zeit für einen Kaffee wäre
 			var nr = Courses.getTotalNumberOfRatings();
-			if (nr>30) 
+			if (nr>300) 
 			{
 				//alert("Sie scheinen Bienchen häufiger zu Verwenden!");
 				$scope.buyPro();
@@ -170,11 +170,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
     			var nc = Courses.newCourse(course.title);
     			nc.mittel=0;
     			nc.maxBienchen=0;
-    			nc.maxBienchenName='';
-        	  nc.vonDatum='';
-          	nc.bisDatum='';
-          	nc.datumfilter=false;
-
+    			nc.maxBienchenName='';        	  	
+				
 			$scope.courses.push(nc);
 		console.log("selectCourse");
 
@@ -485,6 +482,20 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.nopupils=false;
 	}
 	
+	function addDays(date, days, add) {
+	  var result = new Date(date);
+	  if (add) {
+		  result.setDate(result.getDate() + days);
+	  }
+	  else {
+		result.setDate(result.getDate() - days);  
+	  }
+	  
+	  console.log("1: " + date + " 2: " + result);
+	  return result;
+	}
+	
+	
 	
 
 	
@@ -495,31 +506,50 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     }
     $scope.setNewDatumFilter = function(von,bis,set_monat) {
     	$scope.datumfilter = true;
-    	$scope.activeCourse.datumfilter=true;
-
-      if (set_monat)
-      {
-        var heute = new Date(); // aktuelles Datum und aktuelle Zeit
-        //var monat = heute.getMonth();
-        var monat = ("0" + (heute.getMonth() + 1)).slice(-2)
-        var jahr = heute.getFullYear();
-        var monat_von = jahr + "-" + monat + "-01";
-        var monat_bis = jahr + "-" + monat + "-" + daysInMonth(monat,jahr);
-        var d = new Date(monat_von);
-        var e = new Date(monat_bis);
-
-        $scope.vonDatum = d;
-        $scope.bisDatum = e;
-      	$scope.activeCourse.vonDatum= $scope.vonDatum;
-      	$scope.activeCourse.bisDatum = $scope.bisDatum;
-        $scope.activeCourse.datumfilter=true;
-
-
-      }
-      else {
-      	$scope.vonDatum=von;
-      	$scope.bisDatum=bis;
-      }
+    	console.log("dat_wahl : " +$scope.activeCourse.dat_wahl);
+		var heute = new Date(); // aktuelles Datum und aktuelle Zeit	
+		
+		switch($scope.activeCourse.dat_wahl) {
+			case 'Monat':
+				var monat = ("0" + (heute.getMonth() + 1)).slice(-2)
+		        var jahr = heute.getFullYear();
+		        var von = jahr + "-" + monat + "-01";
+		        var bis = jahr + "-" + monat + "-" + daysInMonth(monat,jahr);
+		        var d = new Date(von);
+		        var e = new Date(bis);
+		
+		        
+				break;
+			case 'Woche':
+				var d = addDays(heute, heute.getDay(), false);
+				var e = addDays(d, 7, true);
+				
+				break;
+			case 'Tag':
+				var d = new Date();
+				var e = new Date();
+								
+				break;
+			case 'Datum':
+				var d = new Date(von);
+				var e = new Date(bis);
+				
+				
+				
+		}
+		// Von auf 0.00 Uhr setzen
+		d.setHours(0);
+		d.setMinutes(1);
+		
+		// Bis auf 23:59 Uhr setzen
+		e.setHours(23);
+		e.setMinutes(59);		
+		
+		
+	    $scope.activeCourse.vonDatum = new Date(d);
+	    $scope.activeCourse.bisDatum = new Date(e);
+	    $scope.activeCourse.datumfilter=true;
+		
     	$scope.datumModal.hide();
 
 
@@ -530,7 +560,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.closeNewDatumFilter = function() {
 
       $scope.datumfilter = false;
-      $scope.activeCourse.datumfilter=false;
       $scope.activeCourse.vonDatum = "";
     	$scope.vonDatum="";
       $scope.activeCourse.bisDatum = "";
@@ -780,6 +809,7 @@ $scope.asFilterDatum= function() {
 
         var d = new Date();
         var now = d.getTime();
+		var n = d.toLocaleString();
         if(!$scope.activeCourse || !pupil) {
             return;
 

@@ -10,9 +10,15 @@
     <ion-content>
 
      <form>
-				<ion-checkbox ng-model="set_monat">Aktueller Monat</ion-checkbox>
-
-        <div class="list" ng-show="!set_monat">
+		 
+		<ion-list>
+			  <ion-radio ng-model="activeCourse.dat_wahl" ng-value="'Monat'">Aktueller Monat</ion-radio>
+			  <ion-radio ng-model="activeCourse.dat_wahl" ng-value="'Woche'">Aktuelle Woche</ion-radio>
+			  <ion-radio ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</ion-radio>
+			  <ion-radio ng-model="activeCourse.dat_wahl" ng-value="'Datum'">Genaues Datum</ion-radio>
+		  </ion-list>
+        <div class="list"  ng-show="activeCourse.dat_wahl == 'Datum'">
+			
 	        <label class="item item-input">
 	          Von-Datum:
 	            <input  id="von_input" type="date" ng-model="activeCourse.vonDatum">

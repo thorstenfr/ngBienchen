@@ -14,19 +14,25 @@
 	
 
   <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
-      <div ng-show="activeCourse.datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
+	  <div ng-show="datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
+		<!-- 
+			* Normale Ansicht
+		-->	
 
       <ion-item ng-show="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="delete(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
-        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCorse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
+        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
-			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum: activeCourse.bisDatum  | filter:q as teufelchen">
+			  <span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
 			  </span>
 
         </ion-item>
 
+		<!--
+		 * Detail-Darstellung
+	 -->
     <ul id="detail" class="list" ng-show="showDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
 
 
@@ -34,7 +40,7 @@
 
     				<ul class="small">{{bienchen.length}} Bienchen:
 
-						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}}</li>
+						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}} : {{x.datum}}</li>
 					</ul>
 					<ul class="small">{{teufelchen.length}} Teufelchen:
 
