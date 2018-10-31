@@ -570,6 +570,53 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		  Courses.save($scope.courses);
 
     }
+	
+	
+	// Action Sheet "Mehr"
+	$scope.showMore = function() {
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+          		{ text: 'Pro-Version kaufen' },
+				{ text: 'CSV-Export (Pro)' },
+			    { text: 'Hilfe' }
+			],
+     	// destructiveText: 'Delete',
+     	titleText: 'Mehr',
+     	cancelText: 'Abbruch',
+     	cancel: function() {
+        	  // add cancel code..
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+	  			$scope.showNormal = true;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = false;
+			  	break;
+			case 1:
+				$scope.showNormal = false;
+	  			$scope.showUebersicht = true;
+	  			$scope.showDetail = false;
+
+				break;
+			case 2:
+				$scope.showNormal = false;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = true;
+
+				break;
+		}
+		return true;
+		}
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
+
 
 
 	// Action Sheet "Sortierung"
