@@ -21,6 +21,11 @@ angular.module('app.routes', [])
     templateUrl: 'templates/teilnehmer.html',
     controller: 'teilnehmerCtrl'
   })
+  .state('tour', {
+    	url: '/tour',
+    	templateUrl: 'templates/tour.html',
+    	controller: 'tourCtrl'
+	})
 
 $urlRouterProvider.otherwise('/page1')
 
