@@ -579,8 +579,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          		{ text: 'Pro-Version kaufen' },
-				{ text: 'CSV-Export (Pro)' },
+          		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
+				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
 			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
      	// destructiveText: 'Delete',
@@ -592,15 +592,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-	  			$scope.showNormal = true;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = false;
+				console.log("Pro-Version kaufen");
 			  	break;
 			case 1:
-				$scope.showNormal = false;
-	  			$scope.showUebersicht = true;
-	  			$scope.showDetail = false;
-
+				console.log("CSV-Export");
 				break;
 			case 2:
 				$state.go('tour');
