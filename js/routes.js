@@ -10,7 +10,7 @@ angular.module('app.routes', [])
 
 
 
-      .state('kurs', {
+  .state('kurs', {
     url: '/page1',
     templateUrl: 'templates/kurs.html',
     controller: 'kursCtrl'
@@ -22,11 +22,11 @@ angular.module('app.routes', [])
     controller: 'teilnehmerCtrl'
   })
   .state('tour', {
-    	url: '/tour',
-    	templateUrl: 'templates/tour.html',
-    	controller: 'tourCtrl'
+    url: '/tour',
+    templateUrl: 'templates/tour.html',
+    controller: 'tourCtrl'
 	})
-
+  
 $urlRouterProvider.otherwise('/page1')
 
 

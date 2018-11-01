@@ -360,10 +360,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 
 
-.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal',    // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state) {
 
  $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
@@ -581,7 +581,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      		buttons: [
           		{ text: 'Pro-Version kaufen' },
 				{ text: 'CSV-Export (Pro)' },
-			    { text: 'Hilfe' }
+			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Mehr',
@@ -603,9 +603,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 				break;
 			case 2:
-				$scope.showNormal = false;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = true;
+				$state.go('tour');
 
 				break;
 		}
@@ -1010,3 +1008,19 @@ $scope.asFilterDatum= function() {
 	};
 
 }])
+.controller('tourCtrl', function($scope){
+	 $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
+	  // data.slider is the instance of Swiper
+	  $scope.slider = data.slider;
+	});
+	
+	$scope.$on("$ionicSlides.slideChangeStart", function(event, data){
+	  console.log('Slide change is beginning');
+	});
+	
+	$scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
+	  // note: the indexes are 0-based
+	  $scope.activeIndex = data.slider.activeIndex;
+	  $scope.previousIndex = data.slider.previousIndex;
+	});
+});
