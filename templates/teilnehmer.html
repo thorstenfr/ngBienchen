@@ -40,7 +40,7 @@
 
     				<ul class="small">{{bienchen.length}} Bienchen:
 
-						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date : "dd.MM.y (HH:mm:ss)"}} : {{x.datum}}</li>
+						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date : "fullDate"}} </li>
 					</ul>
 					<ul class="small">{{teufelchen.length}} Teufelchen:
 

@@ -83,7 +83,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.showHowto = function() {
 	   var alertPopup = $ionicPopup.alert({
 	     title: 'In die Kursansicht wechseln!',
-	     template: 'Sobald Sie einen Kurs angelegt haben, klicken Sie auf den Kurs, um die Teilnehmer zu erfassen'
+	     template: 'Sobald Sie Ihre Kurse angelegt haben, klicken Sie auf einen Kurs, um die Teilnehmer zu erfassen'
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -307,6 +307,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		// Action Sheet "Sortierung"
 			$scope.showOrder = function() {
 				
+				$scope.showReorder=false;
+				
 				
 				// Show the action sheet
 		   		var hideSheet = $ionicActionSheet.show({
@@ -353,6 +355,11 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		   $timeout(function() {
 		    	 hideSheet();
 		   }, 20000);
+		};
+		
+		$scope.showReor = function() {
+			$scope.orderByMe('');			
+			$scope.toggle('showReorder');
 		};
 
 
@@ -664,6 +671,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	// Action Sheet "Sortierung"
 	$scope.showOrder = function() {
+		$scope.showReorder=false;
 		
 
 		// Show the action sheet
@@ -677,6 +685,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	cancelText: 'Abbruch',
      	cancel: function() {
         	  // add cancel code..
+        	  $scope.orderByMe('');
         },
      	buttonClicked: function(index) {
      	   	switch (index) {
