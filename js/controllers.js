@@ -1034,8 +1034,8 @@ $scope.asFilterDatum= function() {
 		     console.log('Tapped!', res);
 		   });
 		   $timeout(function() {
-		      myPopup.close(); //close the popup after 3 seconds for some reason
-		   }, 30000);
+		      myPopup.close(); //close the popup after 10 seconds for some reason
+		   }, 100000);
 		};
 		
 		 $scope.toggle = function (v) {
