@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet, ) {
+function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state ) {
     $scope.courses =  Courses.all();
 	$scope.firstRun = Courses.getFirstRun();
 
@@ -361,6 +361,44 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			$scope.orderByMe('');			
 			$scope.toggle('showReorder');
 		};
+		
+		// Action Sheet "Mehr"
+	$scope.showMore = function() {
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+          		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
+				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
+			    { text: '<div class="icon ion-help"></div> Tutorial'}
+			],
+	     	// destructiveText: 'Delete',
+	     	titleText: 'Mehr',
+	     	cancelText: 'Abbruch',
+	     	cancel: function() {
+	        	  // add cancel code..
+	        },
+	     	buttonClicked: function(index) {
+	     	   	switch (index) {
+		  		case 0:
+					console.log("Pro-Version kaufen");
+				  	break;
+				case 1:
+					console.log("CSV-Export");
+					break;
+				case 2:
+					$state.go('tour');
+	
+					break;
+			}
+			return true;
+			}
+			});
+	   // For example's sake, hide the sheet after two seconds
+	   $timeout(function() {
+	    	 hideSheet();
+	   }, 20000);
+   };
 
 
 }])
@@ -590,33 +628,33 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
 			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
-     	// destructiveText: 'Delete',
-     	titleText: 'Mehr',
-     	cancelText: 'Abbruch',
-     	cancel: function() {
-        	  // add cancel code..
-        },
-     	buttonClicked: function(index) {
-     	   	switch (index) {
-	  		case 0:
-				console.log("Pro-Version kaufen");
-			  	break;
-			case 1:
-				console.log("CSV-Export");
-				break;
-			case 2:
-				$state.go('tour');
-
-				break;
-		}
-		return true;
-		}
-	});
-   // For example's sake, hide the sheet after two seconds
-   $timeout(function() {
-    	 hideSheet();
-   }, 20000);
-};
+	     	// destructiveText: 'Delete',
+	     	titleText: 'Mehr',
+	     	cancelText: 'Abbruch',
+	     	cancel: function() {
+	        	  // add cancel code..
+	        },
+	     	buttonClicked: function(index) {
+	     	   	switch (index) {
+		  		case 0:
+					console.log("Pro-Version kaufen");
+				  	break;
+				case 1:
+					console.log("CSV-Export");
+					break;
+				case 2:
+					$state.go('tour');
+	
+					break;
+			}
+			return true;
+			}
+			});
+	   // For example's sake, hide the sheet after two seconds
+	   $timeout(function() {
+	    	 hideSheet();
+	   }, 20000);
+	};
 
 
 
