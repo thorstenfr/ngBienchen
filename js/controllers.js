@@ -413,7 +413,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
  $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
 	var mytoggle=true;
-
+	
+	  $scope.example = {
+         value: new Date(2013, 9, 22)
+	 };
+	
 
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;
@@ -456,24 +460,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     }
 	
 	
-		
-		// Try to create the first project, make sure to defer
-  // this by using $timeout so everything is initialized
-  // properly
-  /*
-  $timeout(function() {
-    if($scope.activeCourse.pupils.length == 0) {
-      while(true) {
-        var projectTitle = prompt('Your first project title:');
-        if(projectTitle) {
-          createPupil(projectTitle);
-          break;
-        }
-      }
-    }
-  }, 1000);
-*/
-
 
 	$scope.showDone = function() {
 	   var alertPopup = $ionicPopup.alert({
@@ -553,6 +539,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.setNewDatumFilter = function(von,bis,set_monat) {
     	$scope.datumfilter = true;
     	console.log("dat_wahl : " +$scope.activeCourse.dat_wahl);
+		console.log("von : " +von);
+		
 		var heute = new Date(); // aktuelles Datum und aktuelle Zeit	
 		
 		switch($scope.activeCourse.dat_wahl) {
@@ -594,6 +582,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		
 	    $scope.activeCourse.vonDatum = new Date(d);
 	    $scope.activeCourse.bisDatum = new Date(e);
+		
+		console.log("vonDatum : " + $scope.activeCourse.vonDatum);
 	    $scope.activeCourse.datumfilter=true;
 		
     	$scope.datumModal.hide();
@@ -896,9 +886,16 @@ $scope.asFilterDatum= function() {
     // Rating hinzufügen
     $scope.addRating = function(pupil) {
 
-        var d = new Date();
+        // var d = new Date();
+		
+		console.log("buc_datum: " + $scope.example.value);
+		
+		var d = $scope.example.value;
         var now = d.getTime();
 		var n = d.toLocaleString();
+		console.log("d: " + d);
+		console.log("now: " + now);
+		
         if(!$scope.activeCourse || !pupil) {
             return;
 
