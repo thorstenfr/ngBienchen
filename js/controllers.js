@@ -414,8 +414,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.showNormal = true;
 	var mytoggle=true;
 	
-	  $scope.example = {
-         value: new Date(2013, 9, 22)
+	
+	/*
+		Buchungsdatum für Bienchen auf heutiges Datum setzen
+	*/
+	  $scope.buchungsDatum = {
+         datum: new Date()
 	 };
 	
 
@@ -888,9 +892,9 @@ $scope.asFilterDatum= function() {
 
         // var d = new Date();
 		
-		console.log("buc_datum: " + $scope.example.value);
+		console.log("buc_datum: " + $scope.buchungsDatum.datum);
 		
-		var d = $scope.example.value;
+		var d = $scope.buchungsDatum.datum;
         var now = d.getTime();
 		var n = d.toLocaleString();
 		console.log("d: " + d);
