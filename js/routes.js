@@ -26,6 +26,12 @@ angular.module('app.routes', [])
     templateUrl: 'templates/tour.html',
     controller: 'tourCtrl'
 	})
+	
+  .state('csv', {
+    url: '/csv',
+    templateUrl: 'templates/csv.html',
+    controller: 'csvCtrl'
+	})
   
 $urlRouterProvider.otherwise('/page1')
 

@@ -385,6 +385,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 				  	break;
 				case 1:
 					console.log("CSV-Export");
+					$state.go('csv');
+					
 					break;
 				case 2:
 					$state.go('tour');
@@ -1051,6 +1053,18 @@ $scope.asFilterDatum= function() {
 	};
 
 }])
+
+.controller('csvCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+	// You can include any angular dependencies as parameters for this function
+	// TIP: Access Route Parameters for your page via $stateParams.parameterName
+	function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state) {
+	
+	// Kurse in scope laden
+	$scope.courses =  Courses.all();
+    
+
+}])
+
 .controller('tourCtrl', function($scope){
 	 $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
 	  // data.slider is the instance of Swiper

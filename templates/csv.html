@@ -1,0 +1,18 @@
+<ion-view hide-back-button="true" title="Einführung" cache-view="false" id="tour">
+	<ion-nav-buttons side="right" class="has-header has-footer">
+		<button class="button" ui-sref="kurs">beenden</button>
+   
+
+
+</ion-nav-buttons>
+<ion-content scroll="false">
+	<h1>CSV-Export</h1>
+	<p>kurs,name,bienchen,teufelchen</p>
+	<ul ng-repeat="course in courses">
+		<li ng-repeat="pupil in course.pupils">{{course.title}},{{pupil.name}},{{pupil.ratings.length}},{{pupil.teufelchen.length}} 
+        </li>
+	</ul>
+	
+	
+</ion-content>
+</ion-view>
