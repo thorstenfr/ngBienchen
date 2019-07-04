@@ -1,12 +1,16 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses','$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', '$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state ) {
+function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state) {
     $scope.courses =  Courses.all();
 	$scope.firstRun = Courses.getFirstRun();
 
+	var nc = Courses.getVariables("bienchen");
+	$scope.consts = nc;
+	
+	
 	
 	// Aktuelles Datum
 	var d = new Date();
@@ -265,8 +269,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		   // An elaborate, custom popup
 		   var myPopup = $ionicPopup.show({
 		     template: '<input type="text" ng-model="data.neuerKurs">',
-		     title: 'Neuer Kurs',
-		     subTitle: 'z.B. Kursbezeichnung oder Klassenname',
+		     title: nc.popupTitle,
+		     subTitle: nc.subTitle,
 		     scope: $scope,
 		     buttons: [
 		       { text: 'Abbruch' },

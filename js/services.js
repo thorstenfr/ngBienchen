@@ -71,10 +71,43 @@ angular.module('app.services', [])
             return {
                 title : subjectTitle
             };
+        },
+        getVariables : function(appname) {
+            // get Variables
+            if (appname == "bienchen") {
+                return {
+                    appname : 'Bienchen',
+                    popupTitle : 'Neuer Kurs',
+		            subTitle: 'z.B. Kursbezeichnung oder Klassenname',             
+                    isSoteam : false,
+                    titlePageOne : 'Kurs',
+                    placeholder : 'Neuen Kurs hinzufügen',
+                    titlePageTwo : 'Aufgabe'
+                }; 
+              
+            }
+            if (appname == "soteam") {
+                return {
+                    appname : 'soteam',
+                    popupTitle : 'Neues Projekt',
+                    subTitle: 'z.B. Service für Kollegen',
+                    isSoteam : true,
+                titlePageOne : 'Projekt',
+                placeholder : 'Neues Projekt hinzufügen',
+                titlePageTwo : 'Aufgabe'
+            }; 
+            } 
+           
         }
     }
 }])
 
-.service('BlankService', [function(){
+.factory('UserService', function() {
+    return {
+        name : 'anonymous'
+    };
+  })
 
+.service('BlankService', [function(){
+    var appPageOne = "Kurs";
 }]);
