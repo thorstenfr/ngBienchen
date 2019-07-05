@@ -7,7 +7,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
     $scope.courses =  Courses.all();
 	$scope.firstRun = Courses.getFirstRun();
 
-	var nc = Courses.getVariables("bienchen");
+	var nc = Courses.getVariables("soteam");
 	$scope.consts = nc;
 	
 	
@@ -86,8 +86,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 	$scope.showHowto = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'In die Kursansicht wechseln!',
-	     template: 'Sobald Sie Ihre Kurse angelegt haben, klicken Sie auf einen Kurs, um die Teilnehmer zu erfassen'
+	     title: nc.detailViewTitle,
+	     template: nc.detailViewText
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -99,8 +99,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'Willkommen bei Bienchen!',
-	     template: 'Erfassen Sie als erstes Ihre Kurse. Sie können später über "+ Neu" weitere hinzufügen.'
+	     title: nc.welcome,
+	     template: nc.welcomeText
 	   });
 	
 	   alertPopup.then(function(res) {

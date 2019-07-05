@@ -82,6 +82,10 @@ angular.module('app.services', [])
                     isSoteam : false,
                     titlePageOne : 'Kurs',
                     placeholder : 'Neuen Kurs hinzufügen',
+					welcome : 'Willkommen bei Bienchen!',
+					welcomeText : 'Erfassen Sie als erstes Ihre Kurse. Sie können später über "+ Neu" weitere hinzufügen.',
+					detailViewTitle : 'In die Kursansicht wechseln!',
+					detailViewText : 'Sobald Sie Ihre Kurse angelegt haben, klicken Sie auf einen Kurs, um die Teilnehmer zu erfassen',
                     titlePageTwo : 'Aufgabe'
                 }; 
               
@@ -94,6 +98,10 @@ angular.module('app.services', [])
                     isSoteam : true,
                 titlePageOne : 'Projekt',
                 placeholder : 'Neues Projekt hinzufügen',
+				welcome : 'Willkommen bei soteam!',
+				welcomeText : 'Erfassen Sie als erstes Ihre Aufgaben. Sie können später über "+ Neu" weitere hinzufügen.',
+				detailViewTitle : 'In die Tätigkeitenansicht wechseln!',
+				detailViewText : 'Sobald Sie Ihre Aufgaben angelegt haben, klicken Sie auf eine Aufgabe, um die Tätigkeiten zu erfassen',
                 titlePageTwo : 'Aufgabe'
             }; 
             } 
