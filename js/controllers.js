@@ -4,11 +4,10 @@ angular.module('app.controllers', ['ionic'])
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state) {
-    $scope.courses =  Courses.all();
+	
+	$scope.courses =  Courses.all();
 	$scope.firstRun = Courses.getFirstRun();
-
-	var nc = Courses.getVariables("soteam");
-	$scope.consts = nc;
+	$scope.consts = Courses.getVariables();
 	
 	
 	
@@ -51,19 +50,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
             
 	}
 	
-	var firstCourse = function() {
-		// 
-		// Noch keine Kurse
-		//
-		if($scope.courses.length == 0) {
-			$scope.showAlert();
-			$scope.noCourses=true;
-		} else {
-			$scope.noCourses=false;
-		}
-	}
-	
-	
+
 	// A confirm dialog
    $scope.showConfirm = function(course) {
      var confirmPopup = $ionicPopup.confirm({
@@ -86,8 +73,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 	$scope.showHowto = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: nc.detailViewTitle,
-	     template: nc.detailViewText
+	     title: $scope.consts.detailViewTitle,
+	     template: $scope.consts.detailViewText
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -99,8 +86,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: nc.welcome,
-	     template: nc.welcomeText
+	     title: constants.welcome,
+	     template: constants.welcomeText
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -122,12 +109,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	   });
    };
 
-   // Prüfe, ob erster Kurs
-	firstCourse();
-	
-	
-	
-	
+   
 	
 	// Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-kurs.html', function(modal)
@@ -155,82 +137,79 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
     	'title': 'test123'
     }
 
-
     $scope.form = {
     	kursForm: {}
     };
 
-    // Called to create a new course
-    $scope.newCourse = function() {
-        var courseTitle = prompt('Kursbezeichnung');
-        if(courseTitle) {
-            createCourse(courseTitle);
-        }
-    };
+		
+		// Called to select the given course
+	$scope.selectCourse = function(course, index) {
+		console.log("selectCourse " + index);
+			$scope.activeCourse = course;
+			Courses.setLastActiveIndex(index);
+			Courses.save($scope.courses);
 
-    $scope.createCourse = function(course) {
-		console.log("Erzeuge Kurs " + course.title);
-    	if (course.title) {
-    			var nc = Courses.newCourse(course.title);
-    			nc.mittel=0;
-    			nc.maxBienchen=0;
-    			nc.maxBienchenName='';        	  	
-				
-			$scope.courses.push(nc);
-		console.log("selectCourse");
+	};
+		
 
-        $scope.selectCourse(nc, $scope.courses.length-1);
+    $scope.createCourse = function(title) {
+			console.log("Erzeuge Kurs " + title);
+    	if (title) {
+    			var nc = Courses.newCourse(title);
+    			$scope.courses.push(nc);
+					console.log("selectCourse");
 
-    	// Nicht effinzient ...
-        Courses.save($scope.courses);
+        	$scope.selectCourse(nc, $scope.courses.length-1);
 
-        course.title = "";
-
-
-    		}
+    			// Nicht effinzient ...
+        	Courses.save($scope.courses);
+        	
+   		}
     }
+	
+		var firstCourse = function() {
+			// 
+			// Noch keine Kurse, bei soteam Kurs automatisch anlegen
+			//
+			if($scope.courses.length == 0) {
+				if ($scope.consts.appname=="soteam") {
+					console.log("soteam und keine Kurse");
+					// soteam wird ein Kurs angelegt
+					$scope.createCourse($scope.consts.courseName);
+				} 
+				else {
+					$scope.showAlert();
+					$scope.noCourses=true;
+				}		
+			} else {
+				$scope.noCourses=false;
+			}
+		}
 
-    $scope.addCourse = function(kurs) {
-        if(kurs && kurs.titel) {
-        	kurs.bienchen = 0;
-        	kurs.maxBienchen = 0;
-        	kurs.maxBienchenName='';
+	// Prüfe, ob erster Kurs
+	firstCourse();
+	
+	$scope.reset = function() {
+			console.log("ok: " + $scope.kurs.titel);
+			$scope.kurs = {};
+			$scope.form.myForm.$setPristine();
+			$scope.form.myForm.$setUntouched();
+	};
 
-
-        	createCourse(kurs);
-        }
-        $scope.reset();
-
-    };
-
-    $scope.reset = function() {
-    		console.log("ok: " + $scope.kurs.titel);
-    		$scope.kurs = {};
-    		$scope.form.myForm.$setPristine();
-    		$scope.form.myForm.$setUntouched();
-    };
-
-    // A utility function for creating a new course
-    // with the given courseTitle
-    var createCourseEx = function(courseTitle) {
-        var newCourse = Courses.newCourse(courseTitle);
-        $scope.courses.push(newCourse);
-        $scope.selectCourse(newCourse, $scope.courses.length-1);
-        Courses.save($scope.courses);
-    };
+	// A utility function for creating a new course
+	// with the given courseTitle
+	var createCourseEx = function(courseTitle) {
+			var newCourse = Courses.newCourse(courseTitle);
+			$scope.courses.push(newCourse);
+			$scope.selectCourse(newCourse, $scope.courses.length-1);
+			Courses.save($scope.courses);
+	};
     
-    // Utility function: checks if no courses and
-    // show help
+	// Utility function: checks if no courses and
+	// show help
      
 
-    // Called to select the given course
-    $scope.selectCourse = function(course, index) {
-    	console.log("selectCourse " + index);
-        $scope.activeCourse = course;
-        Courses.setLastActiveIndex(index);
-        Courses.save($scope.courses);
-
-    };
+	
 
     // Kurs löschen
     $scope.deleteCourse = function(course) {
@@ -269,8 +248,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		   // An elaborate, custom popup
 		   var myPopup = $ionicPopup.show({
 		     template: '<input type="text" ng-model="data.neuerKurs">',
-		     title: nc.popupTitle,
-		     subTitle: nc.subTitle,
+		     title: $scope.consts.popupTitle,
+		     subTitle: $scope.consts.subTitle,
 		     scope: $scope,
 		     buttons: [
 		       { text: 'Abbruch' },
@@ -278,19 +257,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		         text: '<b>Speichern</b>',
 		         type: 'button-positive',
 		         onTap: function(e) {
-					 /*
-		            if (!$scope.data.wifi) {
-		             //don't allow the user to close unless he enters wifi password
-					 } else {
-		             return $scope.data.wifi;
-		           }
-				   */
 				   
 				  createCourseEx($scope.data.neuerKurs);
 				   
-					 
-				   
-		         }
+				     }
 		       },
 		     ]
 		   });
@@ -312,8 +282,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			$scope.showOrder = function() {
 				
 				$scope.showReorder=false;
-				
-				
+			
 				// Show the action sheet
 		   		var hideSheet = $ionicActionSheet.show({
 		     		buttons: [
@@ -416,6 +385,14 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state) {
 
+
+	$scope.courses =  Courses.all();
+	$scope.consts = Courses.getVariables();
+
+  $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
+  $scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
+	
+
  $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
 	var mytoggle=true;
@@ -446,10 +423,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		Courses.save($scope.courses);
 
 	}
-    $scope.courses =  Courses.all();
-    $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-    $scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
-	
+    
 	
 	
 
@@ -1012,7 +986,7 @@ $scope.asFilterDatum= function() {
 		   // An elaborate, custom popup
 		   var myPopup = $ionicPopup.show({
 		     template: '<input type="text" ng-model="data.neuerschueler">',
-		     title: 'Neuer Schüler',
+		     title: consts.neuerschueler,
 		     subTitle: 'z.B. Vor- und Zuname oder Nick',
 		     scope: $scope,
 		     buttons: [

@@ -1,6 +1,6 @@
 <ion-view hide-back-button="true" title={{consts.titlePageOne}} cache-view="false" id="page1" style="background-color:#F7F7F7">
   <ion-nav-buttons side="right" class="has-header has-footer">
-    <button class="button button-icon icon ion-drag" ng-click="showReor()"></button>
+    <button ng-if="consts.isSoteam == false" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
   
@@ -10,20 +10,20 @@
     <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
 	      
-        <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">Schüler: {{course.pupils.length}} 
-        Bienchen: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
+        <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+					{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
         <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
         </small> </span>
 		
-        <ion-option-button class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
-        <ion-option-button class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
+        <ion-option-button ng-if="consts.isSoteam == false" class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
+        <ion-option-button ng-if="consts.isSoteam == false" class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
         <ion-delete-button class="ion-minus-circled"></ion-delete-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
       </ion-item>
     </ion-list>
     <div class="spacer" style="width: 300px; height: 14px;"></div>
 
-	<form ng-if="noCourses" name="form.coursesForm" role="form" ng-submit="createCourse(course)">
+	<form ng-if="noCourses" name="form.coursesForm" role="form" ng-submit="createCourse(course.title)">
     <div class="list list-inset">
     	<label class="item item-input">
   		<i class="icon ion-ios-plus-empty"></i>

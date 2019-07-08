@@ -1,6 +1,7 @@
 angular.module('app.services', [])
 
 .factory('Courses', [function(){
+    var appname = "soteam";
     return {
         all: function() {   
             var courseString = window.localStorage['courses'];
@@ -20,6 +21,7 @@ angular.module('app.services', [])
             return {
                 title: courseTitle,
                 maxBienchen : 0,
+                mittel : 0,
                 maxBienchenName : '',
                 subjects: [],
                 pupils: []
@@ -72,7 +74,7 @@ angular.module('app.services', [])
                 title : subjectTitle
             };
         },
-        getVariables : function(appname) {
+        getVariables : function() {
             // get Variables
             if (appname == "bienchen") {
                 return {
@@ -86,7 +88,11 @@ angular.module('app.services', [])
 					welcomeText : 'Erfassen Sie als erstes Ihre Kurse. Sie können später über "+ Neu" weitere hinzufügen.',
 					detailViewTitle : 'In die Kursansicht wechseln!',
 					detailViewText : 'Sobald Sie Ihre Kurse angelegt haben, klicken Sie auf einen Kurs, um die Teilnehmer zu erfassen',
-                    titlePageTwo : 'Aufgabe'
+                    titlePageTwo : 'Aufgabe',       
+                    schueler : 'Schüler',    
+                    bienchen : 'Bienchen', 
+                    neuerSchueler : 'Neuer Schüler',        
+                    showDelete : false
                 }; 
               
             }
@@ -101,8 +107,12 @@ angular.module('app.services', [])
 				welcome : 'Willkommen bei soteam!',
 				welcomeText : 'Erfassen Sie als erstes Ihre Aufgaben. Sie können später über "+ Neu" weitere hinzufügen.',
 				detailViewTitle : 'In die Tätigkeitenansicht wechseln!',
-				detailViewText : 'Sobald Sie Ihre Aufgaben angelegt haben, klicken Sie auf eine Aufgabe, um die Tätigkeiten zu erfassen',
-                titlePageTwo : 'Aufgabe'
+                detailViewText : 'Sobald Sie Ihre Aufgaben angelegt haben, klicken Sie auf eine Aufgabe, um die Tätigkeiten zu erfassen',
+                courseName : 'Tätigkeiten und Aufwand erfassen',
+                schueler : 'Aufgaben',  
+                bienchen : 'Summe',
+                neuerSchueler : 'Neue Aufgabe',
+                itlePageTwo : 'Aufgabe'
             }; 
             } 
            
