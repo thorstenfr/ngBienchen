@@ -92,7 +92,8 @@ angular.module('app.services', [])
                     schueler : 'Schüler',    
                     bienchen : 'Bienchen', 
                     neuerSchuelerTitle : 'Neuer Schüler',
-                    neuerSchuelerSubtitle : 'z.B Vor- und Zuname oder Nick',        
+                    neuerSchuelerSubtitle : 'z.B Vor- und Zuname oder Nick',    
+                    teilnehmerHinzufuegen : 'Teilnehmer hinzufügen',    
                     showDelete : false
                 }; 
               
@@ -114,7 +115,8 @@ angular.module('app.services', [])
                     bienchen : 'Summe',
                     neuerSchuelerTitle : 'Neue Aufgabe',
                     neuerSchuelerSubtitle : 'z.B Bezeichnung der Aufgabe',
-                    itlePageTwo : 'Aufgabe'
+                    teilnehmerHinzufuegen : 'Aufgabe hinzufügen',
+                    TitlePageTwo : 'Aufgabe'
             }; 
             } 
            
