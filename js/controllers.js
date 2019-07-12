@@ -986,8 +986,8 @@ $scope.asFilterDatum= function() {
 		   // An elaborate, custom popup
 		   var myPopup = $ionicPopup.show({
 		     template: '<input type="text" ng-model="data.neuerschueler">',
-		     title: consts.neuerschueler,
-		     subTitle: 'z.B. Vor- und Zuname oder Nick',
+		     title: $scope.consts.neuerSchuelerTitle,		     
+		     subTitle: $scope.consts.neuerSchuelerSubtitle,
 		     scope: $scope,
 		     buttons: [
 		       { text: 'Abbruch' },

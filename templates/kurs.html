@@ -5,7 +5,19 @@
   <ion-content padding="true" class="has-header has-footer" >
   
 	
-		<p ng-if="consts.isSoteam">Heute:</p>
+		
+		<div ng-if="consts.isSoteam" class="row header">
+			<div class="col">Heute</div>
+			<div class="col">Woche</div>
+			<div class="col">Monat</div>
+			<div class="col">Jahr</div>
+		</div>
+		<div class="row">
+			<div class="col">{{course.bienchen}}</div>
+			<div class="col">12</div>
+			<div class="col">32</div>
+			<div class="col">116</div>
+		</div>
   
     <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">

@@ -91,7 +91,8 @@ angular.module('app.services', [])
                     titlePageTwo : 'Aufgabe',       
                     schueler : 'Schüler',    
                     bienchen : 'Bienchen', 
-                    neuerSchueler : 'Neuer Schüler',        
+                    neuerSchuelerTitle : 'Neuer Schüler',
+                    neuerSchuelerSubtitle : 'z.B Vor- und Zuname oder Nick',        
                     showDelete : false
                 }; 
               
@@ -102,17 +103,18 @@ angular.module('app.services', [])
                     popupTitle : 'Neues Projekt',
                     subTitle: 'z.B. Service für Kollegen',
                     isSoteam : true,
-                titlePageOne : 'Projekt',
-                placeholder : 'Neues Projekt hinzufügen',
-				welcome : 'Willkommen bei soteam!',
-				welcomeText : 'Erfassen Sie als erstes Ihre Aufgaben. Sie können später über "+ Neu" weitere hinzufügen.',
-				detailViewTitle : 'In die Tätigkeitenansicht wechseln!',
-                detailViewText : 'Sobald Sie Ihre Aufgaben angelegt haben, klicken Sie auf eine Aufgabe, um die Tätigkeiten zu erfassen',
-                courseName : 'Tätigkeiten und Aufwand erfassen',
-                schueler : 'Aufgaben',  
-                bienchen : 'Summe',
-                neuerSchueler : 'Neue Aufgabe',
-                itlePageTwo : 'Aufgabe'
+                    titlePageOne : 'Projekt',
+                    placeholder : 'Neues Projekt hinzufügen',
+                    welcome : 'Willkommen bei soteam!',
+                    welcomeText : 'Erfassen Sie als erstes Ihre Aufgaben. Sie können später über "+ Neu" weitere hinzufügen.',
+                    detailViewTitle : 'In die Tätigkeitenansicht wechseln!',
+                    detailViewText : 'Sobald Sie Ihre Aufgaben angelegt haben, klicken Sie auf eine Aufgabe, um die Tätigkeiten zu erfassen',
+                    courseName : 'Tätigkeiten und Aufwand erfassen',
+                    schueler : 'Aufgaben',  
+                    bienchen : 'Summe',
+                    neuerSchuelerTitle : 'Neue Aufgabe',
+                    neuerSchuelerSubtitle : 'z.B Bezeichnung der Aufgabe',
+                    itlePageTwo : 'Aufgabe'
             }; 
             } 
            
