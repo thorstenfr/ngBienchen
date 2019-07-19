@@ -4,19 +4,27 @@
     <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
+			<div class="row header">
+					<div class="col">Teamer</div>
+          <div class="col">Heute</div>
+          <div class="col">Woche</div>
+          <div class="col">Monat</div>
+          <div class="col">Jahr</div>          
+        </div>
+			<div class="row responsive-sm">
+				<div class="col">Du</div>
+					<div class="col">{{ratingsHeute / azEinheit}}</div>
+					<div class="col">{{ratingsWoche / azEinheit}}</div>
+					<div class="col">{{ratingsMonat / azEinheit}}</div>
+					<div class="col">{{ratingsJahr / azEinheit}}</div>
+				</div>
+		<div class="card">
+			<div class="item item-text-wrap">
+				Du hast für <strong>heute</strong> bereits  {{ratingsHeute}} Arbeitseinheiten erfasst, das sind <strong>{{ratingsHeute / azEinheit}} Stunden</strong>.
+			</div>
+		</div>
+
 	
-	<div class="card">
-  <div class="item item-divider">
-     <strong>Heute</strong> hast du {{ratingsHeute}} Arbeitseinheiten erfasst, das sind <strong>{{ratingsHeute / azEinheit}} Stunden</strong>.
-  </div>
-  <div class="item item-text-wrap">
-  Diese Woche {{ratingsWoche / azEinheit}} Stunden, diesen Monat {{ratingsMonat / azEinheit}} Stunden und dieses Jahr {{ratingsJahr/azEinheit}} Stunden.
-   
-  </div>
-  <div class="item item-divider">
-    
-  </div>
-</div>
 	
 	
 		
