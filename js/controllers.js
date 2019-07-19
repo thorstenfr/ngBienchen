@@ -12,6 +12,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	console.log("azEinheit: " + $scope.azEinheit);
 	
 	
+
 	calcRatings = function() {
 		var heute = 0;
 		var woche = 0;
@@ -60,14 +61,18 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	
 	// Aktuelles Datum
 	var d = new Date();
-
 	
+	
+	$scope.$on("$ionicView.afterEnter", function(){
+		// Anything you can think of
+		console.log("Enter");
+	});
+
 	$scope.$on("$ionicView.loaded", function(event, data){
 	   		// handle event
-				 console.log("State Params: ", data.stateParams);
+				 	console.log("loaded");
 				 
-				 // Ratings berechnen
-				 calcRatings();
+				 
 			   // Prüfen, ob es Zeit für einen Kaffee wäre
 			var nr = Courses.getTotalNumberOfRatings();
 			if (nr>300) 
@@ -76,7 +81,12 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 				$scope.buyPro();
 			}
 	});	
+	$scope.$on('$ionicView.beforeEnter', function(){
+		calcRatings();
+	});
 	
+
+
 		
 	if($scope.firstRun=='0') {
 	   	Courses.setFirstRun(d);

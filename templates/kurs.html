@@ -1,21 +1,7 @@
-<style>
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-		width: 100%;
-		border: 1px solid #ddd;
-	}
-	
-	th, td {
-		text-align: left;
-		padding: 8px;
-	}
-	
-	tr:nth-child(even){background-color: #f2f2f2}
-	</style>
+
 <ion-view hide-back-button="true" title={{consts.titlePageOne}} cache-view="false" id="page1" style="background-color:#F7F7F7">
   <ion-nav-buttons side="right" class="has-header has-footer">
-    <button ng-if="consts.isSoteam == false" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
+    <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
 	
@@ -29,10 +15,10 @@
 			<div class="col">Jahr</div>
 		</div>
 		<div class="row">
-			<div class="col">{{(ratingsWoche / azEinheit) |  number:0}}</div>
-			<div class="col">{{ratingsWoche / azEinheit |  number:0 }}</div>
-			<div class="col">{{ratingsMonat / azEinheit |  number:0 }}</div>
-			<div class="col">{{ratingsJahr / azEinheit |  number:0 }}</div>
+			<div class="col">{{(ratingsWoche / azEinheit)}}</div>
+			<div class="col">{{ratingsWoche / azEinheit  }}</div>
+			<div class="col">{{ratingsMonat / azEinheit  }}</div>
+			<div class="col">{{ratingsJahr / azEinheit  }}</div>
 		</div>
 		
   
@@ -45,8 +31,8 @@
         <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
         </small> </span>
 		
-        <ion-option-button ng-if="consts.isSoteam == false" class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
-        <ion-option-button ng-if="consts.isSoteam == false" class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
+        <ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
+        <ion-option-button  class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
         <ion-delete-button class="ion-minus-circled"></ion-delete-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
       </ion-item>
