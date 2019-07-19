@@ -1,3 +1,18 @@
+<style>
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+		width: 100%;
+		border: 1px solid #ddd;
+	}
+	
+	th, td {
+		text-align: left;
+		padding: 8px;
+	}
+	
+	tr:nth-child(even){background-color: #f2f2f2}
+	</style>
 <ion-view hide-back-button="true" title={{consts.titlePageOne}} cache-view="false" id="page1" style="background-color:#F7F7F7">
   <ion-nav-buttons side="right" class="has-header has-footer">
     <button ng-if="consts.isSoteam == false" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
@@ -14,11 +29,12 @@
 			<div class="col">Jahr</div>
 		</div>
 		<div class="row">
-			<div class="col">{{ratingsHeute}}</div>
-			<div class="col">{{ratingsWoche}}</div>
-			<div class="col">{{ratingsMonat}}</div>
-			<div class="col">{{ratingsJahr}}</div>
+			<div class="col">{{(ratingsWoche / azEinheit) |  number:0}}</div>
+			<div class="col">{{ratingsWoche / azEinheit |  number:0 }}</div>
+			<div class="col">{{ratingsMonat / azEinheit |  number:0 }}</div>
+			<div class="col">{{ratingsJahr / azEinheit |  number:0 }}</div>
 		</div>
+		
   
 
 		<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">

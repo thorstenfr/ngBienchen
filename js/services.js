@@ -39,9 +39,14 @@ angular.module('app.services', [])
 		getLastRun: function() {
             return window.localStorage['lastRun'] || '0';
             
-        },
+        },        
         getLastActiveIndex: function() {
             return parseInt(window.localStorage['lastActiveCourse']) || 0;
+            
+        },
+        getAzEinheit: function() {
+            // soteam: Arbeitszeiteinheit
+            return parseInt(window.localStorage['azEinheit']) || 4;
             
         },
         setTotalNumberOfRatings: function(ratings) {

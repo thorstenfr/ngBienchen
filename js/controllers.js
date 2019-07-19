@@ -8,6 +8,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.courses =  Courses.all();
 	$scope.firstRun = Courses.getFirstRun();
 	$scope.consts = Courses.getVariables();
+	$scope.azEinheit = Courses.getAzEinheit();
+	console.log("azEinheit: " + $scope.azEinheit);
+	
 	
 	calcRatings = function() {
 		var heute = 0;
@@ -15,13 +18,11 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		var monat = 0;
 		var jahr = 0;
 
+		// Iteriere durch Struktur.
 		angular.forEach($scope.courses,function(value,key){
-			angular.forEach(value,function(v1,k1){//this is nested angular.forEach loop
-			//	angular.forEach(v1,function(v2,k2){//this is nested angular.forEach loop
-			console.log("k1: " + k1 + " v1: " + v1);
-					if (k1=="pupils") {
-						
-						angular.forEach(v1,function(v2,k2){//this is nested angular.forEach loop
+			angular.forEach(value,function(v1,k1){			
+					if (k1=="pupils") {						
+						angular.forEach(v1,function(v2,k2){
 							angular.forEach(v2, function(v3,k3) {
 								if (k3=="ratings") {
 										angular.forEach(v3, function(v4,k4) {
@@ -439,7 +440,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.consts = Courses.getVariables();
 
   $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-  $scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
+	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
 	
 
  $scope.modalData = { "msg" : "Test!" };
