@@ -3,9 +3,10 @@
     <button ng-if="consts.isSoteam == false" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
-  
+	
 	
 		
+
 		<div ng-if="consts.isSoteam" class="row header">
 			<div class="col">Heute</div>
 			<div class="col">Woche</div>
@@ -13,13 +14,14 @@
 			<div class="col">Jahr</div>
 		</div>
 		<div class="row">
-			<div class="col">{{course.bienchen}}</div>
-			<div class="col">12</div>
-			<div class="col">32</div>
-			<div class="col">116</div>
+			<div class="col">{{ratingsHeute}}</div>
+			<div class="col">{{ratingsWoche}}</div>
+			<div class="col">{{ratingsMonat}}</div>
+			<div class="col">{{ratingsJahr}}</div>
 		</div>
   
-    <ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+
+		<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
 	      
         <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 

@@ -9,15 +9,64 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.firstRun = Courses.getFirstRun();
 	$scope.consts = Courses.getVariables();
 	
-	
+	calcRatings = function() {
+		var heute = 0;
+		var woche = 0;
+		var monat = 0;
+		var jahr = 0;
+
+		angular.forEach($scope.courses,function(value,key){
+			angular.forEach(value,function(v1,k1){//this is nested angular.forEach loop
+			//	angular.forEach(v1,function(v2,k2){//this is nested angular.forEach loop
+			console.log("k1: " + k1 + " v1: " + v1);
+					if (k1=="pupils") {
+						
+						angular.forEach(v1,function(v2,k2){//this is nested angular.forEach loop
+							angular.forEach(v2, function(v3,k3) {
+								if (k3=="ratings") {
+										angular.forEach(v3, function(v4,k4) {
+												angular.forEach(v4, function(v5,k5) {
+													// Ratings von heute
+													var d = new Date(v5);
+													var now = new Date();
+													if ((d.getDate()==now.getDate()) && (d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
+														heute = heute + 1;
+													}													
+													if ((d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
+														monat = monat + 1;
+														if ((now.getDate()-now.getDay())<(d.getDate())) {
+															woche = woche + 1;
+														}
+													}
+													if ((d.getFullYear()==now.getFullYear())) {
+														jahr = jahr + 1;
+													}
+																																	
+											});
+										});
+									}
+							});							
+					});
+				}					
+			});	
+		});
+
+	$scope.ratingsHeute = heute;
+	$scope.ratingsWoche = woche;
+	$scope.ratingsMonat = monat;
+	$scope.ratingsJahr = jahr;
+	}
 	
 	// Aktuelles Datum
 	var d = new Date();
 
-
+	
 	$scope.$on("$ionicView.loaded", function(event, data){
 	   		// handle event
-	   		console.log("State Params: ", data.stateParams);
+				 console.log("State Params: ", data.stateParams);
+				 
+				 // Ratings berechnen
+				 calcRatings();
 			   // Prüfen, ob es Zeit für einen Kaffee wäre
 			var nr = Courses.getTotalNumberOfRatings();
 			if (nr>300) 
