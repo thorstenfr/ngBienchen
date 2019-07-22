@@ -2,6 +2,7 @@ angular.module('app.services', [])
 
 .factory('Courses', [function(){
     var appname = "soteam";
+    // var appname = "bienchen";
     return {
         all: function() {   
             var courseString = window.localStorage['courses'];
@@ -98,7 +99,8 @@ angular.module('app.services', [])
                     bienchen : 'Bienchen', 
                     neuerSchuelerTitle : 'Neuer Schüler',
                     neuerSchuelerSubtitle : 'z.B Vor- und Zuname oder Nick',    
-                    teilnehmerHinzufuegen : 'Teilnehmer hinzufügen',    
+                    teilnehmerHinzufuegen : 'Teilnehmer hinzufügen',  
+                    ratings : 'Bewertungen',  
                     showDelete : false
                 }; 
               
@@ -121,6 +123,7 @@ angular.module('app.services', [])
                     neuerSchuelerTitle : 'Neue Aufgabe',
                     neuerSchuelerSubtitle : 'z.B Bezeichnung der Aufgabe',
                     teilnehmerHinzufuegen : 'Aufgabe hinzufügen',
+                    ratings : 'Arbeitseinheiten',  
                     TitlePageTwo : 'Aufgabe'
             }; 
             } 

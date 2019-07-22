@@ -4,23 +4,23 @@
     <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
-			<div class="row header">
+			<div ng-if="soteam" class="row header">
 					<div class="col">Teamer</div>
-          <div class="col">Heute</div>
-          <div class="col">Woche</div>
-          <div class="col">Monat</div>
-          <div class="col">Jahr</div>          
+          <div style="text-align: center;" class="col">Heute</div>
+          <div style="text-align: center;" class="col">Woche</div>
+          <div style="text-align: center;" class="col">Monat</div>
+          <div style="text-align: center;" class="col">Jahr</div>          
         </div>
-			<div class="row responsive-sm">
+			<div ng-if="soteam" class="row">
 				<div class="col">Du</div>
-					<div class="col">{{ratingsHeute / azEinheit}}</div>
-					<div class="col">{{ratingsWoche / azEinheit}}</div>
-					<div class="col">{{ratingsMonat / azEinheit}}</div>
-					<div class="col">{{ratingsJahr / azEinheit}}</div>
-				</div>
+					<div style="text-align: center;"  class="col">{{ratingsHeute / azEinheit}}</div>
+					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit}}</div>
+					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit}}</div>
+					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit}}</div>
+			</div>
 		<div class="card">
 			<div class="item item-text-wrap">
-				Du hast für <strong>heute</strong> bereits  {{ratingsHeute}} Arbeitseinheiten erfasst, das sind <strong>{{ratingsHeute / azEinheit}} Stunden</strong>.
+				Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit}} Stunden</strong>.</span>
 			</div>
 		</div>
 
@@ -64,7 +64,7 @@
    
    
    <div class="tabs tabs-footer tabs-icon-left tabs-positive">
-	  	<a class="tab-item" ng-click="showPopup()">
+	  	<a class="tab-item" ng-click="showAddCourse()">
 			<i class="icon ion-plus"></i>
 			Neu
 		</a>

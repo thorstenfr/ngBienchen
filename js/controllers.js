@@ -10,6 +10,12 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.consts = Courses.getVariables();
 	$scope.azEinheit = Courses.getAzEinheit();
 	console.log("azEinheit: " + $scope.azEinheit);
+	if ($scope.consts.appname=='soteam') {
+		$scope.soteam=true;
+	}
+	else {
+		$scope.soteam=false;
+	}
 	
 	
 
@@ -304,7 +310,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
     }
 	
 	// Triggered on a button click, or some other target
-		 $scope.showPopup = function() {
+		 $scope.showAddCourse = function() {
 		   $scope.data = {}
 		
 		   // An elaborate, custom popup
