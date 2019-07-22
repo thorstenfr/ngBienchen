@@ -100,7 +100,11 @@ angular.module('app.services', [])
                     neuerSchuelerTitle : 'Neuer Schüler',
                     neuerSchuelerSubtitle : 'z.B Vor- und Zuname oder Nick',    
                     teilnehmerHinzufuegen : 'Teilnehmer hinzufügen',  
-                    ratings : 'Bewertungen',  
+                    ratings : 'Bewertungen', 
+                    bienchenErfassen : 'Bienchen erfassen!',  
+                    bienchenErfassenTemplate : 'Sobald Sie Teilnehmer angelegt haben, klicken Sie auf einen Teilnehmer, um ihm ein <b>Bienchen</b> zu geben. Tappen Sie auf einen Teilnehmer, um ihm ein <b>Teufelchen</b> zu geben.',
+                    erfassenSieTeilnehmer : 'Erfassen Sie die Teilnehmer!',
+                    erfassenSieTeilnehmerTemplate : 'Sie können später über "+ Neu" weitere Teilnehmer hinzufügen.',
                     showDelete : false
                 }; 
               
@@ -108,11 +112,11 @@ angular.module('app.services', [])
             if (appname == "soteam") {
                 return {
                     appname : 'soteam',
-                    popupTitle : 'Neues Projekt',
+                    popupTitle : 'Neue Aufgabe',
                     subTitle: 'z.B. Service für Kollegen',
                     isSoteam : true,
-                    titlePageOne : 'Projekt',
-                    placeholder : 'Neues Projekt hinzufügen',
+                    titlePageOne : 'Aufgaben',
+                    placeholder : 'Neue Aufgabe hinzufügen',
                     welcome : 'Willkommen bei soteam!',
                     welcomeText : 'Erfassen Sie als erstes Ihre Aufgaben. Sie können später über "+ Neu" weitere hinzufügen.',
                     detailViewTitle : 'In die Tätigkeitenansicht wechseln!',
@@ -120,11 +124,15 @@ angular.module('app.services', [])
                     courseName : 'Tätigkeiten und Aufwand erfassen',
                     schueler : 'Aufgaben',  
                     bienchen : 'Summe',
-                    neuerSchuelerTitle : 'Neue Aufgabe',
-                    neuerSchuelerSubtitle : 'z.B Bezeichnung der Aufgabe',
-                    teilnehmerHinzufuegen : 'Aufgabe hinzufügen',
-                    ratings : 'Arbeitseinheiten',  
-                    TitlePageTwo : 'Aufgabe'
+                    neuerSchuelerTitle : 'Neue Tätigkeit',
+                    neuerSchuelerSubtitle : 'z.B Bezeichnung der Tätigkeit',
+                    teilnehmerHinzufuegen : 'Tätigkeit hinzufügen',
+                    ratings : 'Arbeitseinheiten', 
+                    bienchenErfassen : 'Aufwand erfassen!', 
+                    bienchenErfassenTemplate : 'Sobald Sie Tätigkeiten angelegt haben, klicken Sie auf eine Tätigkeit, um eine <b>Zeiteinheit</b> zu buchen. Tappen Sie auf einen Tätigkeit, um eine <b>Zeiteineinheit</b> zu entfernen.',                    
+                    erfassenSieTeilnehmer : 'Erfassen Sie die Tätigkeiten!',
+                    erfassenSieTeilnehmerTemplate : 'Sie können später über "+ Neu" weitere Tätigkeiten hinzufügen.',
+                    TitlePageTwo : 'Tätigkeit'
             }; 
             } 
            

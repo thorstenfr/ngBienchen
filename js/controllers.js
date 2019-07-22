@@ -154,8 +154,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: constants.welcome,
-	     template: constants.welcomeText
+	     title: $scope.consts.welcome,
+	     template: $scope.consts.welcomeText
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -240,7 +240,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			// Noch keine Kurse, bei soteam Kurs automatisch anlegen
 			//
 			if($scope.courses.length == 0) {
-				if ($scope.consts.appname=="soteam") {
+				if ($scope.consts.appname=="soteam-dochnicht") {
 					console.log("soteam und keine Kurse");
 					// soteam wird ein Kurs angelegt
 					$scope.createCourse($scope.consts.courseName);
@@ -528,8 +528,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	$scope.showHowto = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'Bienchen erfassen!',
-	     template: 'Sobald Sie Teilnehmer angelegt haben, klicken Sie auf einen Teilnehmer, um ihm ein <b>Bienchen</b> zu geben. Tappen Sie auf einen Teilnehmer, um ihm ein <b>Teufelchen</b> zu geben.'
+	     title: $scope.consts.bienchenErfassen,
+	     template: $scope.consts.bienchenErfassenTemplate
 	   });
 	
 	   alertPopup.then(function(res) {
@@ -541,8 +541,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
-	     title: 'Erfassen Sie die Teilnehmer!',
-	     template: 'Sie können später über "+ Neu" weitere Teilnehmer hinzufügen.'
+	     title: $scope.consts.erfassenSieTeilnehmer,
+	     template: $scope.consts.erfassenSieTeilnehmerTemplate
 	   });
 	
 	   alertPopup.then(function(res) {
