@@ -1,0 +1,28 @@
+<ion-view hide-back-button="true" title="Einführung" cache-view="false" id="tour">
+	<ion-nav-buttons side="right" class="has-header has-footer">
+		<button class="button" ui-sref="kurs">beenden</button>
+   
+
+
+</ion-nav-buttons>
+<ion-content scroll="false">
+    <ul class="list">
+
+        <li class="item item-toggle">
+           HTML5
+           <label class="toggle toggle-assertive">
+             <input type="checkbox" ng-model="showBuchungsdatum">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+      
+        ...
+      
+      </ul>
+      <br>
+      Check me, to check both: <input type="checkbox" ng-model="selected.data" />
+      <p ng-if="showBuchungsdatum">Der Text</p>
+</ion-content>
+</ion-view>

@@ -358,7 +358,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 									
 		     		],
 		     	// destructiveText: 'Delete',
-		     	titleText: 'Sortieren der Kurse',
+		     	titleText: $scope.consts.sortierenDerKurse,
 		     	cancelText: 'Abbruch',
 		     	cancel: function() {
 		        	  // add cancel code..
@@ -451,7 +451,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 .controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state, uiFieldState) {
 
 
 	$scope.courses =  Courses.all();
@@ -668,7 +668,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
-			    { text: '<div class="icon ion-help"></div> Tutorial'}
+					{ text: '<div class="icon ion-help"></div> Tutorial'},
+					{ text: '<div class="icon ion-help"></div> Konfiguration'}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -678,6 +679,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	        },
 	     	buttonClicked: function(index) {
 	     	   	switch (index) {
+										
 		  		case 0:
 					console.log("Pro-Version kaufen");
 				  	break;
@@ -685,9 +687,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					console.log("CSV-Export");
 					break;
 				case 2:
-					$state.go('tour');
-	
+					$state.go('tour');	
 					break;
+					case 3:
+					$state.go('app-config');	
+					break;
+
 			}
 			return true;
 			}
@@ -758,10 +763,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
        			{ text: 'Nach Name' },
-				{ text: 'Nach Bienchen' }				
+				{ text: $scope.consts.nachBienchen }				
      		],
      	// destructiveText: 'Delete',
-     	titleText: 'Sortieren der Teilnehmer',
+     	titleText: $scope.consts.sortierenDerTeilnehmer,
      	cancelText: 'Abbruch',
      	cancel: function() {
         	  // add cancel code..
@@ -1126,4 +1131,21 @@ $scope.asFilterDatum= function() {
 	  $scope.activeIndex = data.slider.activeIndex;
 	  $scope.previousIndex = data.slider.previousIndex;
 	});
+})
+
+.controller('configCtrl', function($scope){
+	$scope.$on("$ionicSlides.sliderInitialized", function(event, data){
+	 // data.slider is the instance of Swiper
+	 $scope.slider = data.slider;
+ });
+ 
+ $scope.$on("$ionicSlides.slideChangeStart", function(event, data){
+	 console.log('Slide change is beginning');
+ });
+ 
+ $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
+	 // note: the indexes are 0-based
+	 $scope.activeIndex = data.slider.activeIndex;
+	 $scope.previousIndex = data.slider.previousIndex;
+ });
 });

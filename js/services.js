@@ -105,6 +105,9 @@ angular.module('app.services', [])
                     bienchenErfassenTemplate : 'Sobald Sie Teilnehmer angelegt haben, klicken Sie auf einen Teilnehmer, um ihm ein <b>Bienchen</b> zu geben. Tappen Sie auf einen Teilnehmer, um ihm ein <b>Teufelchen</b> zu geben.',
                     erfassenSieTeilnehmer : 'Erfassen Sie die Teilnehmer!',
                     erfassenSieTeilnehmerTemplate : 'Sie können später über "+ Neu" weitere Teilnehmer hinzufügen.',
+                    sortierenDerKurse : 'Sortieren der Kurse',
+                    sortierenDerTeilnehmer : 'Sortieren der Teilnehmer',
+                    nachBienchen : 'Nach Bienchen',
                     showDelete : false
                 }; 
               
@@ -132,6 +135,9 @@ angular.module('app.services', [])
                     bienchenErfassenTemplate : 'Sobald Sie Tätigkeiten angelegt haben, klicken Sie auf eine Tätigkeit, um eine <b>Zeiteinheit</b> zu buchen. Tappen Sie auf einen Tätigkeit, um eine <b>Zeiteineinheit</b> zu entfernen.',                    
                     erfassenSieTeilnehmer : 'Erfassen Sie die Tätigkeiten!',
                     erfassenSieTeilnehmerTemplate : 'Sie können später über "+ Neu" weitere Tätigkeiten hinzufügen.',
+                    sortierenDerKurse : 'Sortieren der Aufgaben',
+                    sortierenDerTeilnehmer : 'Sortieren der Tärigkeiten',
+                    nachBienchen : 'Nach Arbeitseinheiten',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 
@@ -144,6 +150,9 @@ angular.module('app.services', [])
     return {
         name : 'anonymous'
     };
+  })
+.factory('uiFieldState', function () {
+    return {uiObject: {data: null} }
   })
 
 .service('BlankService', [function(){
