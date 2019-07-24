@@ -108,6 +108,8 @@ angular.module('app.services', [])
                     sortierenDerKurse : 'Sortieren der Kurse',
                     sortierenDerTeilnehmer : 'Sortieren der Teilnehmer',
                     nachBienchen : 'Nach Bienchen',
+                    schueler : 'Schüler',
+                    schuelerPlaceholder : 'Max Mustermann',
                     showDelete : false
                 }; 
               
@@ -138,6 +140,8 @@ angular.module('app.services', [])
                     sortierenDerKurse : 'Sortieren der Aufgaben',
                     sortierenDerTeilnehmer : 'Sortieren der Tärigkeiten',
                     nachBienchen : 'Nach Arbeitseinheiten',
+                    schueler : 'Tätigkeit',
+                    schuelerPlaceholder : 'Dokumente erstellen',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 

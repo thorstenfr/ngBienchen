@@ -8,13 +8,13 @@
     </ion-header-bar>
 
     <!-- Modal content area -->
-    <ion-content>
+    <ion-content ng-controller="ModalController">
     
      <form ng-submit="closeEditPupil(pupil)">
         <div class="list">
         <label class="item item-input item-stacked-label">
-			<span class="input-label">Schüler: {{pupil.name}} </span>
-          	<input type="text" placeholder="Schüler" ng-model="pupil.name">	             
+			<span class="input-label">{{consts.schueler}}: {{pupil.name}} </span>
+          	<input type="text" placeholder={{consts.schuelerPlaceholder}} ng-model="pupil.name">	             
           </label>		  
         </div>
         <div class="padding">

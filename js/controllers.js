@@ -1133,6 +1133,11 @@ $scope.asFilterDatum= function() {
 	});
 })
 
+.controller("ModalController", function($scope){
+	$scope.showAlert = function(){ alert("I'm a modal window!") }
+})
+
+
 .controller('configCtrl', function($scope){
 	$scope.$on("$ionicSlides.sliderInitialized", function(event, data){
 	 // data.slider is the instance of Swiper
@@ -1143,6 +1148,8 @@ $scope.asFilterDatum= function() {
 	 console.log('Slide change is beginning');
  });
  
+
+
  $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){
 	 // note: the indexes are 0-based
 	 $scope.activeIndex = data.slider.activeIndex;
