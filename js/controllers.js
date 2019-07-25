@@ -931,13 +931,49 @@ $scope.asFilterDatum= function() {
         Courses.save($scope.courses);
     };
 
-    // Schüler löschen
-    $scope.delete = function(pupil) {
-        $scope.activeCourse.pupils.splice($scope.activeCourse.pupils.indexOf(pupil), 1);
-		$scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
-        // Inefficient, but save all the subjects
-        Courses.save($scope.courses);
-        };
+
+		 // Kurs löschen
+		 $scope.deleteItem = function(item) {
+
+			// Sicherheitsabfrage, falls Item ratings hat		
+			if($scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].ratings.length !== 0) {
+					$scope.showPupilDeleteConfirm(item);
+			}
+			else {
+		// Lösche item
+		delPupil(item);
+			}
+};
+
+    
+
+// A confirm dialog
+$scope.showPupilDeleteConfirm = function(pupil) {
+	var confirmPopup = $ionicPopup.confirm({
+		title: $scope.consts.schueler + ' ' + pupil.name + ' ' + $scope.consts.hatBewertungen,
+		template: 'Sind Sie sicher, dass Sie ' + $scope.consts.denSchueler
+	});
+	confirmPopup.then(function(res) {
+		if(res) {	         
+	 delPupil(pupil);
+	 
+		} else {
+			console.log('You are not sure');
+	
+		}
+	});
+};
+
+// Schüler löschen
+delPupil = function(pupil) {			
+	$scope.activeCourse.pupils.splice($scope.activeCourse.pupils.indexOf(pupil), 1);
+$scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
+	// Inefficient, but save all the subjects
+	Courses.save($scope.courses);
+	};
+
+
+
 
 
     // Rating hinzufügen

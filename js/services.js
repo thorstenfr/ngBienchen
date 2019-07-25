@@ -110,6 +110,8 @@ angular.module('app.services', [])
                     nachBienchen : 'Nach Bienchen',
                     schueler : 'Schüler',
                     schuelerPlaceholder : 'Max Mustermann',
+                    hatBewertungen : 'Buchungen',
+                    denSchueler : 'den Schüler löschen wollen.',
                     showDelete : false
                 }; 
               
@@ -142,6 +144,8 @@ angular.module('app.services', [])
                     nachBienchen : 'Nach Arbeitseinheiten',
                     schueler : 'Tätigkeit',
                     schuelerPlaceholder : 'Dokumente erstellen',
+                    hatBewertungen : 'Bewertungen',
+                    denSchueler : 'die Tätigkeit löschen wollen. Damit werden die Buchungen gelöscht.',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 
