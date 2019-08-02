@@ -669,7 +669,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
-					{ text: '<div class="icon ion-help"></div> Konfiguration'}
+					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -689,8 +689,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				case 2:
 					$state.go('tour');	
 					break;
-					case 3:
-					$state.go('app-config');	
+				case 3:
+					mytoggle=!mytoggle;
+					if (mytoggle) {
+						$scope.showBuchungsdatum=false;
+					}
+					else {
+						$scope.showBuchungsdatum=true;
+					}		
 					break;
 
 			}

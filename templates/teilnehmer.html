@@ -72,13 +72,15 @@
 
 	</form>
 	<br>	
-	<label for="buchungsDatum">Buchungsdatum:</label>
-   <input type="date" id="buchungsDatum" name="input" ng-model="buchungsDatum.datum"
-   placeholder="yyyy-MM-dd" required />
+	<div ng-if="showBuchungsdatum" class="list">
+		<label class="item item-input">
+		<span style="margin-right: 10px;">Buchungsdatum:</span> 
+		<input type="date" id="buchungsDatum" name="input" ng-model="buchungsDatum.datum"
+			placeholder="yyyy-MM-dd" required />
+		</label>
+	</div>
 	
 	
-	 <p ng-if="showBuchungsdatum">Der Text</p>
-
 
   </ion-content>
   
