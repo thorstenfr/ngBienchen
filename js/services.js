@@ -112,6 +112,7 @@ angular.module('app.services', [])
                     schuelerPlaceholder : 'Max Mustermann',
                     hatBewertungen : 'Buchungen',
                     denSchueler : 'den Schüler löschen wollen.',
+					showDoneTemplate : 'Sie haben Ihr erstes Bienchen vergeben. So können Sie direkt Leistungen und Nicht-Leistungen festhalten.',
                     showDelete : false
                 }; 
               
@@ -146,6 +147,7 @@ angular.module('app.services', [])
                     schuelerPlaceholder : 'Dokumente erstellen',
                     hatBewertungen : 'Bewertungen',
                     denSchueler : 'die Tätigkeit löschen wollen. Damit werden die Buchungen gelöscht.',
+					showDoneTemplate : 'Sie haben Ihren ersten Aufwand auf eine Tätigkeit gebucht.',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 

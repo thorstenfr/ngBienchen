@@ -516,7 +516,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.showDone = function() {
 	   var alertPopup = $ionicPopup.alert({
 	     title: 'Gratulation!',
-	     template: 'Sie haben Ihr erstes Bienchen vergeben. So können Sie direkt Leistungen und Nicht-Leistungen festhalten.'
+	     template: $scope.consts.showDoneTemplate
 	   });
 	
 	   alertPopup.then(function(res) {
