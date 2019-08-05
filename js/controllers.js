@@ -410,7 +410,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
+				{ text: '<div class="icon ion-pie-graph"></div>Liste per Email schicken (Pro)' },
 			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
@@ -667,7 +667,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>CSV-Export (Pro)' },
+				{ text: '<div class="icon ion-pie-graph"></div>Liste per Email schicken (Pro)' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
 					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'}
 			],
@@ -928,6 +928,7 @@ $scope.asFilterDatum= function() {
             bienchen : 0, // ratings - teufelchen
             ratings : [],
 			isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
+			erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
             teufelchen : []
         });
 
@@ -1154,6 +1155,18 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
+	
+	const rows = [
+		["name1", "city1", "some other info"],
+		["name2", "city2", "more info"]
+	];
+
+	let csvContent = "data:text/csv;charset=utf-8," 
+		+ rows.map(e => e.join(",")).join("\n");
+	
+	var encodedUri = encodeURI(csvContent);
+	window.open(encodedUri);
+	
     
 
 }])
