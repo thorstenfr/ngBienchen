@@ -46,7 +46,7 @@
     </ion-list>
     <div class="spacer" style="width: 300px; height: 14px;"></div>
 
-	<form ng-if="noCourses" name="form.coursesForm" role="form" ng-submit="createCourse(course.title)">
+	<form ng-if="courses.length==0" name="form.coursesForm" role="form" ng-submit="createCourse(course.title)">
     <div class="list list-inset">
     	<label class="item item-input">
   		<i class="icon ion-ios-plus-empty"></i>
