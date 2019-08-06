@@ -442,6 +442,43 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	    	 hideSheet();
 	   }, 20000);
    };
+   
+   	// Triggered on a button click, or some other target
+	$scope.showPopupArbeitseinheit = function() {
+	$scope.data = {}
+	 
+	// An elaborate, custom popup
+	var myPopup = $ionicPopup.show({
+	template: '<input type="text" ng-model="azEinheit">',
+	title: $scope.consts.neuerSchuelerTitle,		     
+	subTitle: $scope.consts.neuerSchuelerSubtitle,
+	scope: $scope,
+	buttons: [
+	{ text: 'Abbruch' },
+	{
+		text: '<b>Speichern</b>',
+		type: 'button-dark',
+		onTap: function(e) {
+		if (!$scope.azEinheit) {
+		             //don't allow the user to close unless he enters wifi password
+					 } else {
+		             return $scope.azEinheit;
+		           }
+				   
+					 
+				   
+		         }
+		       },
+		     ]
+		   });
+		   myPopup.then(function(res) {
+		     console.log('Tapped!', res);
+		   });
+		   $timeout(function() {
+		      myPopup.close(); //close the popup after 10 seconds for some reason
+		   }, 100000);
+		};
+
 
 
 }])
@@ -1135,9 +1172,9 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		   }, 100000);
 		};
 		
-		 $scope.toggle = function (v) {
-		 console.log("toogle in teilnehmerCtrl: " + v);
-        $scope[v] = !$scope[v];
+	$scope.toggle = function (v) {
+		console.log("toogle in teilnehmerCtrl: " + v);
+		$scope[v] = !$scope[v];
     };
 	
 	$scope.showReor = function() {
