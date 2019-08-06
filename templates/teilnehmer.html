@@ -83,17 +83,16 @@
 	<button class="button button-block button-positive button-small">
 		Erledigte Tätigkeiten anzeigen
 	</button>
-
-      <ion-item style="text-decoration : line-through; opacity : 0.8;" ng-show="pupil.erledigt==true" ng-if="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <input type="checkbox" ng-model="pupil.erledigt"/> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
-	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
-        <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
-        <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
-        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
+	<ion-item  style="text-decoration : line-through; opacity : 0.8;" class="item item-icon-left" ng-show="pupil.erledigt==true" ng-if="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i class="icon ion-android-checkbox-outline" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+	
+	 <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
 			  </span>
+	
+	</ion-item>
 
-        </ion-item>
+      
 	
 
   </ion-content>

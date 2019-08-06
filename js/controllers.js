@@ -1153,7 +1153,11 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 			pupil.erledigt=false;
 		}
 		
-		    	// Nicht effinzient ...
+		// Entferne letzte Buchung, da sie durch anklicken 
+		// von erledigen gesetzt wurde.
+		pupil.ratings.pop();
+	
+		// Nicht effinzient ...
         Courses.save($scope.courses);
 
 	}
