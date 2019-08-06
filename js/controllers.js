@@ -1161,6 +1161,14 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         Courses.save($scope.courses);
 
 	}
+	$scope.setzeUnerledigt = function(pupil) {
+		pupil.erledigt=false;
+		
+		// Nicht effinzient ...
+        Courses.save($scope.courses)
+		
+		
+	}
 
 }])
 

@@ -84,7 +84,7 @@
 		Erledigte Tätigkeiten anzeigen
 	</button>
 	
-	<ion-item  style="text-decoration : line-through; opacity : 0.8;" class="item item-icon-left" ng-if="showNormal" ng-show="erledigteAnzeigen==true" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy | filter: {erledigt:true} | filter: q as erledigte">  <i class="icon ion-android-checkbox-outline" ng-click="pupil.erledigt=false"></i> {{pupil.name}} : {{pupil.erledigt}}<span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+	<ion-item  style="text-decoration : line-through; opacity : 0.8;" class="item item-icon-left" ng-if="showNormal" ng-show="erledigteAnzeigen==true" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy | filter: {erledigt:true} | filter: q as erledigte">  <i class="icon ion-android-checkbox-outline" ng-click="setzeUnerledigt(pupil)"></i> {{pupil.name}} : {{pupil.erledigt}}<span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	
 	 <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
