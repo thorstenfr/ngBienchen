@@ -1145,6 +1145,18 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		
 		$scope.toggle('showReorder');
 	};
+	$scope.toggleTaskErledigt = function(pupil) {
+		if (pupil.erledigt==false)	{
+			pupil.erledigt=true;
+		}
+		else {
+			pupil.erledigt=false;
+		}
+		
+		    	// Nicht effinzient ...
+        Courses.save($scope.courses);
+
+	}
 
 }])
 
