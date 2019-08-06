@@ -453,7 +453,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state, uiFieldState) {
 
-
+	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
 	$scope.consts = Courses.getVariables();
 
