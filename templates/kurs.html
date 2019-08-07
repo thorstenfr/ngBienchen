@@ -35,7 +35,10 @@
 		<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
 	      
-        <i class="icon ion-ios-people-outline"></i>{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+        <i ng-if="bienchen" class="icon ion-ios-people-outline"></i>
+        <i ng-if="soteam" class="icon ion-ios-paper-outline"></i>
+        
+        {{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
 					{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
         <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
         </small> </span>
