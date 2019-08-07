@@ -1034,7 +1034,7 @@ $scope.asFilterDatum= function() {
     };
 
 
-		 // Kurs löschen
+		 // Teilnehmer löschen
 		 $scope.deleteItem = function(item) {
 
 			// Sicherheitsabfrage, falls Item ratings hat		
@@ -1077,7 +1077,23 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 
 
-
+	// Rating entfernen
+	$scope.deleteRating = function(item,rating) {
+	$scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].ratings.splice($scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].ratings.indexOf(rating),1);
+			
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+	}
+	
+	// Teufelchen entfernen
+	$scope.deleteTeufelchen = function(item,teufelchen) {
+		$scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].teufelchen.splice($scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].teufelchen.indexOf(teufelchen),1);
+				
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+	}
+	
+	
     // Rating hinzufügen
     $scope.addRating = function(pupil) {
 

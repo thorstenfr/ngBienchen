@@ -40,11 +40,11 @@
 
     				<ul class="small striped-list">{{bienchen.length}} {{consts.bienchenDetails}}:
 
-						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} </li>
+						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} <i ng-click="deleteRating(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
 					</ul>
-					<ul class="small">{{teufelchen.length}} {{consts.teufelchenDetails}}:
+					<ul class="small striped-list">{{teufelchen.length}} {{consts.teufelchenDetails}}:
 
-						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen" >{{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}</li>
+						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
 					</ul>
 
 			</li>
