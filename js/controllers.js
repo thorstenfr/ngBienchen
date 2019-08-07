@@ -480,6 +480,46 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		};
 
 
+// Triggered on a button click, or some other target
+$scope.showPopupAz = function() {
+  $scope.data = {};
+  $scope.data.azEinheit = $scope.azEinheit;
+
+  // An elaborate, custom popup
+  var myPopup = $ionicPopup.show({
+    template: '<input type="number" ng-model="data.azEinheit">',
+    title: 'Arbeitseinheit',
+    subTitle: 'Eine Stunde entspricht aktuell <strong>' + $scope.azEinheit + ' Arbeitseinheiten</strong>. Neuen Wert eingeben: ',
+    scope: $scope,
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-positive',
+        onTap: function(e) {
+          if (!$scope.data.azEinheit) {
+            //don't allow ser to close unless he enters wifi password
+            e.preventDefault();
+          } else {
+          $scope.azEinheit = $scope.data.azEinheit;
+          Courses.setAzEinheit($scope.azEinheit);
+            return $scope.azEinheit;
+          }
+        }
+      }
+    ]
+  });
+
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);
+  });
+
+  $timeout(function() {
+     myPopup.close(); //close the popup after 3 seconds for some reason
+  }, 30000);
+ };
+
+
 
 }])
 

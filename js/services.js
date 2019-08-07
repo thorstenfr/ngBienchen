@@ -50,6 +50,10 @@ angular.module('app.services', [])
             return parseInt(window.localStorage['azEinheit']) || 4;
             
         },
+        setAzEinheit: function(azEinheit) {
+        	window.localStorage['azEinheit'] = azEinheit;
+        },
+        
         setTotalNumberOfRatings: function(ratings) {
             window.localStorage['totalNumberOfRatings'] = ratings;
             
