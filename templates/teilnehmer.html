@@ -38,11 +38,11 @@
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 
-    				<ul class="small striped-list">{{bienchen.length}} Bienchen:
+    				<ul class="small striped-list">{{bienchen.length}} {{consts.bienchenDetails}}:
 
 						<li class="small" ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} </li>
 					</ul>
-					<ul class="small">{{teufelchen.length}} Teufelchen:
+					<ul class="small">{{teufelchen.length}} {{consts.teufelchenDetails}}:
 
 						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen" >{{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}</li>
 					</ul>

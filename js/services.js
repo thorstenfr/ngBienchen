@@ -117,6 +117,8 @@ angular.module('app.services', [])
                     hatBewertungen : 'Buchungen',
                     denSchueler : 'den Schüler löschen wollen.',
 					showDoneTemplate : 'Sie haben Ihr erstes Bienchen vergeben. So können Sie direkt Leistungen und Nicht-Leistungen festhalten.',
+					bienchenDetails : 'Bienchen',
+					teufelchenDetails : 'Teufelchen',
                     showDelete : false
                 }; 
               
@@ -152,6 +154,8 @@ angular.module('app.services', [])
                     hatBewertungen : 'Bewertungen',
                     denSchueler : 'die Tätigkeit löschen wollen. Damit werden die Buchungen gelöscht.',
 					showDoneTemplate : 'Sie haben Ihren ersten Aufwand auf eine Tätigkeit gebucht.',
+					bienchenDetails : 'Arbeitszeitbuchungen',
+					teufelchenDetails : 'Minus-Buchungen',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 
