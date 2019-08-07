@@ -6,6 +6,15 @@ angular.module('app.controllers', ['ionic'])
 function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state) {
 	
 	$scope.courses =  Courses.all();
+	
+	// Setze, ob Inline-Kursanlage input-feld angezeigt werden soll
+	if ($scope.courses.length==0) {
+		$scope.showCreateCourse=true;
+	}
+	else {
+		$scope.showCreateCourse=false;
+	}
+	
 	$scope.firstRun = Courses.getFirstRun();
 	$scope.consts = Courses.getVariables();
 	$scope.azEinheit = Courses.getAzEinheit();
@@ -220,10 +229,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	};
 		
 
-    $scope.createCourse = function(title) {
-			console.log("Erzeuge Kurs " + title);
-    	if (title) {
-    			var nc = Courses.newCourse(title);
+    $scope.createCourse = function(course) {
+			console.log("Erzeuge Kurs " + course.title);
+    	if (course.title) {
+    			var nc = Courses.newCourse(course.title);
     			$scope.courses.push(nc);
 					console.log("selectCourse");
 
@@ -231,6 +240,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
     			// Nicht effinzient ...
         	Courses.save($scope.courses);
+        	course.title='';
         	
    		}
     }
@@ -533,9 +543,17 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
 	$scope.consts = Courses.getVariables();
+	
+	
 
   $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
 	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
+	if ($scope.activeCourse.pupils.length==0) {
+	$scope.showCreate=true;
+	}
+	else {
+		$scope.showCreate=false;
+		}
 	
 
  $scope.modalData = { "msg" : "Test!" };
