@@ -13,15 +13,15 @@
         </div>
 			<div ng-if="soteam" class="row">
 				<div class="col">Du</div>
-					<div style="text-align: center;"  class="col">{{ratingsHeute / azEinheit}}</div>
-					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit}}</div>
-					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit}}</div>
-					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit}}</div>
+					<div style="text-align: center;"  class="col">{{ratingsHeute / azEinheit | number:2}}</div>
+					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit | number:2}}</div>
+					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
+					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
 			</div>
 		<div class="card">
 			<div class="item item-text-wrap">
 				<i ng-click="showPopupAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
-			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit}} Stunden</strong>.</span>
+			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
 				
 			</div>
 		</div>
