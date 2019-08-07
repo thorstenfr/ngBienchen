@@ -112,3 +112,6 @@ input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 .header .col {
   background-color:lightgrey;
 }
+ul.striped-list > li:nth-of-type(odd) {
+    background-color: #e9e9f9 ;
+}
