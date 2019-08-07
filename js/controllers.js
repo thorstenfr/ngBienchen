@@ -543,6 +543,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
 	$scope.consts = Courses.getVariables();
+	if ($scope.consts.appname=='soteam') {
+		$scope.soteam=true;
+	}
+	else {
+		$scope.soteam=false;
+	}
 	
 	
 

@@ -1,10 +1,10 @@
 angular.module('app.services', [])
 
 .factory('Courses', [function(){
-    var appname = "soteam";
-    // var appname = "bienchen";
+    // var appname = "soteam";
+    var appname = "bienchen";
     return {
-        all: function() {   
+		all: function() {   
             var courseString = window.localStorage['courses'];
             if(courseString) {
                 return angular.fromJson(courseString);
