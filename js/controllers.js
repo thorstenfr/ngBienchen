@@ -1297,18 +1297,48 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
 	
-	const rows = [
-		["name1", "city1", "some other info"],
-		["name2", "city2", "more info"]
-	];
+	
+		$scope.downloadcsv = function() {
+		
+(function () {
+var textFile = null,
+  makeTextFile = function (text) {
+    var data = new Blob([text], {type: 'text/plain'});
 
-	let csvContent = "data:text/csv;charset=utf-8," 
-		+ rows.map(e => e.join(",")).join("\n");
-	
-	var encodedUri = encodeURI(csvContent);
-	window.open(encodedUri);
-	
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    if (textFile !== null) {
+      window.URL.revokeObjectURL(textFile);
+    }
+
+    textFile = window.URL.createObjectURL(data);
+
+    return textFile;
+  };
+
+
+  var create = document.getElementById('create'),
+    textbox = document.getElementById('textbox');
+
+  create.addEventListener('click', function () {
+    var link = document.createElement('a');
+    link.setAttribute('download', 'info.txt');
+    link.href = makeTextFile(textbox.value);
+    document.body.appendChild(link);
+
+    // wait for the link to be added to the document
+    window.requestAnimationFrame(function () {
+      var event = new MouseEvent('click');
+      link.dispatchEvent(event);
+      document.body.removeChild(link);
+		});
     
+  }, false);
+})();
+
+
+		
+		}
 
 }])
 
