@@ -530,6 +530,8 @@ $scope.showPopupAz = function() {
  };
 
 
+ 	
+
 
 }])
 
@@ -1297,13 +1299,33 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
 	
+	buildCsvString = function() {
+		var str = '';
+		$scope.courses.forEach((course, index, array) => {
+			// str += course.title;
+			course.pupils.forEach((pupil, iPupil, aPupil) => {
+				str += course.title + ',' + pupil.name + ',' + pupil.ratings.length + ',' + pupil.teufelchen.length + '\n';
+			});
+		});
+		console.log("str: " + str);
+	
+	}
+	$scope.buildCsvStringEx = function() {
+		buildCsvString();
+	}
+	
+		
+	
+	
 	
 		$scope.downloadcsv = function() {
 		
 (function () {
 var textFile = null,
   makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'});
+    var data = new Blob([text], {type: 'text/plain'})
+    
+    
 
     // If we are replacing a previously generated file we need to
     // manually revoke the object URL to avoid memory leaks.
