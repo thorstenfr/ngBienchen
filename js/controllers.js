@@ -420,7 +420,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>Liste per Email schicken (Pro)' },
+				{ text: '<div class="icon ion-pie-graph"></div>CSV Export' },
 			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
@@ -435,7 +435,6 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 					console.log("Pro-Version kaufen");
 				  	break;
 				case 1:
-					console.log("CSV-Export");
 					$state.go('csv');
 					
 					break;
@@ -770,7 +769,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>Liste per Email schicken (Pro)' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
 					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'}
 			],
@@ -787,12 +785,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					console.log("Pro-Version kaufen");
 				  	break;
 				case 1:
-					console.log("CSV-Export");
-					break;
-				case 2:
 					$state.go('tour');	
 					break;
-				case 3:
+				case 2:
 					mytoggle=!mytoggle;
 					if (mytoggle) {
 						$scope.showBuchungsdatum=false;
