@@ -72,7 +72,7 @@
 
 	</form>
 	<br>	
-	<div ng-if="showBuchungsdatum" class="list">
+	<div ng-show="showNormal" ng-if="showBuchungsdatum" class="list">
 		<label class="item item-input">
 		<span style="margin-right: 10px;">Buchungsdatum:</span> 
 		<input type="date" id="buchungsDatum" name="input" ng-model="buchungsDatum.datum"
