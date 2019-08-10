@@ -7,14 +7,12 @@
 		<li ng-repeat="pupil in course.pupils">{{course.title}},{{pupil.name}},{{pupil.ratings.length}},{{pupil.teufelchen.length}} 
         </li>
 	</ul>
-	<!--
-	<a href="mailto:?subject=Important!&body=Hi.">link</a>
-	-->
+	
+	<br>
+	
+	<a class="button" href="mailto:?subject={{consts.csvsubject}}&body={{csvstr}}">Erstelle Email</a>
 	
 	<button class="button" ng-click="downloadCsvEx()">Erstelle Datei</button>
-	
-	<textarea style="background : 'grey;'" id="textbox">{{csvtext}}</textarea> <button ng-click="downloadcsv()" id="create">Create file</button> 
-	
-	
+
 </ion-content>
 </ion-view>

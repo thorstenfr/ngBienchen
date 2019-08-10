@@ -1293,6 +1293,17 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
+	$scope.consts = Courses.getVariables();
+	
+		$scope.csvstr  = 'kurs,name,bienchen,teufelchen%0D%0A';
+		$scope.courses.forEach((course, index, array) => {
+			// str += course.title;
+			course.pupils.forEach((pupil, iPupil, aPupil) => {
+				$scope.csvstr += course.title + ',' + pupil.name + ',' + pupil.ratings.length + ',' + pupil.teufelchen.length + '%0D%0A';
+			});
+		});
+		
+	
 	
 	buildCsvString = function() {
 		var str = '';
@@ -1350,50 +1361,7 @@ var textFile = null,
 	
 	
 	
-		$scope.downloadcsv = function() {
-		
-(function () {
-var textFile = null,
-  makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'})
-    
-    
-
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
-    }
-
-    textFile = window.URL.createObjectURL(data);
-
-    return textFile;
-  };
-
-
-  var create = document.getElementById('create'),
-    textbox = document.getElementById('textbox');
-
-  create.addEventListener('click', function () {
-    var link = document.createElement('a');
-    link.setAttribute('download', 'info.txt');
-    link.href = makeTextFile(textbox.value);
-    document.body.appendChild(link);
-
-    // wait for the link to be added to the document
-    window.requestAnimationFrame(function () {
-      var event = new MouseEvent('click');
-      link.dispatchEvent(event);
-      document.body.removeChild(link);
-		});
-    
-  }, false);
-})();
-
-
-		
-		}
-
+	
 }])
 
 .controller('tourCtrl', function($scope){

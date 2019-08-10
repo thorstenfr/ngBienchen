@@ -119,6 +119,7 @@ angular.module('app.services', [])
 					showDoneTemplate : 'Sie haben Ihr erstes Bienchen vergeben. So können Sie direkt Leistungen und Nicht-Leistungen festhalten.',
 					bienchenDetails : 'Bienchen',
 					teufelchenDetails : 'Teufelchen',
+					csvsubject : 'CSV Export aus bienchen by Thorsten Freimann',
                     showDelete : false
                 }; 
               
@@ -156,6 +157,7 @@ angular.module('app.services', [])
 					showDoneTemplate : 'Sie haben Ihren ersten Aufwand auf eine Tätigkeit gebucht.',
 					bienchenDetails : 'Arbeitszeitbuchungen',
 					teufelchenDetails : 'Minus-Buchungen',
+					csvsubject : 'CSV Export aus soteam by Thorsten Freimann',
                     TitlePageTwo : 'Tätigkeit'
             }; 
             } 
