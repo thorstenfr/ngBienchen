@@ -488,7 +488,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		   }, 100000);
 		};
 
-
+		
+		 
 // Triggered on a button click, or some other target
 $scope.showPopupAz = function() {
   $scope.data = {};
@@ -529,6 +530,16 @@ $scope.showPopupAz = function() {
  };
 
 
+ // Info-Dialog für Arbeitseinheiten Bienchen
+  $scope.showAlertAz = function() {
+     var alertPopup = $ionicPopup.alert({
+       title: 'Bewertungen',
+       template: 'Hier siehst du, wieviele Bewertungen (Bienchen und Teufelchen) du heute für deine Schüler erfasst hast!'
+     });
+     alertPopup.then(function(res) {
+       console.log('Thank you for not eating my delicious ice cream cone');
+     });
+   };
  	
 
 

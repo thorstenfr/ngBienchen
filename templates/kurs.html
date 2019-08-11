@@ -20,7 +20,7 @@
 			</div>
 		<div class="card">
 			<div class="item item-text-wrap">
-				<i ng-click="showPopupAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
+				<i ng-click="soteam ? showPopupAz() : showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
 			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
 				
 			</div>
