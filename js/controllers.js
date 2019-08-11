@@ -587,6 +587,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	 };
 	
 
+	$scope.closeModalPupil = function() {
+		$scope.pupilModal.hide();
+	}
+	
+	
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;
 	    $scope.pupilModal.show();
