@@ -995,12 +995,19 @@ $scope.asFilterDatum= function() {
 
 	$scope.closeEditPupil = function(pupil) {
 		$scope.activeCourse.activePupil.name = pupil.name;
+		// $scope.activeCourse.activePupil.image = "img\\" + pupil.image;
 
 		$scope.pupilModal.hide();
 
     // Inefficient, but save all the subjects
     Courses.save($scope.courses);
 	}
+	
+	
+	 $scope.uploadFile = function(){
+        var filename = event.target.files[0].name;
+		$scope.activeCourse.activePupil.image = "img\\" + filename;
+    };
 
     // Called to create a new pupil
     $scope.newPupil = function() {
@@ -1043,7 +1050,8 @@ $scope.asFilterDatum= function() {
             ratings : [],
 			isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
 			erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
-            teufelchen : []
+            teufelchen : [],
+			image : "img/No_image_available-de.svg.png"
         });
 
 
