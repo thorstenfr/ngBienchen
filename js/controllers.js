@@ -1005,8 +1005,10 @@ $scope.asFilterDatum= function() {
 	
 	
 	 $scope.uploadFile = function(){
-        var filename = event.target.files[0].name;
-		$scope.activeCourse.activePupil.image = "img\\" + filename;
+        var file = event.target.files[0];
+		var imgURL = URL.createObjectURL(file);
+		alert(imgURL);
+		$scope.activeCourse.activePupil.image = imgURL;
     };
 
     // Called to create a new pupil
