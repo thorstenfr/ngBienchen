@@ -994,9 +994,9 @@ $scope.asFilterDatum= function() {
 	}
 
 	$scope.closeEditPupil = function(pupil) {
-		$scope.activeCourse.activePupil.name = pupil.name;
-		// $scope.activeCourse.activePupil.image = "img\\" + pupil.image;
-
+		if (pupil) {
+			$scope.activeCourse.activePupil.name = pupil.name;
+		}
 		$scope.pupilModal.hide();
 
     // Inefficient, but save all the subjects
