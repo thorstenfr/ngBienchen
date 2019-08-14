@@ -1007,7 +1007,7 @@ $scope.asFilterDatum= function() {
 	 $scope.uploadFile = function(){
         var file = event.target.files[0];
 		var imgURL = URL.createObjectURL(file);
-		alert(imgURL);
+		
 		$scope.activeCourse.activePupil.image = imgURL;
     };
 
