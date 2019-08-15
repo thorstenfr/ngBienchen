@@ -17,6 +17,22 @@ angular.module('app.services', [])
             window.localStorage['courses'] = angular.toJson(courses);
 			
         },
+		loadConfig: function() {
+			var configString = window.localStorage['configs'];
+			if (configString) {
+				return angular.fromJson(configString);
+			}
+			return [];
+		},
+		saveConfig: function(configs) {
+			window.localStorage['bn-config'] = angular.toJson(configs);
+		},
+		newConfig: function() {
+			return {
+				showTagesUebersicht : true
+			};
+		},
+		
         newCourse: function(courseTitle) {
             // Add a new course
             return {

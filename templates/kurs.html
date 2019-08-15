@@ -18,7 +18,7 @@
 					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
 			</div>
-		<div class="card">
+		<div ng-if="config.showTagesUebersicht==true" class="card">
 			<div class="item item-text-wrap">
 				<i ng-click="soteam ? showPopupAz() : showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
 			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
@@ -75,6 +75,11 @@
 			<i class="icon ion-arrow-up-c"></i>
 			A-z
 		</a>
+		<a class="tab-item" ng-click="showViewKurs()">
+			<i class="icon ion-eye"></i>
+			Anzeige
+		</a>
+		
 		<a class="tab-item" ng-click="showMore()">
 			<i class="icon ion-more"></i>
 			Mehr

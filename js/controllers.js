@@ -6,6 +6,12 @@ angular.module('app.controllers', ['ionic'])
 function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state) {
 	
 	$scope.courses =  Courses.all();
+	$scope.config = Courses.loadConfig();
+	// Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
+	if ($scope.config.length==0) {
+		$scope.config = Courses.newConfig();
+		
+	}
 	
 	// Setze, ob Inline-Kursanlage input-feld angezeigt werden soll
 	if ($scope.courses.length==0) {
@@ -540,6 +546,64 @@ $scope.showPopupAz = function() {
        console.log('Thank you for not eating my delicious ice cream cone');
      });
    };
+   
+   	// Action Sheet "Anzeige"
+	$scope.showViewKurs = function() {
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+          { text: 'Übersicht anzeigen' },
+				  { text: 'Tagesauswertung anzeigen' },
+			    { text: 'Details' }
+			],
+     	// destructiveText: 'Delete',
+     	titleText: 'Anzeige',
+     	cancelText: 'Abbruch',
+     	cancel: function() {
+        	  // add cancel code..
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+			
+	  			$scope.showNormal = true;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = false;
+			  	break;
+			case 1:
+				if ($scope.config.showTagesUebersicht) {
+					$scope.config.showTagesUebersicht=false;
+					
+				}
+				else {
+					$scope.config.showTagesUebersicht=true;
+				}
+				
+				break;
+			case 2:
+				$scope.showNormal = false;
+	  			$scope.showUebersicht = false;
+	  			$scope.showDetail = true;
+
+				break;
+		}
+		
+		// Speicher Konfiguration
+		console.log($scope.config);
+		Courses.saveConfig($scope.config);
+		return true;
+		}
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
+
+
+	 
+
  	
 
 
