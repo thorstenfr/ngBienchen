@@ -7,10 +7,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
+
 	// Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
 	if ($scope.config.length==0) {
 		$scope.config = Courses.newConfig();
-		
 	}
 	
 	// Setze, ob Inline-Kursanlage input-feld angezeigt werden soll
@@ -31,9 +31,6 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	else {
 		$scope.soteam=false;
 	}
-	
-	
-
 	calcRatings = function() {
 		var heute = 0;
 		var woche = 0;
@@ -553,8 +550,8 @@ $scope.showPopupAz = function() {
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          { text: 'Übersicht anzeigen' },
-				  { text: 'Tagesauswertung anzeigen' },
+          { text: $scope.config.uebersichtText },
+				  { text: $scope.config.tagesUebersichtText },
 			    { text: 'Details' }
 			],
      	// destructiveText: 'Delete',
@@ -566,18 +563,25 @@ $scope.showPopupAz = function() {
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
+				if ($scope.config.showUebersicht) {
+					$scope.config.showUebersicht = false;
+					$scope.config.uebersichtText = "Gesamtauswertung anzeigen"; 
+				}
+				else {
+					$scope.config.showUebersicht = true;
+					$scope.config.uebersichtText = "Gesamtauswertung verbergen"; 
 			
-	  			$scope.showNormal = true;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = false;
-			  	break;
+				}
+	  		  	break;
 			case 1:
 				if ($scope.config.showTagesUebersicht) {
 					$scope.config.showTagesUebersicht=false;
+					$scope.config.tagesUebersichtText = "Tageauswertung anzeigen";
 					
 				}
 				else {
 					$scope.config.showTagesUebersicht=true;
+					$scope.config.tagesUebersichtText = "Tageauswertung verbergen";
 				}
 				
 				break;

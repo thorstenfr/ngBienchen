@@ -18,7 +18,7 @@ angular.module('app.services', [])
 			
         },
 		loadConfig: function() {
-			var configString = window.localStorage['configs'];
+			var configString = window.localStorage['bn-config'];
 			if (configString) {
 				return angular.fromJson(configString);
 			}
@@ -29,7 +29,11 @@ angular.module('app.services', [])
 		},
 		newConfig: function() {
 			return {
-				showTagesUebersicht : true
+				
+				showTagesUebersicht : true,
+				tagesUebersichtText : 'Tagesauswertung verbergen',
+				showUebersicht : true,
+				uebersichtText : 'Gesamtauswertung verbergen'
 			};
 		},
 		
@@ -62,8 +66,13 @@ angular.module('app.services', [])
             
         },
         getAzEinheit: function() {
-            // soteam: Arbeitszeiteinheit
-            return parseInt(window.localStorage['azEinheit']) || 4;
+			if (appname == "bienchen") {
+				return 1;
+			}
+			else {
+				// soteam: Arbeitszeiteinheit
+				return parseInt(window.localStorage['azEinheit']) || 4;
+			}
             
         },
         setAzEinheit: function(azEinheit) {

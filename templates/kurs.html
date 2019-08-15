@@ -4,16 +4,16 @@
     <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="true" class="has-header has-footer" >
-			<div ng-if="soteam" class="row header">
-					<div class="col">Teamer</div>
+			<div ng-if="config.showUebersicht==true" class="row header">
+					<div ng-if="soteam" class="col">Teamer</div>
           <div style="text-align: center;" class="col">Heute</div>
           <div style="text-align: center;" class="col">Woche</div>
           <div style="text-align: center;" class="col">Monat</div>
           <div style="text-align: center;" class="col">Jahr</div>          
         </div>
-			<div ng-if="soteam" class="row">
-				<div class="col">Du</div>
-					<div style="text-align: center;"  class="col">{{ratingsHeute / azEinheit | number:2}}</div>
+			<div ng-if="config.showUebersicht==true" class="row">
+				<div ng-if="soteam" class="col">Du</div>
+					<div  style="text-align: center;"  class="col">{{ratingsHeute / azEinheit | number:2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit | number:2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
