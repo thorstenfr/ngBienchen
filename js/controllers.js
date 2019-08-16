@@ -899,7 +899,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          { text: 'Normal' },
+          { text: 'Kompakt' },
+		  { text: 'Normal' },
+			
 				  { text: 'Übersicht' },
 			    { text: 'Details' }
 			],
@@ -912,21 +914,31 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-	  			$scope.showNormal = true;
+				$scope.showKompakt = true;
+	  			$scope.showNormal = false;
 	  			$scope.showUebersicht = false;
 	  			$scope.showDetail = false;
 			  	break;
 			case 1:
-				$scope.showNormal = false;
-	  			$scope.showUebersicht = true;
+				$scope.showKompakt = false;
+	  			$scope.showNormal = true;
+	  			$scope.showUebersicht = false;
 	  			$scope.showDetail = false;
-
+			
 				break;
 			case 2:
-				$scope.showNormal = false;
+				$scope.showKompakt = false;
+	  			$scope.showNormal = false;
+	  			$scope.showUebersicht = true;
+	  			$scope.showDetail = false;
+			
+				break;
+			case 3:
+				$scope.showKompakt = false;
+	  			$scope.showNormal = false;
 	  			$scope.showUebersicht = false;
 	  			$scope.showDetail = true;
-
+			
 				break;
 		}
 		return true;
