@@ -1074,8 +1074,16 @@ $scope.asFilterDatum= function() {
 	}
 
 	$scope.closeEditPupil = function(pupil) {
-		if (pupil) {
-			$scope.activeCourse.activePupil.name = pupil.name;
+		if (typeof pupil !== "undefined") {
+			if (typeof pupil.name !== "undefined") {
+				$scope.activeCourse.activePupil.name = pupil.name;
+			}
+			if (typeof pupil.kommentar !== "undefined") {
+				$scope.activeCourse.activePupil.kommentar = pupil.kommentar;
+			}
+			
+			
+			
 		}
 		$scope.pupilModal.hide();
 
