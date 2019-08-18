@@ -1422,6 +1422,15 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         Courses.save($scope.courses);
 
     }
+    
+    // Kommtar entfernen
+	$scope.deleteKommentar = function(item,kommentar) {
+	$scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].kommentare.splice($scope.activeCourse.pupils[$scope.activeCourse.pupils.indexOf(item)].kommentare.indexOf(kommentar),1);
+			
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+	}
+    
 
 }])
 

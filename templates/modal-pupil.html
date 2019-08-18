@@ -31,7 +31,7 @@
       </form>
       <h3>Kommentare</h3>
       <ul class="small striped-list">
-      	<li class="small" ng-repeat="k in activeCourse.activePupil.kommentare">{{k.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} : {{k.kommentar}} <i ng-click="deleteRating(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i>
+      	<li class="small" ng-repeat="k in activeCourse.activePupil.kommentare">{{k.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} : {{k.kommentar}} <i ng-click="deleteKommentar(activeCourse.activePupil, k)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i>
       	</li>
       
       </ul>
