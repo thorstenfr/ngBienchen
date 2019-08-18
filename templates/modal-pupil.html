@@ -19,7 +19,8 @@
 			Bild auswählen <input type="file" custom-on-change="uploadFile"/>	  			
           </label>
 		<label class="item item-input">
-			<textarea ng-model="pupil.kommentar" placeholder="Kommetar eingeben">{{activeCourse.activePupil.kommentar}}</textarea>
+			<input type="text" name="" placeholder="Kommentar" ng-model="pupil.kommentar"/>
+			
 		</label>		  
 		
         </div>
@@ -28,6 +29,13 @@
         </div>
 		
       </form>
+      <h3>Kommentare</h3>
+      <ul>
+      	<li ng-repeat="k in activeCourse.activePupil.kommentare">{{k.datum | date }} : {{k.kommentar}}
+      	</li>
+      
+      </ul>
+      
 	  
     </ion-content>
 

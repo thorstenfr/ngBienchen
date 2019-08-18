@@ -1079,7 +1079,7 @@ $scope.asFilterDatum= function() {
 				$scope.activeCourse.activePupil.name = pupil.name;
 			}
 			if (typeof pupil.kommentar !== "undefined") {
-				$scope.activeCourse.activePupil.kommentar = pupil.kommentar;
+				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
 			}
 			
 			
@@ -1141,7 +1141,8 @@ $scope.asFilterDatum= function() {
 			isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
 			erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
             teufelchen : [],
-			image : "img/No_image_available-de.svg.png"
+			image : "img/No_image_available-de.svg.png",
+			kommentare : []
         });
 
 
@@ -1397,6 +1398,30 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		
 		
 	}
+	
+		// Kommentar hinzufügen
+    $scope.addKommentar = function(pupil, kommentar) {
+
+        var d = new Date();
+        var now = d.getTime();
+        var n = d.toLocaleString();
+		
+		
+        if(!$scope.activeCourse || !pupil) {
+            return;
+
+        }
+        
+        // Kpmmentar hinzufügen
+        pupil.kommentare.push({
+            datum : now,
+            kommentar : kommentar
+        });
+       
+       // Inefficient, but save all the subjects
+        Courses.save($scope.courses);
+
+    }
 
 }])
 
