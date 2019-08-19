@@ -1080,6 +1080,7 @@ $scope.asFilterDatum= function() {
 			}
 			if (typeof pupil.kommentar !== "undefined") {
 				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
+				pupil.kommentar = '';
 			}
 			
 			
@@ -1087,8 +1088,10 @@ $scope.asFilterDatum= function() {
 		}
 		$scope.pupilModal.hide();
 
-    // Inefficient, but save all the subjects
-    Courses.save($scope.courses);
+		// pupil resetten, um keine Historiendaten anzuzeigen
+		delete pupil.name, pupil.kommentar;
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
 	}
 	
 	
