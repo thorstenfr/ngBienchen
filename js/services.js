@@ -31,9 +31,9 @@ angular.module('app.services', [])
 			return {
 				
 				showTagesUebersicht : true,
-				tagesUebersichtText : 'Tagesauswertung verbergen',
+				tagesUebersichtText : '<div class="icon ion-toggle"></div>Tagesauswertung',
 				showUebersicht : true,
-				uebersichtText : 'Gesamtauswertung verbergen'
+				uebersichtText : '<div class="icon ion-toggle"></div>Gesamtauswertung'
 			};
 		},
 		

@@ -551,8 +551,7 @@ $scope.showPopupAz = function() {
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           { text: $scope.config.uebersichtText },
-				  { text: $scope.config.tagesUebersichtText },
-			    { text: 'Details' }
+				  { text: $scope.config.tagesUebersichtText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Anzeige',
@@ -565,32 +564,28 @@ $scope.showPopupAz = function() {
 	  		case 0:
 				if ($scope.config.showUebersicht) {
 					$scope.config.showUebersicht = false;
-					$scope.config.uebersichtText = "Gesamtauswertung anzeigen"; 
+					$scope.config.uebersichtText = '<div class="icon ion-toggle"></div>Gesamtauswertung';					
 				}
 				else {
 					$scope.config.showUebersicht = true;
-					$scope.config.uebersichtText = "Gesamtauswertung verbergen"; 
+					$scope.config.uebersichtText = "Gesamtauswertung verbergen";
+					$scope.config.uebersichtText = '<div class="icon ion-toggle-filled"></div>Gesamtauswertung';	
 			
 				}
 	  		  	break;
 			case 1:
 				if ($scope.config.showTagesUebersicht) {
 					$scope.config.showTagesUebersicht=false;
-					$scope.config.tagesUebersichtText = "Tageauswertung anzeigen";
+					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle"></div>Tagesauswertung';
 					
 				}
 				else {
 					$scope.config.showTagesUebersicht=true;
-					$scope.config.tagesUebersichtText = "Tageauswertung verbergen";
+					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle-filled"></div>Tagesauswertung';
 				}
 				
 				break;
-			case 2:
-				$scope.showNormal = false;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = true;
-
-				break;
+			
 		}
 		
 		// Speicher Konfiguration
