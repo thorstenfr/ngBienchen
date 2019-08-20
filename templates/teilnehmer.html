@@ -1,5 +1,5 @@
 
-<ion-view title="{{activeCourse.title}}" cache-view="false" id="page4">
+<ion-view title="{{activeCourse.title}}" cache-view="false" id="page4" style="background-color:#F7F7F7">
 
   <ion-nav-buttons side="right" class="has-header has-footer">
 
@@ -10,16 +10,12 @@
 
   <ion-content padding="true" class="has-header has-footer">
 
-  
-	
-
-  <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+   <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	  <div ng-show="datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
-		<!-- 
+	<!-- 
 			* Kompakte Ansicht
 		-->	
-  </ion-item>
-      <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="showKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -33,8 +29,7 @@
 		<!-- 
 			* Normale Ansicht
 		-->	
-  </ion-item>
-      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="showNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -50,7 +45,7 @@
 		<!--
 		 * Detail-Darstellung
 	 -->
-    <ul id="detail" class="list" ng-show="showDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
+    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
 
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
@@ -67,7 +62,7 @@
 			</li>
 		</ul>
 
-      <div ng-show="showUebersicht" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" class="klein">
+      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" class="klein">
 			  <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
@@ -78,7 +73,7 @@
 
     </ion-list>
 	
-	<form ng-show="showKompakt || showNormal" ng-if="showCreate" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
+	<form ng-show="config.showViewKompakt || config.showViewNormal" ng-if="showCreate" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
 	    <div class="list list-inset">
 	    	<label class="item item-input">
 	  		<i class="icon ion-ios-plus-empty"></i>
