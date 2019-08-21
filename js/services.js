@@ -33,7 +33,15 @@ angular.module('app.services', [])
 				showTagesUebersicht : true,
 				tagesUebersichtText : '<div class="icon ion-toggle"></div>Tagesauswertung',
 				showUebersicht : true,
-				uebersichtText : '<div class="icon ion-toggle"></div>Gesamtauswertung'
+				uebersichtText : '<div class="icon ion-toggle"></div>Gesamtauswertung',
+				showViewKompakt : false,
+				showViewKompaktText : '<div class="icon ion-toggle"></div>Kompakt',
+				showViewNormal : true,
+				showViewNormalText : '<div class="icon ion-toggle-filled"></div>Normal',
+				showViewUebersicht : false,
+				showViewUebersichtText : '<div class="icon ion-toggle"></div>Übersicht',
+				showViewDetail : false,
+				showViewDetailText : '<div class="icon ion-toggle"></div>Detail'
 			};
 		},
 		

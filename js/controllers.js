@@ -589,7 +589,6 @@ $scope.showPopupAz = function() {
 		}
 		
 		// Speicher Konfiguration
-		console.log($scope.config);
 		Courses.saveConfig($scope.config);
 		return true;
 		}
@@ -617,6 +616,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
+	$scope.config = Courses.loadConfig();
+	
+		// Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
+	if ($scope.config.length==0) {
+		$scope.config = Courses.newConfig();
+	}
+
+
 	$scope.consts = Courses.getVariables();
 	if ($scope.consts.appname=='soteam') {
 		$scope.soteam=true;
@@ -894,11 +901,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          { text: 'Kompakt' },
-		  { text: 'Normal' },
-			
-				  { text: 'Übersicht' },
-			    { text: 'Details' }
+			{ text: $scope.config.showViewKompaktText },
+			{ text: $scope.config.showViewNormalText },
+			{ text: $scope.config.showViewUebersichtText },
+			{ text: $scope.config.showViewDetailText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Anzeige',
@@ -909,35 +915,62 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-				$scope.showKompakt = true;
-	  			$scope.showNormal = false;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = false;
+				$scope.config.showViewKompakt = true;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle-filled"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
 			  	break;
 			case 1:
-				$scope.showKompakt = false;
-	  			$scope.showNormal = true;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = false;
-			
-				break;
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = true;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle-filled"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
+			  	break;
 			case 2:
-				$scope.showKompakt = false;
-	  			$scope.showNormal = false;
-	  			$scope.showUebersicht = true;
-	  			$scope.showDetail = false;
-			
-				break;
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = true;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle-filled"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
+			  	break;
 			case 3:
-				$scope.showKompakt = false;
-	  			$scope.showNormal = false;
-	  			$scope.showUebersicht = false;
-	  			$scope.showDetail = true;
-			
-				break;
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = true;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle-filled"></div>Detail';
+			  	break;
 		}
+			// Speicher Konfiguration
+		Courses.saveConfig($scope.config);
 		return true;
-		}
+		} 	
 	});
    // For example's sake, hide the sheet after two seconds
    $timeout(function() {
