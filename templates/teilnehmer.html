@@ -10,6 +10,28 @@
 
   <ion-content padding="true" class="has-header has-footer">
 
+  <div   ng-if="config.showViewFilterDateField==true">
+		<div class="row bar bar-header item-input-inset">
+		 <div class="col">
+		  <label class="item-input-wrapper">
+			<i class="icon ion-ios-search placeholder-icon"></i>
+			 <input  id="von_input" type="date" ng-model="activeCourse.vonDatum">
+		  </label>
+		  </div>
+		 <div class="col">
+		  <label class="item-input-wrapper">
+			<i class="icon ion-ios-search placeholder-icon"></i>
+			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum">
+		  </label>
+		  </div>
+		 
+	  </div>
+	</div>
+			
+			
+			
+	        
+  
    <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
 	  <div ng-show="datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
 	<!-- 
@@ -121,9 +143,9 @@
 			<i class="icon ion-arrow-up-c"></i>
 			A-z
 		</a>
-		<a class="tab-item" ng-click="newDatumFilter()">
-			<i class="icon ion-calendar"></i>
-			Datum
+		<a class="tab-item" ng-click="showViewFilter()">
+			<i class="icon ion-funnel"></i>
+			Filter
 		</a>
 		<a class="tab-item" ng-click="showView()">
 			<i class="icon ion-eye"></i>

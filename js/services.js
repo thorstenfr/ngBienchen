@@ -41,7 +41,13 @@ angular.module('app.services', [])
 				showViewUebersicht : false,
 				showViewUebersichtText : '<div class="icon ion-toggle"></div>Übersicht',
 				showViewDetail : false,
-				showViewDetailText : '<div class="icon ion-toggle"></div>Detail'
+				showViewDetailText : '<div class="icon ion-toggle"></div>Detail',
+				showViewFilterFilter : false,
+				showViewFilterFilterText : '<div class="icon ion-toggle"></div>Text',
+				showViewFilterDateField : false,
+				showViewFilterDateFieldText : '<div class="icon ion-toggle"></div>Datum',
+				showViewFilterDatePeriod : false,
+				showViewFilterDatePeriodText : '<div class="icon ion-toggle"></div>Zeitraum'
 			};
 		},
 		

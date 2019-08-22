@@ -1033,6 +1033,66 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    }, 20000);
 };
 
+
+// Action Sheet "Filter"
+	$scope.showViewFilter = function() {
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+			{ text: $scope.config.showViewFilterFilterText },
+			{ text: $scope.config.showViewFilterDateFieldText },
+			{ text: $scope.config.showViewFilterDatePeriodText },
+			{ text: $scope.config.showViewDetailText }
+			],
+     	// destructiveText: 'Delete',
+     	titleText: 'Anzeige',
+     	cancelText: 'Abbruch',
+     	cancel: function() {
+        	  // add cancel code..
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+				$scope.config.showViewFilterFilter = true;
+				$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
+				
+	  			break;
+			case 1:
+				if ($scope.config.showViewFilterDateField) {
+					$scope.config.showViewFilterDateField=false;
+					$scope.config.showViewFilterDateFieldText = '<div class="icon ion-toggle"></div>Datum';
+					delete $scope.activeCourse.vonDatum;
+					delete $scope.activeCourse.bisDatum;
+					
+				}
+				else {
+					$scope.config.showViewFilterDateField=true;
+					$scope.config.showViewFilterDateFieldText = '<div class="icon ion-toggle-filled"></div>Datum';
+				}
+				
+	  		  	break;
+			case 2:
+			  	break;
+			case 3:
+			  	break;
+		}
+			// Speicher Konfiguration
+		Courses.saveConfig($scope.config);
+		return true;
+		} 	
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
+
+
+
+
+
+
 $scope.asFilterDatum= function() {
 
 	// Show the action sheet
