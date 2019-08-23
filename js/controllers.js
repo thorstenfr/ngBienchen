@@ -163,6 +163,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	};
 
 
+	
 
 	$scope.showAlert = function() {
 	   var alertPopup = $ionicPopup.alert({
@@ -942,7 +943,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			  	break;
 			case 2:
 				if ($scope.activeCourse.pupils.length==0) {
-					alert("Zunächst Schüler erfassen");
+					$scope.myAlert("Übersicht", "Für Übersichtansicht zunächst Schüler erfassen.");
 					break;
 				}
 				$scope.config.showViewKompakt = false;
@@ -958,6 +959,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
 			  	break;
 			case 3:
+				if ($scope.activeCourse.pupils.length==0) {
+					$scope.myAlert("Details", "Für Detailansicht zunächst Schüler erfassen.");
+					break;
+				}
 				$scope.config.showViewKompakt = false;
 				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
 				
@@ -1526,6 +1531,20 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		Courses.save($scope.courses);
 	}
     
+    
+    // Generischer Alert
+    $scope.myAlert = function(title, template) {
+	   var alertPopup = $ionicPopup.alert({
+	     title: title,
+	     template: template
+	   });
+	
+	   alertPopup.then(function(res) {
+	     console.log('Thank you for not eating my delicious ice cream cone');
+	     
+	   });
+	};
+
 
 }])
 
