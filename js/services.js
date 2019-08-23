@@ -47,7 +47,11 @@ angular.module('app.services', [])
 				showViewFilterDateField : false,
 				showViewFilterDateFieldText : '<div class="icon ion-toggle"></div>Datum',
 				showViewFilterDatePeriod : false,
-				showViewFilterDatePeriodText : '<div class="icon ion-toggle"></div>Zeitraum'
+				showViewFilterDatePeriodText : '<div class="icon ion-toggle"></div>Zeitraum',
+				showBuchungsdatum : false,
+				showBuchungsdatumText : '<div class="icon ion-toggle"></div> Buchungsdatum setzen',
+				showCreate : false,
+				showCreateText : '<div class="icon ion-toggle"></div> Schnelleingabe'
 			};
 		},
 		

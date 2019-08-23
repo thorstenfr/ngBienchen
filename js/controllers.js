@@ -857,8 +857,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
-					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'},
-					{ text: '<div class="icon ion-calendar"></div> Schnelleingabe anzeige '}
+					{ text: $scope.config.showBuchungsdatumText },
+					{ text: $scope.config.showCreateText}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -876,20 +876,23 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					$state.go('tour');	
 					break;
 				case 2:
-					mytoggle=!mytoggle;
-					if (mytoggle) {
-						$scope.showBuchungsdatum=false;
+					if ($scope.config.showBuchungsdatum) {
+						$scope.config.showBuchungsdatum=false;
+						$scope.config.showBuchungsdatumText = '<div class="icon ion-toggle"></div> Buchungsdatum setzen';
 					}
 					else {
-						$scope.showBuchungsdatum=true;
-					}		
+						$scope.config.showBuchungsdatum=true;
+						$scope.config.showBuchungsdatumText = '<div class="icon ion-toggle-filled"></div> Buchungsdatum setzen';
+					}
 					break;
 					case 3:
-					if ($scope.showCreate==false) {
-						$scope.showCreate=true;
+					if ($scope.showCreate) {
+						$scope.showCreate=false;
+						$scope.config.showCreateText = '<div class="icon ion-toggle"></div> Schnelleingabe';
 					}
 					else {
-						$scope.showCreate=false;
+						$scope.showCreate=true;
+						$scope.config.showCreateText = '<div class="icon ion-toggle-filled"></div> Schnelleingabe';
 					}
 					break;
 
