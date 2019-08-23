@@ -857,7 +857,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
-					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'}
+					{ text: '<div class="icon ion-calendar"></div> Buchungsdatum setzen'},
+					{ text: '<div class="icon ion-calendar"></div> Schnelleingabe anzeige '}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -882,6 +883,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					else {
 						$scope.showBuchungsdatum=true;
 					}		
+					break;
+					case 3:
+					if ($scope.showCreate==false) {
+						$scope.showCreate=true;
+					}
+					else {
+						$scope.showCreate=false;
+					}
 					break;
 
 			}
