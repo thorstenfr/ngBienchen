@@ -941,6 +941,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
 			  	break;
 			case 2:
+				if ($scope.activeCourse.pupils.length==0) {
+					alert("Zunächst Schüler erfassen");
+					break;
+				}
 				$scope.config.showViewKompakt = false;
 				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
 				
