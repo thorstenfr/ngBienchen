@@ -10,24 +10,13 @@
 
   <ion-content padding="true" class="has-header has-footer">
 
+  
+  
   <div   ng-if="config.showViewFilterDatePeriod==true">
 		<div class="row bar bar-header item-input-inset">
-			<div class="col">
-		  <label class="item-input-wrapper">
-			<i class="icon ion-ios-search placeholder-icon"></i>
-			 <input  id="von_input" type="date" ng-model="activeCourse.vonDatum">
-		  </label>
-		  </div>
-		 <div class="col">
-		  <label class="item-input-wrapper">
-			<i class="icon ion-ios-search placeholder-icon"></i>
-			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum">
-		  </label>
-		  </div>
-			
 			
 			<div class="col">
-				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</input>
+				<input style="align : center" type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</input>
 			</div>
 			<div class="col">
 				<input type="radio"	ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Woche'">Woche</input>
@@ -35,8 +24,22 @@
 			<div class="col">
 				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Monat'">Monat</input>
 			</div>
-		</div>	  
-	
+		</div>
+		<div class="row bar bar-header item-input-inset">
+			<div class="col">
+		  <label class="item-input-wrapper">
+			 <input  id="von_input" type="date" ng-model="activeCourse.vonDatum">
+		  </label>
+		  </div>
+		 <div class="col">
+		  <label class="item-input-wrapper">
+			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum">
+		  </label>
+		  </div>
+		  
+		</div>
+			  
+<br>	
 </div>
 	
   
