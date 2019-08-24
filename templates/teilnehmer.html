@@ -10,9 +10,9 @@
 
   <ion-content padding="true" class="has-header has-footer">
 
-  <div   ng-if="config.showViewFilterDateField==true">
+  <div   ng-if="config.showViewFilterDatePeriod==true">
 		<div class="row bar bar-header item-input-inset">
-		 <div class="col">
+			<div class="col">
 		  <label class="item-input-wrapper">
 			<i class="icon ion-ios-search placeholder-icon"></i>
 			 <input  id="von_input" type="date" ng-model="activeCourse.vonDatum">
@@ -24,17 +24,28 @@
 			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum">
 		  </label>
 		  </div>
-		 
-	  </div>
-	</div>
 			
 			
-			
-	        
+			<div class="col">
+				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</input>
+			</div>
+			<div class="col">
+				<input type="radio"	ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Woche'">Woche</input>
+			</div>
+			<div class="col">
+				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Monat'">Monat</input>
+			</div>
+		</div>	  
+	
+</div>
+	
+  
+  
+ 	        
   
    <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
-	  <div ng-show="datumfilter" class="hervorgehoben">Filter von: {{activeCourse.vonDatum | date: "dd.MM.y"}} bis: {{activeCourse.bisDatum | date: "dd.MM.y"}}</div>
-	<!-- 
+	  
+	  <!-- 
 			* Kompakte Ansicht
 		-->	
       <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>

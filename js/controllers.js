@@ -1062,7 +1062,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
 			{ text: $scope.config.showViewFilterFilterText },
-			{ text: $scope.config.showViewFilterDateFieldText },
 			{ text: $scope.config.showViewFilterDatePeriodText },
 			{ text: $scope.config.showViewDetailText }
 			],
@@ -1080,22 +1079,21 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				
 	  			break;
 			case 1:
-				if ($scope.config.showViewFilterDateField) {
-					$scope.config.showViewFilterDateField=false;
-					$scope.config.showViewFilterDateFieldText = '<div class="icon ion-toggle"></div>Datum';
+		if ($scope.config.showViewFilterDatePeriod) {
+					$scope.config.showViewFilterDatePeriod=false;
+					$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle"></div>Datum';
 					delete $scope.activeCourse.vonDatum;
 					delete $scope.activeCourse.bisDatum;
 					
 				}
 				else {
-					$scope.config.showViewFilterDateField=true;
-					$scope.config.showViewFilterDateFieldText = '<div class="icon ion-toggle-filled"></div>Datum';
+					$scope.config.showViewFilterDatePeriod=true;
+					$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
 				}
 				
-	  		  	break;
+	  			
+	  	break;
 			case 2:
-			  	break;
-			case 3:
 			  	break;
 		}
 			// Speicher Konfiguration
