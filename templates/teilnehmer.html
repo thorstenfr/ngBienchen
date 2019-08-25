@@ -11,18 +11,28 @@
   <ion-content padding="true" class="has-header has-footer">
 
   
+  <div ng-if="config.showViewFilterFilter===true" class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" ng-model="activeCourse.textsearch" placeholder="Search">
+  </label>
+  <button style="color :grey;"  ng-click="activeCourse.textsearch = undefined" class="button button-clear">
+    Cancel
+  </button>
+</div>
+  
   
   <div   ng-if="config.showViewFilterDatePeriod==true">
 		<div class="row bar bar-header item-input-inset">
 			
 			<div class="col">
-				<input style="align : center" type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</input>
+				<input style="align : center" type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)" ng-model="activeCourse.dat_wahl" ng-value="'Tag'">Heute</input>
 			</div>
 			<div class="col">
-				<input type="radio"	ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Woche'">Woche</input>
+				<input type="radio"	ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)" ng-model="activeCourse.dat_wahl" ng-value="'Woche'">Woche</input>
 			</div>
 			<div class="col">
-				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)"ng-model="activeCourse.dat_wahl" ng-value="'Monat'">Monat</input>
+				<input type="radio" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)" ng-model="activeCourse.dat_wahl" ng-value="'Monat'">Monat</input>
 			</div>
 		</div>
 		<div class="row bar bar-header item-input-inset">
@@ -51,7 +61,7 @@
 	  <!-- 
 			* Kompakte Ansicht
 		-->	
-      <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils  | filter : activeCourse.textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -65,7 +75,7 @@
 		<!-- 
 			* Normale Ansicht
 		-->	
-      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -81,7 +91,7 @@
 		<!--
 		 * Detail-Darstellung
 	 -->
-    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy">
+    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy">
 
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
@@ -98,7 +108,7 @@
 			</li>
 		</ul>
 
-      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils |  orderBy:myOrderBy" class="klein">
+      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy" class="klein">
 			  <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">

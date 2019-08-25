@@ -1074,8 +1074,18 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-				$scope.config.showViewFilterFilter = true;
-				$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
+				if($scope.config.showViewFilterFilter) {
+					$scope.config.showViewFilterFilter = false;
+					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
+				 delete $scope.activeCourse.textsearch;
+				
+				}
+				else {
+					$scope.config.showViewFilterFilter = true;
+					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
+				
+				}
+				
 				
 	  			break;
 			case 1:
