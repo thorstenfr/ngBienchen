@@ -17,9 +17,12 @@
     <input type="search" ng-model="activeCourse.textsearch" placeholder="Search">
   </label>
   <button style="color :grey;"  ng-click="activeCourse.textsearch = undefined" class="button button-clear">
-    Cancel
+    Löschen
   </button>
 </div>
+
+<p>Filter : {{activeCourse.textsearch}}</p>
+
   
   
   <div   ng-if="config.showViewFilterDatePeriod==true">
@@ -75,7 +78,7 @@
 		<!-- 
 			* Normale Ansicht
 		-->	
-      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -91,7 +94,7 @@
 		<!--
 		 * Detail-Darstellung
 	 -->
-    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy">
+    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy">
 
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
@@ -108,7 +111,7 @@
 			</li>
 		</ul>
 
-      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils | filter : textsearch |  orderBy:myOrderBy" class="klein">
+      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" class="klein">
 			  <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
