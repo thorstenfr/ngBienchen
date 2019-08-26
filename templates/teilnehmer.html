@@ -21,9 +21,6 @@
   </button>
 </div>
 
-<p>Filter : {{activeCourse.textsearch}}</p>
-
-  
   
   <div   ng-if="config.showViewFilterDatePeriod==true">
 		<div class="row bar bar-header item-input-inset">
@@ -94,7 +91,7 @@
 		<!--
 		 * Detail-Darstellung
 	 -->
-    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy">
+    <ul ng-click="myAlert('Detailansicht', 'Sie können in der Detailansicht keine Wertungen erfassen!')" id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy">
 
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
@@ -111,7 +108,7 @@
 			</li>
 		</ul>
 
-      <div ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" class="klein">
+      <div ng-click="myAlert('Übersichtansicht', 'Sie können in der Übersichtansicht keine Wertungen erfassen!')" ng-show="config.showViewUebersicht" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" class="klein">
 			  <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
 			  </span>
 			  <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
