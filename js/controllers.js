@@ -1063,7 +1063,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      		buttons: [
 			{ text: $scope.config.showViewFilterFilterText },
 			{ text: $scope.config.showViewFilterDatePeriodText },
-			{ text: $scope.config.showViewDetailText }
+			{ text: $scope.config.showFilterBestlistText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Anzeige',
@@ -1084,26 +1084,35 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					$scope.config.showViewFilterFilter = true;
 					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
 				
-				}
-				
-				
+				}				
 	  			break;
 			case 1:
-		if ($scope.config.showViewFilterDatePeriod) {
+				if ($scope.config.showViewFilterDatePeriod) {
 					$scope.config.showViewFilterDatePeriod=false;
 					$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle"></div>Datum';
 					delete $scope.activeCourse.vonDatum;
 					delete $scope.activeCourse.bisDatum;
-					
 				}
 				else {
 					$scope.config.showViewFilterDatePeriod=true;
 					$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
 				}
-				
-	  			
-	  	break;
+				break;
 			case 2:
+				if ($scope.config.showFilterBestlist) {
+					$scope.config.showFilterBestlist = false;
+					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
+					delete $scope.myOrderBy;
+					delete $scope.myLimit;
+				
+				}
+				else {
+					$scope.config.showFilterBestlist=true;
+					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
+					$scope.myOrderBy='-bienchen';
+					$scope.myLimit = 3;
+			}
+				
 			  	break;
 		}
 			// Speicher Konfiguration

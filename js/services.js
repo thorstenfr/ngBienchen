@@ -46,6 +46,8 @@ angular.module('app.services', [])
 				showViewFilterFilterText : '<div class="icon ion-toggle"></div>Text',
 				showViewFilterDatePeriod : false,
 				showViewFilterDatePeriodText : '<div class="icon ion-toggle"></div>Datum',
+				showFilterBestlist : false,
+				showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste',
 				showBuchungsdatum : false,
 				showBuchungsdatumText : '<div class="icon ion-toggle"></div> Buchungsdatum setzen',
 				showCreate : false,
