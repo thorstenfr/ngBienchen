@@ -91,7 +91,7 @@
 		<!--
 		 * Detail-Darstellung
 	 -->
-    <ul ng-click="myAlert('Detailansicht', 'Sie können in der Detailansicht keine Wertungen erfassen!')" id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy">
+    <ul id="detail" class="list" ng-show="config.showViewDetail" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy">
 
 
 			<li class="item">{{pupil.name}} <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
