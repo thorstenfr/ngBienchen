@@ -391,16 +391,6 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 						}				
 				  		break;
 						
-					case 1:
-						mytoggle	=!mytoggle;
-						if (mytoggle) {
-							$scope.orderByMe('bienchen');
-						}
-						else {
-							$scope.orderByMe('-bienchen')
-						}	
-						
-						break;
 						
 				   	}
 					return true;
@@ -1036,10 +1026,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			case 1:
 				mytoggle	=!mytoggle;
 				if (mytoggle) {
-					$scope.orderByMe('bienchen');
+					$scope.orderByMe('ratings.length-teufelchen.length');
 				}
 				else {
-					$scope.orderByMe('-bienchen')
+					$scope.orderByMe('-(ratings.length-teufelchen.length)')
 				}	
 				
 				break;
