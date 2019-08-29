@@ -75,7 +75,7 @@
 		<!-- 
 			* Normale Ansicht
 		-->	
-      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
+      <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)"> <img src={{pupil.image}}> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <br><small style="color : grey;  font-style : italic;" ng-if="pupil.kommentare.length==0">Keine Kommentare vorhanden</small><small ng-repeat="k in pupil.kommentare"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
@@ -118,7 +118,8 @@
 
 
     </ion-list>
-	
+    
+	<!-- Schnelleingabe -->
 	<form ng-show="config.showViewKompakt || config.showViewNormal" ng-if="showCreate" name="form.pupilsForm" role="form" ng-submit="createPupilEx(pupil)">
 	    <div class="list list-inset">
 	    	<label class="item item-input">
