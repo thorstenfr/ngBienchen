@@ -1093,14 +1093,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					$scope.config.showFilterBestlist = false;
 					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
 					delete $scope.myOrderBy;
-					delete $scope.myLimit;
+					delete $scope.activeCourse.myLimit;
 				
 				}
 				else {
 					$scope.config.showFilterBestlist=true;
 					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
 					$scope.myOrderBy='-bienchen';
-					$scope.myLimit = 3;
+					
 			}
 				
 			  	break;
