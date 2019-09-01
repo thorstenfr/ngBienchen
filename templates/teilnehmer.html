@@ -85,7 +85,7 @@
 	  <!-- 
 			* Kompakte Ansicht
 		-->	
-      <ion-item  class="soteam ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils  | filter : activeCourse.textsearch |  orderBy: myOrderBy |  limitTo : activeCourse.myLimit" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{pupil.ratings.length-pupil.teufelchen.length}} </span>
+      <ion-item  class="soteam || config.showFilterBestlist ? 'item item-icon-left' : 'item'" ng-show="pupil.erledigt==false" ng-if="config.showViewKompakt" id="teilnehmer-list-item5" ng-repeat="pupil  in activeCourse.pupils  | filter : activeCourse.textsearch |  orderBy: myOrderBy |  limitTo : activeCourse.myLimit" ng-click="addRating(pupil)" on-hold="addTeufelchen(pupil)">  <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i><i ng-if="config.showFilterBestlist==true" ng-class=trophiesList[$index] ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}} <span class="badge badge-positive"> {{pupil.ratings.length-pupil.teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>

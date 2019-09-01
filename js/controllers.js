@@ -608,8 +608,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
-	
-		// Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
+    
+    // Liste für Trophy Bilder
+    $scope.trophiesList = ["icon ion-email", "icon ion-chatbubble-working", "icon ion-ios-telephone-outline"];
+		
+    // Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
 	if ($scope.config.length==0) {
 		$scope.config = Courses.newConfig();
 	}
