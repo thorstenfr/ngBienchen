@@ -610,7 +610,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.config = Courses.loadConfig();
     
     // Liste für Trophy Bilder
-    $scope.trophiesList = ["icon ion-email", "icon ion-chatbubble-working", "icon ion-ios-telephone-outline"];
+    $scope.trophiesList = ["icon ion-trophy", "icon ion-trophy", "icon ion-trophy"];
 		
     // Prüfe, ob erste Konfiguration, falls, setze neue Konfiguration
 	if ($scope.config.length==0) {
