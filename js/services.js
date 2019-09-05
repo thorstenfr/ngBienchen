@@ -1,8 +1,8 @@
 angular.module('app.services', [])
 
 .factory('Courses', [function(){
-    // var appname = "soteam";
-    var appname = "bienchen";
+    var appname = "soteam";
+    // var appname = "bienchen";
     return {
 		all: function() {   
             var courseString = window.localStorage['courses'];
@@ -46,8 +46,7 @@ angular.module('app.services', [])
 				showViewFilterFilterText : '<div class="icon ion-toggle"></div>Text',
 				showViewFilterDatePeriod : false,
 				showViewFilterDatePeriodText : '<div class="icon ion-toggle"></div>Datum',
-				showFilterBestlist : false,
-				showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste',
+				showFilterBestlist : false,				
 				showBuchungsdatum : false,
 				showBuchungsdatumText : '<div class="icon ion-toggle"></div> Buchungsdatum setzen',
 				showCreate : false,
@@ -163,7 +162,8 @@ angular.module('app.services', [])
 					bienchenDetails : 'Bienchen',
 					teufelchenDetails : 'Teufelchen',
 					csvsubject : 'CSV Export aus bienchen by Thorsten Freimann',
-                    showDelete : false
+                    showDelete : false,
+                    showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste'
                 }; 
               
             }
@@ -201,7 +201,10 @@ angular.module('app.services', [])
 					bienchenDetails : 'Arbeitszeitbuchungen',
 					teufelchenDetails : 'Minus-Buchungen',
 					csvsubject : 'CSV Export aus soteam by Thorsten Freimann',
-                    TitlePageTwo : 'Tätigkeit'
+                    TitlePageTwo : 'Tätigkeit',
+                    showFilterBestlistTextFalse : '<div class="icon ion-toggle"></div>Aufwand',
+                    showFilterBestlistTextTrue : '<div class="icon ion-toggle-filled"></div>Aufwand'
+                    
             }; 
             } 
            
