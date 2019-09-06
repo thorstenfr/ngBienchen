@@ -1488,7 +1488,9 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		
 	$scope.toggle = function (v) {
 		console.log("toogle in teilnehmerCtrl: " + v);
-		$scope[v] = !$scope[v];
+        $scope[v] = !$scope[v];
+      
+      
     };
 	
 	$scope.showReor = function() {

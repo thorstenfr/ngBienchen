@@ -203,7 +203,10 @@ angular.module('app.services', [])
 					csvsubject : 'CSV Export aus soteam by Thorsten Freimann',
                     TitlePageTwo : 'Tätigkeit',
                     showFilterBestlistTextFalse : '<div class="icon ion-toggle"></div>Aufwand',
-                    showFilterBestlistTextTrue : '<div class="icon ion-toggle-filled"></div>Aufwand'
+                    showFilterBestlistTextTrue : '<div class="icon ion-toggle-filled"></div>Aufwand',
+                    erledigteTaetigkeitenAnzeigenTrue : 'Erledigte Tätigkeiten verbergen',
+                    erledigteTaetigkeitenAnzeigenFalse : 'Erledigte Tätigkeiten anzeigen'
+                    
                     
             }; 
             } 
