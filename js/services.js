@@ -155,7 +155,6 @@ angular.module('app.services', [])
                     sortierenDerKurse : 'Sortieren der Kurse',
                     sortierenDerTeilnehmer : 'Sortieren der Teilnehmer',
                     nachBienchen : 'Nach Bienchen',
-                    schueler : 'Schüler',
                     schuelerPlaceholder : 'Max Mustermann',
                     hatBewertungen : 'Buchungen',
                     denSchueler : 'den Schüler löschen wollen.',
@@ -164,7 +163,9 @@ angular.module('app.services', [])
 					teufelchenDetails : 'Teufelchen',
 					csvsubject : 'CSV Export aus bienchen by Thorsten Freimann',
                     showDelete : false,
-                    showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste'
+                    showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste',
+                    schuelerNameEingeben : 'Neuer Name'
+                    
                 }; 
               
             }
@@ -206,7 +207,8 @@ angular.module('app.services', [])
                     showFilterBestlistTextFalse : '<div class="icon ion-toggle"></div>Aufwand',
                     showFilterBestlistTextTrue : '<div class="icon ion-toggle-filled"></div>Aufwand',
                     erledigteTaetigkeitenAnzeigenTrue : 'Erledigte Tätigkeiten verbergen',
-                    erledigteTaetigkeitenAnzeigenFalse : 'Erledigte Tätigkeiten anzeigen'
+                    erledigteTaetigkeitenAnzeigenFalse : 'Erledigte Tätigkeiten anzeigen',
+                    schuelerNameEingeben : 'Neue Bezeichnung'
                     
                     
             }; 

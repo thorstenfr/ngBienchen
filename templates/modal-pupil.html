@@ -15,7 +15,7 @@
         <label class="item item-avatar">
 			 <img src={{activeCourse.activePupil.image}}>
 			<span class="input-label">{{consts.schueler}}: {{pupil.name}} </span>
-          	<input type="text" placeholder="Schülername eingeben" ng-model="pupil.name">
+          	<input type="text" placeholder={{consts.schuelerNameEingeben}} ng-model="pupil.name">
 			Bild auswählen <input type="file" custom-on-change="uploadFile"/>	  			
           </label>
 		<label class="item item-input">
