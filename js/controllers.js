@@ -1489,15 +1489,26 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	$scope.toggle = function (v) {
 		console.log("toogle in teilnehmerCtrl: " + v);
         $scope[v] = !$scope[v];
-      
-      
     };
+    $scope.toggleErledigteAnzeigen = function() {
+        if ($scope.config.showErledigteAnzeigen==true) {
+            $scope.config.showErledigteAnzeigen=false;
+        }
+        else {
+            $scope.config.showErledigteAnzeigen=true;
+        }
+        
+        // Speicher Konfiguration
+		Courses.saveConfig($scope.config);
+		
+    }
 	
 	$scope.showReor = function() {
 		$scope.orderByMe('');
 		
 		$scope.toggle('showReorder');
 	};
+    
 	$scope.toggleTaskErledigt = function(pupil) {
 		if (pupil.erledigt==false)	{
 			pupil.erledigt=true;

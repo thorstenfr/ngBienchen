@@ -50,7 +50,8 @@ angular.module('app.services', [])
 				showBuchungsdatum : false,
 				showBuchungsdatumText : '<div class="icon ion-toggle"></div> Buchungsdatum setzen',
 				showCreate : false,
-				showCreateText : '<div class="icon ion-toggle"></div> Schnelleingabe'
+				showCreateText : '<div class="icon ion-toggle"></div> Schnelleingabe',
+                showErledigteAnzeigen : true
 			};
 		},
 		
