@@ -1059,7 +1059,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			{ text: $scope.config.showFilterBestlistText }
 			],
      	// destructiveText: 'Delete',
-     	titleText: 'Anzeige',
+     	titleText: 'Filter',
      	cancelText: 'Abbruch',
      	cancel: function() {
         	  // add cancel code..
