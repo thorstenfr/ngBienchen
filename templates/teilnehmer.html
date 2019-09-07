@@ -11,8 +11,7 @@
   <ion-content padding="true" class="has-header has-footer">
 
 	<!-- Bestenliste -->
-	
-    <div   ng-if="config.showFilterBestlist==true" style="margin-bottom: 5px;">
+	<div   ng-if="config.showFilterBestlist==true" class="bn-filter">
 		<div class="row bar bar-header item-input-inset">
 			<div class="col">
 				<input type="radio" ng-model="activeCourse.myLimit" ng-value="3"> Top 3</input>
@@ -32,8 +31,8 @@
     </div>
 
 
-  
-  <div ng-if="config.showViewFilterFilter===true" class="bar bar-header item-input-inset">
+  <!-- Textfilter -->
+  <div ng-if="config.showViewFilterFilter===true" class="bar bar-header item-input-inset bn-filter">
   <label class="item-input-wrapper">
     <i class="icon ion-ios-search placeholder-icon"></i>
     <input type="search" ng-model="activeCourse.textsearch" placeholder="Search">
@@ -43,8 +42,8 @@
   </button>
 </div>
 
-  
-  <div   ng-if="config.showViewFilterDatePeriod==true">
+  <!-- Datumfilter -->
+  <div class="bn-filter" ng-if="config.showViewFilterDatePeriod==true">
 		<div class="row bar bar-header item-input-inset">
 			
 			<div class="col">
@@ -70,8 +69,6 @@
 		  </div>
 		  
 		</div>
-			  
-<br>	
 </div>
 	
   

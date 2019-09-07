@@ -115,3 +115,6 @@ input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
 ul.striped-list > li:nth-of-type(odd) {
     background-color: #e9e9f9 ;
 }
+.bn-filter {
+    margin-bottom: 5px;
+}
