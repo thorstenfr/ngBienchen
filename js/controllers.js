@@ -1050,8 +1050,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 // Action Sheet "Filter"
 	$scope.showViewFilter = function() {
-
-		// Show the action sheet
+        // Initales setzen der Werte 
+        $scope.config.showFilterBestlistText = $scope.consts.showFilterBestlistTextFalse;
+		
+        // Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
 			{ text: $scope.config.showViewFilterFilterText },
