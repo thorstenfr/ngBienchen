@@ -1,8 +1,8 @@
 angular.module('app.services', [])
 
 .factory('Courses', [function(){
-    var appname = "soteam";
-    // var appname = "bienchen";
+    // var appname = "soteam";
+    var appname = "bienchen";
     return {
 		all: function() {   
             var courseString = window.localStorage['courses'];
@@ -164,7 +164,7 @@ angular.module('app.services', [])
 					csvsubject : 'CSV Export aus bienchen by Thorsten Freimann',
                     showDelete : false,
                     showFilterBestlistText : '<div class="icon ion-toggle"></div>Bestenliste',
-                    schuelerNameEingeben : 'Neuer Name'
+                    schuelerNameEingeben : 'Name ändern ...'
                     
                 }; 
               

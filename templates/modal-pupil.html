@@ -12,6 +12,20 @@
     
      <form ng-submit="closeEditPupil(pupil)">
         <div class="list">
+            <!-- Schülername -->
+            <label style="padding-left: 72px;" class="item item-icon-left">
+                 <i class="icon ion-ios-person-outline"></i>               
+                <input type="text" placeholder={{consts.schuelerNameEingeben}} ng-model="pupil.name">
+            </label>
+            
+            <!-- Bild -->
+            <label class="item item-avatar">
+                <img style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>                            
+                			Bild auswählen <input type="file" custom-on-change="uploadFile"/>	  			
+
+            </label>
+            
+            
         <label class="item item-avatar">
 			 <img src={{activeCourse.activePupil.image}}>
 			<span class="input-label">{{consts.schueler}}: {{pupil.name}} </span>
@@ -19,7 +33,7 @@
 			Bild auswählen <input type="file" custom-on-change="uploadFile"/>	  			
           </label>
 		<label class="item item-input">
-			<input type="text" name="" placeholder="Kommentar" ng-model="pupil.kommentar"/>
+			<input type="text" name="" placeholder="Notiz hinzufügen ..." ng-model="pupil.kommentar"/>
 			
 		</label>		  
 		
