@@ -12,9 +12,8 @@
 
 	<!-- Bestenliste -->
 	
-  <div   ng-if="config.showFilterBestlist==true">
+    <div   ng-if="config.showFilterBestlist==true" style="margin-bottom: 5px;">
 		<div class="row bar bar-header item-input-inset">
-			
 			<div class="col">
 				<input type="radio" ng-model="activeCourse.myLimit" ng-value="3"> Top 3</input>
 			</div>
@@ -24,16 +23,14 @@
 			<div class="col">
 				<input  type="radio" ng-model="activeCourse.myLimit" ng-value="10"> Top 10</input>
 			</div>
-			
 			<div class="col">
 		  <label class="item-input-wrapper">Top: 
 			 <input  id="von_input" type="number" ng-model="activeCourse.myLimit">
 		  </label>
 		  </div>
-		<br>	
-	</div>
-</div>
-<br>
+	   </div>
+    </div>
+
 
   
   <div ng-if="config.showViewFilterFilter===true" class="bar bar-header item-input-inset">
