@@ -118,8 +118,3 @@ ul.striped-list > li:nth-of-type(odd) {
 .bn-filter {
     margin-bottom: 5px;
 }
-input::placeholder, .bn-placeholder {
-    color: black;
-    opacity: 0.9;
-    font-size: 10px;
-}
