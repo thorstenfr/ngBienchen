@@ -31,6 +31,16 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	else {
 		$scope.soteam=false;
 	}
+	calcPupils = function() {
+		var schueler = 0;
+		var kurse = $scope.courses
+		$scope.courses.forEach(function(element) {
+			schueler = schueler + element.pupils.length;
+			console.log("element: " + schueler);
+		});
+		$scope.schuelergesamt = schueler;
+	}
+	
 	calcRatings = function() {
 		var heute = 0;
 		var woche = 0;
@@ -103,6 +113,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	});	
 	$scope.$on('$ionicView.beforeEnter', function(){
 		calcRatings();
+		calcPupils();
 	});
 	
 

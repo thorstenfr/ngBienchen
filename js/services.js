@@ -30,9 +30,9 @@ angular.module('app.services', [])
 		newConfig: function() {
 			return {
 				
-				showTagesUebersicht : true,
+				showTagesUebersicht : false,
 				tagesUebersichtText : '<div class="icon ion-toggle"></div>Tagesauswertung',
-				showUebersicht : true,
+				showUebersicht : false,
 				uebersichtText : '<div class="icon ion-toggle"></div>Gesamtauswertung',
 				showViewKompakt : false,
 				showViewKompaktText : '<div class="icon ion-toggle"></div>Kompakt',
