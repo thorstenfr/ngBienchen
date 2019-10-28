@@ -859,7 +859,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     }
 	
 	
-	// Action Sheet "Mehr"
+	// Action Sheet "Mehr" bei Teilnehmer
 	$scope.showMore = function() {
 
 		// Show the action sheet
@@ -868,7 +868,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 					{ text: '<div class="icon ion-help"></div> Tutorial'},
 					{ text: $scope.config.showBuchungsdatumText },
-					{ text: $scope.config.showCreateText}
+					{ text: $scope.config.showCreateText},
+					{ text : '<div class="icon ion-help"></div> Zufallsgenerator'}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -905,7 +906,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 						$scope.config.showCreateText = '<div class="icon ion-toggle-filled"></div> Schnelleingabe';
 					}
 					break;
-
+					case 4:
+					// Zufallsgenerator
+					$scope.zufallsgenerator();
 			}
 			return true;
 			}
@@ -1598,6 +1601,20 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	     
 	   });
 	};
+	
+	$scope.zufallsgenerator = function() {
+	
+	var min = 0;
+	var max = $scope.activeCourse.pupils.length;
+	var x = Math.floor(Math.random() * (max - min)) + min;
+
+		alert("Hello : " + $scope.activeCourse.pupils[x].name);
+			
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+	}
+    
+	
 
 
 }])
