@@ -33,11 +33,17 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	}
 	calcPupils = function() {
 		var schueler = 0;
+		var ratings=0;
 		var kurse = $scope.courses
-		$scope.courses.forEach(function(element) {
-			schueler = schueler + element.pupils.length;
-			console.log("element: " + schueler);
-		});
+		$scope.courses.forEach(function(course) {
+			schueler = schueler + course.pupils.length;
+			// Iterate durch Ratings
+			course.pupils.forEach(function(pupil) {
+					ratings=ratings+pupil.ratings.length;
+						ratings=ratings-pupil.teufelchen.length;
+					});
+			});
+			$scope.ratingsgesamt=ratings;
 		$scope.schuelergesamt = schueler;
 	}
 	
@@ -112,7 +118,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			}
 	});	
 	$scope.$on('$ionicView.beforeEnter', function(){
-		calcRatings();
+	//	calcRatings();
 		calcPupils();
 	});
 	
