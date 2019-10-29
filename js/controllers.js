@@ -1286,7 +1286,8 @@ $scope.asFilterDatum= function() {
 			erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
             teufelchen : [],
 			image : "img/No_image_available-de.svg.png",
-			kommentare : []
+			kommentare : [],
+			zufaelle : []
         });
 
 
@@ -1354,7 +1355,17 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		// Inefficient, but save all the subjects
 		Courses.save($scope.courses);
 	}
+	// Zufall hinzufügen
+	$scope.addZufall = function(pupil) {
 	
+		var d = new Date();
+		var now = d.getTime();
+		pupil.zufaelle.push({datum : now});
+		
+		// Inefficient, but save all the subjects
+        Courses.save($scope.courses);
+		
+		}
 	
     // Rating hinzufügen
     $scope.addRating = function(pupil) {
@@ -1611,13 +1622,14 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
    var confirmPopup = $ionicPopup.confirm({
      title: 'Zufallsgenerator',
-     template: $scope.activeCourse.pupils[x].name,
+     template: $scope.activeCourse.pupils[x].name + ' (' + $scope.activeCourse.pupils[x].zufaelle.length + ')',
      cancelText : 'Neu'
    });
 
    confirmPopup.then(function(res) {
      if(res) {
        console.log('Speichere Zufallsauswahl bei Schüler');
+       $scope.addZufall($scope.activeCourse.pupils[x]);
      } else {
        x = Math.floor(Math.random() * (max - min)) + min;
        console.log('Neuer Schüler : ' + $scope.activeCourse.pupils[x].name);

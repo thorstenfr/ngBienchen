@@ -123,6 +123,11 @@
 
 						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
 					</ul>
+					<ul class="small striped-list">{{zufaelle.length}} Zufallsauswahlen:
+
+						<li class="small" ng-repeat="x in pupil.zufaelle | datumFilter: vonDatum : bisDatum  | filter:q as zufaelle"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}
+						</li>
+					</ul>
 
 			</li>
 		</ul>
@@ -174,7 +179,10 @@
 	
 	<!--
 	<button ng-click="showZufallsgeneratorConfirm()">Zufallsgenerator</button>
-      -->
+	
+	-->
+	
+      
       
 	
   </ion-content>
