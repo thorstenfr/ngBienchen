@@ -40,7 +40,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			// Iterate durch Ratings
 			course.pupils.forEach(function(pupil) {
 					ratings=ratings+pupil.ratings.length;
-						ratings=ratings-pupil.teufelchen.length;
+						ratings=ratings+pupil.teufelchen.length;
 					});
 			});
 			$scope.ratingsgesamt=ratings;
