@@ -908,7 +908,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					break;
 					case 4:
 					// Zufallsgenerator
-					$scope.zufallsgenerator();
+					$scope.showZufallsgeneratorConfirm();
 			}
 			return true;
 			}
@@ -1601,6 +1601,31 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	     
 	   });
 	};
+	
+	
+ // A confirm dialog
+ $scope.showZufallsgeneratorConfirm = function() {
+ 	var min = 0;
+	var max = $scope.activeCourse.pupils.length;
+	var x = Math.floor(Math.random() * (max - min)) + min;
+
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Zufallsgenerator',
+     template: $scope.activeCourse.pupils[x].name,
+     cancelText : 'Neu'
+   });
+
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('Speichere Zufallsauswahl bei Schüler');
+     } else {
+       x = Math.floor(Math.random() * (max - min)) + min;
+       console.log('Neuer Schüler : ' + $scope.activeCourse.pupils[x].name);
+       $scope.showZufallsgeneratorConfirm();
+
+     }
+   });
+ };
 	
 	$scope.zufallsgenerator = function() {
 	
