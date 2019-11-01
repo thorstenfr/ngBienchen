@@ -1,18 +1,33 @@
-<ion-view hide-back-button="false" title="CSV-Export" cache-view="false" id="csv">
+<ion-view hide-back-button="false" title="Export" cache-view="false" id="csv">
 	
 <ion-content scroll="true">
 	<h4>Exportieren der erfassten Daten als Email oder als Datei</h4>
-	<p>kurs,name,bienchen,teufelchen</p>
-	<ul ng-repeat="course in courses">
-		<li ng-repeat="pupil in course.pupils">{{course.title}},{{pupil.name}},{{pupil.ratings.length}},{{pupil.teufelchen.length}} 
-        </li>
-	</ul>
-	
-	<br>
-	
-	<a class="button" href="mailto:?subject={{consts.csvsubject}}&body={{csvstr}}">Erstelle Email</a>
-	
-	<button class="button" ng-click="downloadCsvEx()">Erstelle Datei</button>
+    
+    <div ng-if="exportformat=='csv'">
+	   <p>kurs,name,bienchen,teufelchen</p>
+        <ul ng-repeat="course in courses">
+            <li ng-repeat="pupil in course.pupils">{{course.title}},{{pupil.name}},{{pupil.ratings.length}},{{pupil.teufelchen.length}} 
+            </li>
+        </ul>
+    </div> 
+    <div ng-if="exportformat=='json'">
+        <p>{{jsonstr}}</p>
+    </div>
+    
 
+	<br>
+	<ion-list>
+        <ion-radio ng-model="exportformat" ng-value="'csv'">CSV</ion-radio>
+        <ion-radio ng-model="exportformat" ng-value="'json'">JSON</ion-radio>
+    </ion-list>
+   
+    <br>
+	
+    
+     <div class="button-bar">
+       <a class="button" href="mailto:?subject={{exportformat=='csv' ? 'CSV Export aus bienchen by Thorsten Freimann' : 'JSON Export aus bienchen by Thorsten Freimann'}}&body={{exportformat=='csv' ? csvstr : jsonstr}}">Erstelle Email</a>
+      <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
+      <a class="button">Abbruch</a>
+    </div>
 </ion-content>
 </ion-view>

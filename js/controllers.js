@@ -431,7 +431,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>CSV Export' },
+				{ text: '<div class="icon ion-pie-graph"></div>Export' },
 			    { text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
@@ -608,8 +608,7 @@ $scope.showPopupAz = function() {
 };
 
 
-	 
-
+	
  	
 
 
@@ -1664,7 +1663,9 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
 	$scope.consts = Courses.getVariables();
-	
+        $scope.exportformat = 'csv';
+        $scope.jsonstr = angular.toJson($scope.courses);
+    
 		$scope.csvstr  = 'kurs,name,bienchen,teufelchen%0D%0A';
 		$scope.courses.forEach((course, index, array) => {
 			// str += course.title;
@@ -1672,6 +1673,8 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 				$scope.csvstr += course.title + ',' + pupil.name + ',' + pupil.ratings.length + ',' + pupil.teufelchen.length + '%0D%0A';
 			});
 		});
+        
+      
 		
 	
 	
@@ -1693,41 +1696,92 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	
 		
 	$scope.downloadCsvEx = function() {
-	var str = buildCsvString();
-var textFile = null,
-  makeTextFile = function (text) {
-    var data = new Blob([text], {type: 'text/plain'})
-    
-    
-
-    // If we are replacing a previously generated file we need to
-    // manually revoke the object URL to avoid memory leaks.
-    if (textFile !== null) {
-      window.URL.revokeObjectURL(textFile);
-    }
-
-    textFile = window.URL.createObjectURL(data);
-
-    return textFile;
-  };
+	   //var str = buildCsvString();
+        var str = angular.toJson($scope.courses);
+        var textFile = null,
+        makeTextFile = function (text) {
+            var data = new Blob([text], {type: 'text/plain'})
 
 
 
-	
-		    var link = document.createElement('a');
-    link.setAttribute('download', 'info.txt');
-    link.href = makeTextFile(str);
-    document.body.appendChild(link);
+            // If we are replacing a previously generated file we need to
+            // manually revoke the object URL to avoid memory leaks.
+            if (textFile !== null) {
+              window.URL.revokeObjectURL(textFile);
+            }
 
-    // wait for the link to be added to the document
-    window.requestAnimationFrame(function () {
-      var event = new MouseEvent('click');
-      link.dispatchEvent(event);
-      document.body.removeChild(link);
-		});
+            textFile = window.URL.createObjectURL(data);
+
+            return textFile;
+        };
+
+        var link = document.createElement('a');
+        link.setAttribute('download', 'info.txt');
+        link.href = makeTextFile(str);
+        document.body.appendChild(link);
+
+        // wait for the link to be added to the document
+        window.requestAnimationFrame(function () {
+          var event = new MouseEvent('click');
+          link.dispatchEvent(event);
+          document.body.removeChild(link);
+        });
 
 
 	}
+    
+    
+    
+    // Export-Funktion, Paramter: 'json' und 'csv' möglich
+    $scope.downloadFile = function(exportformat) {
+        if (exportformat=='csv') {
+             var str = buildCsvString();
+        }
+        else if (exportformat=='json') {
+             var str = angular.toJson($scope.courses);
+        }
+        else {
+            alert("Ungültiger Parameter " + exportformat + " !");
+            return;
+        }
+	  
+       
+        var textFile = null,
+        makeTextFile = function (text) {
+            var data = new Blob([text], {type: 'text/plain'})
+
+
+
+            // If we are replacing a previously generated file we need to
+            // manually revoke the object URL to avoid memory leaks.
+            if (textFile !== null) {
+              window.URL.revokeObjectURL(textFile);
+            }
+
+            textFile = window.URL.createObjectURL(data);
+
+            return textFile;
+        };
+
+        var link = document.createElement('a');
+        link.setAttribute('download', 'info.txt');
+        link.href = makeTextFile(str);
+        document.body.appendChild(link);
+
+        // wait for the link to be added to the document
+        window.requestAnimationFrame(function () {
+          var event = new MouseEvent('click');
+          link.dispatchEvent(event);
+          document.body.removeChild(link);
+        });
+
+
+	}
+    
+     
+    $scope.jsonExport = function() {
+        console.log("Json export");
+    }
 	
 	
 	
