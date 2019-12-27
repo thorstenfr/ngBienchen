@@ -431,7 +431,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
-				{ text: '<div class="icon ion-pie-graph"></div>Export' },
+				{ text: '<div class="icon ion-pie-graph"></div>Export / Import' },
 				{ text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
