@@ -432,7 +432,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 				{ text: '<div class="icon ion-pie-graph"></div>Export' },
-			    { text: '<div class="icon ion-help"></div> Tutorial'}
+				{ text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
 	     	titleText: 'Mehr',
@@ -1781,6 +1781,25 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
      
     $scope.jsonExport = function() {
         console.log("Json export");
+    }
+    
+    $scope.importJsonFromTextarea = function(courseString) {
+    	alert(courseString);
+    	
+            if(courseString) {
+            	alert("Yes");
+            	$scope.courses = angular.fromJson(courseString);
+    
+        		Courses.save($scope.courses);
+    	
+             }
+             else {
+             alert("No");
+    		}
+    		
+    
+    		
+    	
     }
 	
 	

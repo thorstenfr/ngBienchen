@@ -29,5 +29,9 @@
       <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
       <a class="button">Abbruch</a>
     </div>
+    <textarea ng-model="myTextarea"></textarea>
+    <button ng-click="importJsonFromTextarea(myTextarea)">Save</button>
+    <h1>{{myTextarea}}</h1>
+    
 </ion-content>
 </ion-view>

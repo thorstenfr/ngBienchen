@@ -13,7 +13,6 @@ angular.module('app.services', [])
           return [];
         },
         save: function(courses) {
-           
             window.localStorage['courses'] = angular.toJson(courses);
 			
         },
