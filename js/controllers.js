@@ -118,7 +118,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			}
 	});	
 	$scope.$on('$ionicView.beforeEnter', function(){
-	//	calcRatings();
+		calcRatings();
 		calcPupils();
 	});
 	
