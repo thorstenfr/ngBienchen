@@ -298,9 +298,23 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	// A utility function for creating a new course
 	// with the given courseTitle
 	var createCourseEx = function(courseTitle) {
-			var newCourse = Courses.newCourse(courseTitle);
-			$scope.courses.push(newCourse);
-			$scope.selectCourse(newCourse, $scope.courses.length-1);
+			console.log("Neuer Kurs: " + courseTitle);
+
+			// Kommasepariert mehrere Kurse 			
+			var str_array = courseTitle.split(',');
+			
+			for(var i = 0; i < str_array.length; i++) {
+			   // Trim the excess whitespace.
+			   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+			   // Add additional code here, such as:
+			   
+			   var newCourse = Courses.newCourse(str_array[i]);
+				$scope.courses.push(newCourse);
+				$scope.selectCourse(newCourse, $scope.courses.length-1);
+			   
+			   
+			}
+			
 			Courses.save($scope.courses);
 	};
     
@@ -1271,24 +1285,39 @@ $scope.asFilterDatum= function() {
     // A utility function for creating a new pupil
     // with the given pupilName
     var createPupil = function(pupilName) {
-		console.log("Neuer Schüler: " + pupilName);
-        if (!$scope.activeCourse || !pupilName) {
-            return;
-        }
-
+		// Kommasepariert spliiten
+		var str = 'Hello, World, etc';
+		var str_array = pupilName.split(',');
+	
+		for(var i = 0; i < str_array.length; i++) {
+		   // Trim the excess whitespace.
+		   str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+		   // Add additional code here, such as:
+			console.log("Neuer Schüler: " + str_array[i]);
+	        if (!$scope.activeCourse || !str_array[i]) {
+	            return;
+	        }
+	
+			
+	        $scope.activeCourse.pupils.push({
+	            name : str_array[i],
+	            bienchen : 0, // ratings - teufelchen
+	            ratings : [],
+				isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
+				erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
+	            teufelchen : [],
+				image : "img/No_image_available-de.svg.png",
+				kommentare : [],
+				zufaelle : []
+	        });
+			
+		  
+		  
+	  
+	   }
 		
-        $scope.activeCourse.pupils.push({
-            name : pupilName,
-            bienchen : 0, // ratings - teufelchen
-            ratings : [],
-			isExistent : true, // bei false wird pupil geändert, nicht neu angelegt
-			erledigt : false, // bei soteam werden nur nicht erledigte angezeigt
-            teufelchen : [],
-			image : "img/No_image_available-de.svg.png",
-			kommentare : [],
-			zufaelle : []
-        });
-
+		
+	   
 
 
         // Nicht effinzient ...
