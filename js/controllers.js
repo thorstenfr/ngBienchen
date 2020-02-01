@@ -1215,6 +1215,12 @@ $scope.asFilterDatum= function() {
 	};
 
 
+	// TakeAPicture
+	// Nimmt ein Foto mittels cordova photo plugin auf
+	//
+	$scope.takeAPicture = function() {
+		alert("Take a foto");
+	}
     // Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
@@ -1223,11 +1229,12 @@ $scope.asFilterDatum= function() {
     		scope: $scope
   	});
 
-	$scope.closeNewPupil = function() {
+	$scope.closeNewPupil = function() {	
 		$scope.pupilModal.hide();
 	}
 
 	$scope.closeEditPupil = function(pupil) {
+		alert("close");
 		if (typeof pupil !== "undefined") {
 			if (typeof pupil.name !== "undefined") {
 				$scope.activeCourse.activePupil.name = pupil.name;
@@ -1237,15 +1244,16 @@ $scope.asFilterDatum= function() {
 				pupil.kommentar = '';
 			}
 			
+			// pupil resetten, um keine Historiendaten anzuzeigen
+			delete pupil.name, pupil.kommentar;
 			
+			// Inefficient, but save all the subjects
+			Courses.save($scope.courses);
 			
 		}
+		
 		$scope.pupilModal.hide();
 
-		// pupil resetten, um keine Historiendaten anzuzeigen
-		delete pupil.name, pupil.kommentar;
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
 	}
 	
 	
