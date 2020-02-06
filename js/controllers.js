@@ -47,7 +47,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		$scope.schuelergesamt = schueler;
 	}
 	
-	calcRatings = function() {
+	calcRatings = function() {	
 		var heute = 0;
 		var woche = 0;
 		var monat = 0;
@@ -118,8 +118,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			}
 	});	
 	$scope.$on('$ionicView.beforeEnter', function(){
-		if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht) {
-			alert("Kalk!");
+		if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht) {		
 			calcRatings();
 			calcPupils();
 		}
@@ -593,7 +592,8 @@ $scope.showPopupAz = function() {
 					$scope.config.uebersichtText = '<div class="icon ion-toggle"></div>Gesamtauswertung';					
 				}
 				else {
-					$scope.config.showUebersicht = true;
+					calcRatings();
+					$scope.config.showUebersicht = true;					
 					$scope.config.uebersichtText = "Gesamtauswertung verbergen";
 					$scope.config.uebersichtText = '<div class="icon ion-toggle-filled"></div>Gesamtauswertung';	
 			
@@ -606,6 +606,7 @@ $scope.showPopupAz = function() {
 					
 				}
 				else {
+					calcRatings();
 					$scope.config.showTagesUebersicht=true;
 					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle-filled"></div>Tagesauswertung';
 				}
