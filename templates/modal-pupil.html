@@ -19,12 +19,14 @@
             </label>
             
             <!-- Bild -->
-            <label class="item item-avatar">
-                <img style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>                            
-                			<span class="bn-placeholder"></span> <input type="file" custom-on-change="uploadFile"/>	  			
-
+            <label ng-click="takeAPicture()" class="item item-avatar">           
+                <img  style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>   
+           
+                      <span class="bn-placeholder"></span> 
+                      <!-- <input type="file" custom-on-change="uploadFile"/>
+                      -->
             </label>
-      
+     
 		<label class="item item-input">
 			<input type="text" name="" placeholder="Notiz hinzufügen ..." ng-model="pupil.kommentar"/>
 			
@@ -42,6 +44,8 @@
       	</li>
       
       </ul>
+
+      <img id="imageFile" src="" alt="">
       
 	  
     </ion-content>
