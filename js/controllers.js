@@ -1220,34 +1220,60 @@ $scope.asFilterDatum= function() {
 	};
 
 
+	function displayFileData(data){
+		alert(data);
+		}
+
+		function onErrorCreateFile() {
+			console.log("Create file fail...");}
+		
+		function onErrorLoadFs() {
+			console.log("File system fail...");
+		}
+
+
+
 	function createNewFileEntry(imgUri) {
+		console.log("a");
 		window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
-	
+			console.log("b");
 			// JPEG file
 			dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
 	
 				// Do something with it, like write to it, upload it, etc.
-				// writeFile(fileEntry, imgUri);
+				writeFile(fileEntry, imgUri);
 				console.log("got file: " + fileEntry.fullPath);
-				// displayFileData(fileEntry.fullPath, "File copied to");
+				displayFileData(fileEntry.fullPath, "File copied to");
 	
 			}, onErrorCreateFile);
 	
 		}, onErrorResolveUrl);
 	}
 
+	function getFileEntry(imgUri) {
+		window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
+	
+			// Do something with the FileEntry object, like write to it, upload it, etc.
+			// writeFile(fileEntry, imgUri);
+			console.log("got file: " + fileEntry.fullPath);
+			// displayFileData(fileEntry.nativeURL, "Native URL");
+	
+		}, function () {
+		  // If don't get the FileEntry (which may happen when testing
+		  // on some emulators), copy to a new FileEntry.
+			createNewFileEntry(imgUri);
+		});
+	}
+
+
+	
 
 	function setOptions(srcType) {
 		var options = {
-			// Some common settings are 20, 50, and 100
 			quality: 50,
 			destinationType: Camera.DestinationType.FILE_URI,
-			// In this app, dynamically set the picture source, Camera or photo gallery
-			sourceType: srcType,
 			encodingType: Camera.EncodingType.JPEG,
-			mediaType: Camera.MediaType.PICTURE,
-			allowEdit: true,
-			correctOrientation: true  //Corrects Android orientation quirks
+			mediaType: Camera.MediaType.PICTURE
 		}
 		return options;
 	}
@@ -1258,41 +1284,87 @@ $scope.asFilterDatum= function() {
 		var options = setOptions(srcType);
 		var func = createNewFileEntry;
 	
-		if (selection == "camera-thmb") {
-			options.targetHeight = 100;
-			options.targetWidth = 100;
-		}
-	
 		navigator.camera.getPicture(function cameraSuccess(imageUri) {
 	
-			// Do something
+			displayImage(imageUri);
+			// You may choose to copy the picture, save it somewhere, or upload.
+			func(imageUri);
 	
 		}, function cameraError(error) {
 			console.debug("Unable to obtain picture: " + error, "app");
-			alert("Unable to obtain picture: " + error, "app");
 	
 		}, options);
 	}
 
 	function displayImage(imgUri) {
-		alert("OK");
-	
-
-		var elem = document.getElementById('imageFile');
-		elem.src = imgUri;
+		$scope.activeCourse.activePupil.image = imgUri;
 	}
 
-	function cameraSuccess(imageURI) {
-		alert("OK");
+	function cameraSuccess(imageURI) {		
 		var image = document.getElementById('imageFile');
 		image.src = imageURI;
+	
 	}
+
+
+	function copyFile(baseFileURI, destPathName, fileSystem){
+		window.resolveLocalFileSystemURL(baseFileURI, 
+			function(file){        
+				window.requestFileSystem(fileSystem, 0, 
+					function (fileSystem) {
+						var documentsPath = fileSystem.root;
+						console.log(documentsPath);
+						file.copyTo(documentsPath, destPathName,
+						function(res){                        
+							console.log('copying was successful to: ' + res.nativeURL)
+						}, 
+						function(){
+							console.log('unsuccessful copying')
+						});
+					});
+			}, 
+			function(){
+				console.log('failure! file was not found')
+			});
+	}
+
+	function cameraTakePicture() { 
+		navigator.camera.getPicture(onSuccess, onFail, {  
+		   quality: 10, 
+		   destinationType: Camera.DestinationType.FILE_URI,
+		   saveToPhotoAlbum: true,		   
+		   targetWidth :100,
+		   targetHeight :100
+		   
+		});  
+		
+		function onSuccess(imageData) { 
+			
+		   var image = document.getElementById('imageFile'); 
+		   image.src = "data:image/jpeg;base64," + imageData; 
+		   
+		 // alert("cameraTakePicture: " + imageData);
+		  $scope.activeCourse.activePupil.image = imageData.src;
+
+		  copyFile(imageData,"myImg.jpg",LocalFileSystem.TEMPORARY); 
+		}  
+		
+		function onFail(message) { 
+		   alert('Failed because: ' + message); 
+		} 
+	 }
+	
+
+
+
 
 	// TakeAPicture
 	// Nimmt ein Foto mittels cordova photo plugin auf
 	//
 	$scope.takeAPicture = function() {		
-		openCamera("camera-thmb");
+	 	openCamera("camera-thmb");
+		//alert("zakeAPicture()");
+		//cameraTakePicture();
 		
 	}
     // Create our modal
@@ -1759,7 +1831,8 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		// Inefficient, but save all the subjects
 		Courses.save($scope.courses);
 	}
-    
+	
+	
 	
 
 
