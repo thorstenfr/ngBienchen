@@ -1965,25 +1965,52 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
     $scope.jsonExport = function() {
         console.log("Json export");
     }
-    
-    $scope.importJsonFromTextarea = function(courseString) {
-    	alert(courseString);
-    	
+	
+	
+    $scope.importJsonFromTextarea = function(courseString) {    	
             if(courseString) {
-            	alert("Yes");
-            	$scope.courses = angular.fromJson(courseString);
-    
-        		Courses.save($scope.courses);
-    	
+            	$scope.showConfirmImport(courseString);    	
              }
              else {
-             alert("No");
-    		}
-    		
-    
-    		
-    	
-    }
+             alert("Es werden keine Daten importiert!");
+			}
+		}
+
+
+
+		// A confirm dialog
+	$scope.showConfirmImport = function(courseString) {
+		var confirmPopup = $ionicPopup.confirm({
+		title: 'Folgende Daten importieren',
+		template: courseString
+		});
+	
+		confirmPopup.then(function(res) {
+		if(res) {
+			console.log('You are sure');
+			$scope.courses = angular.fromJson(courseString);
+			Courses.save($scope.courses);
+			showAlert();
+		} else {
+			console.log('You are not sure');
+		}
+		});
+	};
+
+	// An alert dialog
+	showAlert = function() {
+		var alertPopup = $ionicPopup.alert({
+		  title: 'Import',
+		  template: 'Daten erfolgreich importiert.'
+		});
+	 
+		alertPopup.then(function(res) {		
+		  $state.go('kurs');
+		});
+	  };
+	
+		
+		
 	
 	
 	

@@ -6,9 +6,7 @@
 		<ion-list>
 	        <ion-radio ng-model="aktion" ng-value="'export'">Daten exportieren</ion-radio>
 	        <ion-radio ng-model="aktion" ng-value="'import'">Daten (JSON-Format) importieren</ion-radio>
-	    </ion-list>
-	   
-
+	    </ion-list>	   
 <!-- Export -->
 	<div ng-if="aktion=='export'">
 		<h4>Exportieren der erfassten Daten als Email oder als Datei</h4>
@@ -48,9 +46,14 @@
 	    sie vorher exportiert haben.</h5>
 	    <h5>Achtung! Alle bestehenden Daten werden gelöscht!</h5>
 	
-	<textarea ng-model="myTextarea" rows="4" cols="50" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
+	<label class="item item-input">
+		<textarea rows="10" ng-model="myTextarea" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
+	  </label>
 
-	    <button ng-click="importJsonFromTextarea(myTextarea)">Save</button>
+	
+		<button ng-click="importJsonFromTextarea(myTextarea)" class="button button-block button-assertive">
+			Daten importieren
+		  </button>
 	    
     </div>
     
