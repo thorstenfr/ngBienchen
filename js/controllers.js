@@ -1838,11 +1838,18 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 }])
 
-.controller('csvCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('csvCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', 'LoaderService', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 	// You can include any angular dependencies as parameters for this function
 	// TIP: Access Route Parameters for your page via $stateParams.parameterName
-	function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state) {
+	function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, LoaderService, $state) {
 	
+
+
+
+		$scope.notice = {text: ""}
+
+
+
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
 	$scope.consts = Courses.getVariables();
@@ -1966,29 +1973,35 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         console.log("Json export");
     }
 	
-	
-    $scope.importJsonFromTextarea = function(courseString) {    	
-            if(courseString) {
-            	$scope.showConfirmImport(courseString);    	
+
+
+
+    $scope.importJsonFromTextarea = function() {  
+		if($scope.notice.text) {
+		   		$scope.showConfirmImport();    	
              }
              else {
              alert("Es werden keine Daten importiert!");
 			}
 		}
 
-
+	
 
 		// A confirm dialog
-	$scope.showConfirmImport = function(courseString) {
+	$scope.showConfirmImport = function() {
+
+			 // Hide overlay when done
+			 LoaderService.hide();
+		
 		var confirmPopup = $ionicPopup.confirm({
 		title: 'Folgende Daten importieren',
-		template: courseString
+		template: $scope.notice.text
 		});
 	
 		confirmPopup.then(function(res) {
 		if(res) {
 			console.log('You are sure');
-			$scope.courses = angular.fromJson(courseString);
+			$scope.courses = angular.fromJson($scope.notice.text);
 			Courses.save($scope.courses);
 			showAlert();
 		} else {

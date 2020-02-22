@@ -40,6 +40,7 @@
     </div>
 
 <!-- Import -->    
+
     <div ng-if="aktion=='import'">
 	    <h4>Import von Daten (JSON-Format)</h4>
 	    <h5>Hier können Sie Daten (JSON-Format) importieren, die
@@ -47,11 +48,11 @@
 	    <h5>Achtung! Alle bestehenden Daten werden gelöscht!</h5>
 	
 	<label class="item item-input">
-		<textarea rows="10" ng-model="myTextarea" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
+		<textarea rows="10" ng-model="notice.text" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
 	  </label>
 
 	
-		<button ng-click="importJsonFromTextarea(myTextarea)" class="button button-block button-assertive">
+		<button ng-click="importJsonFromTextarea()" class="button button-block button-assertive">
 			Daten importieren
 		  </button>
 	    
