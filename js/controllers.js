@@ -1977,15 +1977,31 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 
     $scope.importJsonFromTextarea = function() {  
+		// Hide overlay when done
+		LoaderService.show();
 		if($scope.notice.text) {
+			 
 		   		$scope.showConfirmImport();    	
              }
              else {
-             alert("Es werden keine Daten importiert!");
+			 // Hide overlay when done
+			 LoaderService.hide();
+				alert("Es werden keine Daten importiert!");
+			 
 			}
 		}
 
-	
+	// An alert dialog
+	$scope.showAlertJsonError = function(text) {
+		var alertPopup = $ionicPopup.alert({
+		  title: 'Daten konnten nicht importiert werden!',
+		  template: text
+		});
+	 
+		alertPopup.then(function(res) {
+		  console.log('Thank you for not eating my delicious ice cream cone');
+		});
+	  };
 
 		// A confirm dialog
 	$scope.showConfirmImport = function() {
@@ -2000,10 +2016,14 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	
 		confirmPopup.then(function(res) {
 		if(res) {
-			console.log('You are sure');
-			$scope.courses = angular.fromJson($scope.notice.text);
-			Courses.save($scope.courses);
-			showAlert();
+			try {			
+				$scope.courses = angular.fromJson($scope.notice.text);
+				Courses.save($scope.courses);
+				showAlert();
+			} catch (e) {
+				$scope.showAlertJsonError(e);				
+			}
+		
 		} else {
 			console.log('You are not sure');
 		}
