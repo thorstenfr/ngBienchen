@@ -1973,9 +1973,6 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         console.log("Json export");
     }
 	
-
-
-
     $scope.importJsonFromTextarea = function() {  
 		// Hide overlay when done
 		LoaderService.show();
