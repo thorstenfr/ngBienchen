@@ -1844,11 +1844,7 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, LoaderService, $state) {
 	
 
-
-
-		$scope.notice = {text: ""}
-
-
+	$scope.notice = {text: ""}
 
 	// Kurse in scope laden
 	$scope.courses =  Courses.all();
@@ -1864,8 +1860,25 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 			});
 		});
         
-      
+	  
 		
+		// Datei mittels cordova erzeugen
+		$scope.createFile = function() {
+			var type = window.TEMPORARY;
+			var size = 5*1024*1024;
+			window.requestFileSystem(type, size, successCallback, errorCallback)
+		 
+			function successCallback(fs) {
+			   fs.root.getFile('log.txt', {create: true, exclusive: true}, function(fileEntry) {
+				  alert('File creation successfull!')
+			   }, errorCallback);
+			}
+		 
+			function errorCallback(error) {
+			   alert("ERROR: " + error.code)
+			}
+			 
+		 }
 	
 	
 	buildCsvString = function() {
@@ -1920,7 +1933,12 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 	}
     
-    
+	// Kopiert Daten inZwischenablage
+	$scope.addToClipboard = function() {
+		var text = angular.toJson($scope.courses);
+		cordova.plugins.clipboard.copy(text);
+	
+	}
     
     // Export-Funktion, Paramter: 'json' und 'csv' möglich
     $scope.downloadFile = function(exportformat) {

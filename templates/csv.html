@@ -19,9 +19,11 @@
 		
 	    
 	     <div class="button-bar">
+			<a class="button" ng-click="addToClipboard()">Kopieren</a> 
 	       <a class="button" href="mailto:?subject={{exportformat=='csv' ? 'CSV Export aus bienchen by Thorsten Freimann' : 'JSON Export aus bienchen by Thorsten Freimann'}}&body={{exportformat=='csv' ? csvstr : jsonstr}}">Erstelle Email</a>
-	      <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
-	      <a class="button">Abbruch</a>
+		   <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
+		
+		   <a class="button">Abbruch</a>
 	    </div>	<br><hr>
 	    <div ng-if="exportformat=='csv'">
 		   <p>kurs,name,bienchen,teufelchen</p>
