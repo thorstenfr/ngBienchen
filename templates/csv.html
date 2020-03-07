@@ -2,15 +2,27 @@
 	
 <ion-content scroll="true">
 		<h2>Exportieren und Importieren</h2>
-		<h5>Was wollen Sie tun?</h5>
+		<h4>Was wollen Sie tun?</h4>
 		<ion-list>
 	        <ion-radio ng-model="aktion" ng-value="'export'">Daten exportieren</ion-radio>
 	        <ion-radio ng-model="aktion" ng-value="'import'">Daten (JSON-Format) importieren</ion-radio>
 	    </ion-list>	   
 <!-- Export -->
 	<div ng-if="aktion=='export'">
-		<h4>Exportieren der erfassten Daten als Email oder als Datei</h4>
+		<h4>In welchem Format wollen Sie die Daten exportieren?</h4>
+	    	<ion-list>
+	        <ion-radio ng-model="exportformat" ng-value="'csv'">CSV</ion-radio>
+	        <ion-radio ng-model="exportformat" ng-value="'json'">JSON</ion-radio>
+	    </ion-list>
+	   
+	    <br>
+		
 	    
+	     <div class="button-bar">
+	       <a class="button" href="mailto:?subject={{exportformat=='csv' ? 'CSV Export aus bienchen by Thorsten Freimann' : 'JSON Export aus bienchen by Thorsten Freimann'}}&body={{exportformat=='csv' ? csvstr : jsonstr}}">Erstelle Email</a>
+	      <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
+	      <a class="button">Abbruch</a>
+	    </div>	<br><hr>
 	    <div ng-if="exportformat=='csv'">
 		   <p>kurs,name,bienchen,teufelchen</p>
 	        <ul ng-repeat="course in courses">
@@ -23,20 +35,8 @@
 	    </div>
 	    
 	
-		<br>
-		<ion-list>
-	        <ion-radio ng-model="exportformat" ng-value="'csv'">CSV</ion-radio>
-	        <ion-radio ng-model="exportformat" ng-value="'json'">JSON</ion-radio>
-	    </ion-list>
-	   
-	    <br>
-		
-	    
-	     <div class="button-bar">
-	       <a class="button" href="mailto:?subject={{exportformat=='csv' ? 'CSV Export aus bienchen by Thorsten Freimann' : 'JSON Export aus bienchen by Thorsten Freimann'}}&body={{exportformat=='csv' ? csvstr : jsonstr}}">Erstelle Email</a>
-	      <a class="button" ng-click="downloadFile(exportformat)">Datei</a>
-	      <a class="button">Abbruch</a>
-	    </div>
+	
+	
     </div>
 
 <!-- Import -->    
