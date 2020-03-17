@@ -1289,6 +1289,9 @@ $scope.asFilterDatum= function() {
 			displayImage(imageUri);
 			// You may choose to copy the picture, save it somewhere, or upload.
 			func(imageUri);
+			
+			// Inefficient, but save all the subjects
+			Courses.save($scope.courses);
 	
 		}, function cameraError(error) {
 			console.debug("Unable to obtain picture: " + error, "app");
@@ -1298,10 +1301,13 @@ $scope.asFilterDatum= function() {
 
 	function displayImage(imgUri) {
 		$scope.activeCourse.activePupil.image = imgUri;
+		$scope.activeCourse.activePupil.image
 	}
 
-	function cameraSuccess(imageURI) {		
-		var image = document.getElementById('imageFile');
+	function cameraSuccess(imageURI) {	
+		$scope.activeCourse.activePupil.image = imgUri;
+		$scope.activeCourse.activePupil.image	
+		var image = document.getElementById('photo');
 		image.src = imageURI;
 	
 	}
