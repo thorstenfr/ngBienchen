@@ -1278,6 +1278,32 @@ $scope.asFilterDatum= function() {
 		return options;
 	}
 
+	$scope.takephoto = function() {
+		let opts = {
+			quality: 80,
+			destinationType: Camera.DestinationType.FILE_URI,
+			sourceType: Camera.PictureSourceType.CAMERA,
+			mediaType: Camera.MediaType.PICTURE,
+			encodingType: Camera.EncodingType.JPG,
+			cameraDirection: Camera.Direction.FRONT,
+			targetWidth: 300,
+			targetHeight: 400
+		};
+		navigator.camera.getPicture(ftw, wtf, opts);
+	}
+	function ftw(imgURI) {
+		// document.getElementById('msg').textContent = imgURI;
+		$scope.activeCourse.activePupil.image = imgURI;
+		
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+
+	}
+	function wtf(msg) {
+		// document.getElementById('msg').textContent = msg;
+
+	}
+
 	function openCamera(selection) {
 
 		var srcType = Camera.PictureSourceType.CAMERA;
@@ -1301,7 +1327,7 @@ $scope.asFilterDatum= function() {
 
 	function displayImage(imgUri) {
 		$scope.activeCourse.activePupil.image = imgUri;
-		$scope.activeCourse.activePupil.image
+		
 	}
 
 	function cameraSuccess(imageURI) {	
