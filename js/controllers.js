@@ -1278,16 +1278,19 @@ $scope.asFilterDatum= function() {
 		return options;
 	}
 
-	$scope.takephoto = function() {
+	$scope.takephoto = function(selection) {
+	
 		let opts = {
 			quality: 80,
+			allowEdit: true,
+			saveToPhotoAlbum: false,
 			destinationType: Camera.DestinationType.FILE_URI,
-			sourceType: Camera.PictureSourceType.CAMERA,
-			mediaType: Camera.MediaType.PICTURE,
 			encodingType: Camera.EncodingType.JPG,
+			sourceType: selection,
+			mediaType: Camera.MediaType.PICTURE,
 			cameraDirection: Camera.Direction.FRONT,
-			targetWidth: 300,
-			targetHeight: 400
+			targetWidth: 32,
+			targetHeight: 32
 		};
 		navigator.camera.getPicture(ftw, wtf, opts);
 	}

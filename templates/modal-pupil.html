@@ -19,19 +19,22 @@
             </label>
             
             <!-- Bild -->
-            <label ng-click="takephoto()" class="item item-avatar">           
-                <img  id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>   
-           
+            <label   class="item item-avatar">           
+                <img    id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>   
+           <!--
                       <span class="bn-placeholder"></span> 
-                      <!-- <input type="file" custom-on-change="uploadFile"/>
+                       <input type="file" custom-on-change="uploadFile"/>
                       -->
+                     <button class="button button-clear button-positive" ng-click="takephoto(1)">aufnehmen</button>
+                     <button class="button button-clear button-positive" ng-click="takephoto(0)">auswählen</button>
             </label>
-     
-		<label class="item item-input">
-			<input type="text" name="" placeholder="Notiz hinzufügen ..." ng-model="pupil.kommentar"/>
-			
-		</label>		  
-		
+            <!-- Notizen -->
+            <label style="padding-left: 72px;" class="item item-icon-left">
+              <i class="icon ion-document"></i>               
+             <input type="text" placeholder="Kommentar hinzufügen ..." ng-model="pupil.kommentar">
+         </label>
+
+    
         </div>
         <div class="padding">
           <button type="submit" class="button button-block button-positive">Speichern</button>
