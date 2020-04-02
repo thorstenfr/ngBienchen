@@ -2104,10 +2104,18 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	 $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
 	  // data.slider is the instance of Swiper
 	  $scope.slider = data.slider;
+	  cordova.getAppVersion.getVersionNumber().then(function (version) {
+		$scope.appversionxml = version;
+	});
+	cordova.getAppVersion.getAppName().then(function (version) {
+		$scope.appnamexml = version;
+	});
+	
 	});
 	
 	$scope.$on("$ionicSlides.slideChangeStart", function(event, data){
 	  console.log('Slide change is beginning');
+	  console.log("Text: (" + $scope.consts.teilnehmerHinzufuegen + ")");
 	});
 	
 	$scope.$on("$ionicSlides.slideChangeEnd", function(event, data){

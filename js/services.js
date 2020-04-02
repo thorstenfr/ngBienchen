@@ -130,7 +130,7 @@ angular.module('app.services', [])
             // get Variables
             if (appname == "bienchen") {
                 return {
-                    appname : 'Bienchen',
+                    appname : 'Bienchen',                  
                     popupTitle : 'Neuer Kurs',
 		            subTitle: 'z.B. Kursbezeichnung oder Klassenname',             
                     isSoteam : false,
