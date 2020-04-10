@@ -13,21 +13,21 @@
      <form ng-submit="closeEditPupil(pupil)">
         <div class="list">
             <!-- Schülername -->
-            <label style="padding-left: 72px;" class="item item-icon-left">
-                 <i class="icon ion-ios-person-outline"></i>               
+            <label   class="item item-avatar">   
+              <img id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>              
                 <input type="text" placeholder={{consts.schuelerNameEingeben}} ng-model="pupil.name">
             </label>
             
-            <!-- Bild -->
-            <label   class="item item-avatar">           
-                <img    id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>   
-           <!--
-                      <span class="bn-placeholder"></span> 
-                       <input type="file" custom-on-change="uploadFile"/>
-                      -->
-                     <button class="button button-clear button-positive" ng-click="takephoto(1)">aufnehmen</button>
-                     <button class="button button-clear button-positive" ng-click="takephoto(0)">auswählen</button>
+            <!-- Bild aufnehmen -->
+            <label style="padding-left: 72px;" class="item item-icon-left">
+              <i class="icon ion-ios-camera-outline"></i>
+                     <button class="button button-clear button-positive" ng-click="takephoto(1)">Bild aufnehmen</button>            
             </label>
+             <!-- Bild auswählen -->
+             <label style="padding-left: 72px;" class="item item-icon-left">
+              <i class="icon ion-ios-photos-outline"></i>
+                     <button class="button button-clear button-positive" ng-click="takephoto(0)">Bild auswählen</button>            
+            </label>           
             <!-- Notizen -->
             <label style="padding-left: 72px;" class="item item-icon-left">
               <i class="icon ion-document"></i>               

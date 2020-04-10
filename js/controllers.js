@@ -1295,6 +1295,9 @@ $scope.asFilterDatum= function() {
 		navigator.camera.getPicture(ftw, wtf, opts);
 	}
 	function ftw(imgURI) {
+		// Lösche altes Bild
+		
+		
 		// document.getElementById('msg').textContent = imgURI;
 		$scope.activeCourse.activePupil.image = imgURI;
 		
