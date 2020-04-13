@@ -99,12 +99,11 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	
 	$scope.$on("$ionicView.afterEnter", function(){
 		// Anything you can think of
-		console.log("Enter");
 	});
 
 	$scope.$on("$ionicView.loaded", function(event, data){
 	   		// handle event
-				 	console.log("loaded");
+			console.log("loaded");
 				 
 				 
 			   // Prüfen, ob es Zeit für einen Kaffee wäre
@@ -176,7 +175,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	   });
 	
 	   alertPopup.then(function(res) {
-	     console.log('Thank you for not eating my delicious ice cream cone');
+	    
 	   });
 	};
 
@@ -190,8 +189,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	   });
 	
 	   alertPopup.then(function(res) {
-	     console.log('Thank you for not eating my delicious ice cream cone');
-	      $scope.showHowto();
+		    $scope.showHowto();
 	   });
 	};
 
@@ -761,9 +759,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	   });
 	
 	   alertPopup.then(function(res) {
-	   $scope.showHowto();
-	     console.log('Thank you for not eating my delicious ice cream cone');
-	     // $scope.showHowto();
+	   $scope.showHowto();	    
 	   });
 	};
 	
@@ -1293,116 +1289,22 @@ $scope.asFilterDatum= function() {
 		navigator.camera.getPicture(ftw, wtf, opts);
 	}
 	function ftw(imgURI) {
-		// Lösche altes Bild
-		
-		
 		// document.getElementById('msg').textContent = imgURI;
 		$scope.activeCourse.activePupil.image = imgURI;
 		
 		// Inefficient, but save all the subjects
 		Courses.save($scope.courses);
 
+		// Das modale Fenster wieder anzeigen.
+		$scope.pupilModal.show();
+
 	}
 	function wtf(msg) {
 		// document.getElementById('msg').textContent = msg;
+		console.log("Problem beim Bild aufnehmen",msg);
 
 	}
 
-	function openCamera(selection) {
-
-		var srcType = Camera.PictureSourceType.CAMERA;
-		var options = setOptions(srcType);
-		var func = createNewFileEntry;
-	
-		navigator.camera.getPicture(function cameraSuccess(imageUri) {
-	
-			displayImage(imageUri);
-			// You may choose to copy the picture, save it somewhere, or upload.
-			func(imageUri);
-			
-			// Inefficient, but save all the subjects
-			Courses.save($scope.courses);
-	
-		}, function cameraError(error) {
-			console.debug("Unable to obtain picture: " + error, "app");
-	
-		}, options);
-	}
-
-	function displayImage(imgUri) {
-		$scope.activeCourse.activePupil.image = imgUri;
-		
-	}
-
-	function cameraSuccess(imageURI) {	
-		$scope.activeCourse.activePupil.image = imgUri;
-		$scope.activeCourse.activePupil.image	
-		var image = document.getElementById('photo');
-		image.src = imageURI;
-	
-	}
-
-
-	function copyFile(baseFileURI, destPathName, fileSystem){
-		window.resolveLocalFileSystemURL(baseFileURI, 
-			function(file){        
-				window.requestFileSystem(fileSystem, 0, 
-					function (fileSystem) {
-						var documentsPath = fileSystem.root;
-						console.log(documentsPath);
-						file.copyTo(documentsPath, destPathName,
-						function(res){                        
-							console.log('copying was successful to: ' + res.nativeURL)
-						}, 
-						function(){
-							console.log('unsuccessful copying')
-						});
-					});
-			}, 
-			function(){
-				console.log('failure! file was not found')
-			});
-	}
-
-	function cameraTakePicture() { 
-		navigator.camera.getPicture(onSuccess, onFail, {  
-		   quality: 10, 
-		   destinationType: Camera.DestinationType.FILE_URI,
-		   saveToPhotoAlbum: true,		   
-		   targetWidth :100,
-		   targetHeight :100
-		   
-		});  
-		
-		function onSuccess(imageData) { 
-			
-		   var image = document.getElementById('imageFile'); 
-		   image.src = "data:image/jpeg;base64," + imageData; 
-		   
-		 // alert("cameraTakePicture: " + imageData);
-		  $scope.activeCourse.activePupil.image = imageData.src;
-
-		  copyFile(imageData,"myImg.jpg",LocalFileSystem.TEMPORARY); 
-		}  
-		
-		function onFail(message) { 
-		   alert('Failed because: ' + message); 
-		} 
-	 }
-	
-
-
-
-
-	// TakeAPicture
-	// Nimmt ein Foto mittels cordova photo plugin auf
-	//
-	$scope.takeAPicture = function() {		
-	 	openCamera("camera-thmb");
-		//alert("zakeAPicture()");
-		//cameraTakePicture();
-		
-	}
     // Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
@@ -1432,7 +1334,7 @@ $scope.asFilterDatum= function() {
 			Courses.save($scope.courses);
 			
 		}
-		
+				
 		$scope.pupilModal.hide();
 
 	}
