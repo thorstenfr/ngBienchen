@@ -65,9 +65,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 													// Ratings von heute
 													var d = new Date(v5);
 													var now = new Date();
-													console.log(d + ":" + now);
 													if ((d.getDate()==now.getDate()) && (d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
-													console.log(d.getDate() + " : " + now.getDate());
 														heute = heute + 1;
 													}													
 													if ((d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
