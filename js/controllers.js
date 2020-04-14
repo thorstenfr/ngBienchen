@@ -1273,6 +1273,9 @@ $scope.asFilterDatum= function() {
 	}
 
 	$scope.takephoto = function(selection) {
+
+		// Das modale Fenster schließen.
+		$scope.pupilModal.hide();
 	
 		let opts = {
 			quality: 80,
@@ -1289,7 +1292,7 @@ $scope.asFilterDatum= function() {
 		navigator.camera.getPicture(ftw, wtf, opts);
 	}
 	function ftw(imgURI) {
-		// document.getElementById('msg').textContent = imgURI;
+		// Speicher Pfad zum Bild
 		$scope.activeCourse.activePupil.image = imgURI;
 		
 		// Inefficient, but save all the subjects
