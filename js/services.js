@@ -25,7 +25,11 @@ angular.module('app.services', [])
 		},
 		saveConfig: function(configs) {
 			window.localStorage['bn-config'] = angular.toJson(configs);
-		},
+        },
+        isRealdrive: function() {
+            // false, falls im Browser
+            return true;
+        },
 		newConfig: function() {
 			return {
 				

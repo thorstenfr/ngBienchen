@@ -9,7 +9,16 @@
 
     <!-- Modal content area -->
     <ion-content ng-controller="ModalController">
-    
+      <div class="list card">
+      <div class="item item-body">     
+      <img class="full-image" src={{tempURL}}>
+      <p>
+        Der Schüler {{activeCourse.activePupil.name}} hat bisher {{activeCourse.activePupil.ratings.length}} Bienchen und {{activeCourse.activePupil.teufelchen.length}} Teufelchen
+        gesammelt.</p>
+        <p>Für {{activeCourse.activePupil.name}} sind {{activeCourse.activePupil.kommentare.length}} Kommentare hinterlegt.
+      </p>
+      </div>
+    </div>
      <form ng-submit="closeEditPupil(pupil)">
         <div class="list">
             <!-- Schülername -->
@@ -21,7 +30,7 @@
             <!-- Bild aufnehmen -->
             <label style="padding-left: 72px;" class="item item-icon-left">
               <i class="icon ion-ios-camera-outline"></i>
-                     <button class="button button-clear button-positive" ng-click="takephoto(1)">Bild aufnehmen</button>            
+                     <button class="button button-clear button-positive" ng-click="takePic()">Bild aufnehmen</button>            
             </label>
              <!-- Bild auswählen -->
              <label style="padding-left: 72px;" class="item item-icon-left">
@@ -47,6 +56,8 @@
       	</li>
       
       </ul>
+
+      <p>Photo</p>
      
       
 	  

@@ -636,9 +636,24 @@ $scope.showPopupAz = function() {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state, uiFieldState) {
 
-	$scope.erledigteAnzeigen=false;
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
+
+	$scope.tempURL = null;
+	$scope.permFolder = null;
+	$scope.oldFile = null;
+	$scope.permFile = null;
+	$scope.KEY = "OLDfileNAMEkey";
+
+	// Ermittle permFolder
+	if(Courses.isRealdrive()) {
+		getPermFolder();
+		var model = device.model;
+		console.log("model:",model);
+	}
+
+	$scope.erledigteAnzeigen=false;
+	
     
     // Liste für Trophy Bilder
     $scope.trophiesList = ["icon ion-trophy", "icon ion-trophy", "icon ion-trophy"];
@@ -682,13 +697,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	 };
 	
 
-	$scope.closeModalPupil = function() {
+	$scope.closeModalPupil = function() {		
 		$scope.pupilModal.hide();
 	}
 	
 	
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;
+		$scope.tempURL = pupil.image;
 	    $scope.pupilModal.show();
 
 	}
@@ -704,8 +720,133 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		Courses.save($scope.courses);
 
 	}
-    
+
+
+	function getPermFolder()  {
+		let path = cordova.file.dataDirectory;
+		//save the reference to the folder as a global app property
+		resolveLocalFileSystemURL(
+		  path,
+		  function (dirEntry) {
+			//create the permanent folder
+			dirEntry.getDirectory(
+			  "images",
+			  { create: true },
+			  function (permDir)  {
+				$scope.permFolder = permDir;
+				console.log("Created or opened", permDir.nativeURL);
+			
+			  },
+			  function (err) {
+				console.warn("failed to create or open permanent image dir");
+			  }
+			);
+		  },
+		  function (err) {
+			console.warn("We should not be getting an error yet");
+		  }
+		);
+	  }
+
+
+	   $scope.takePic = function() {
+		
+		
+		let options = {
+		  quality: 80,
+		  destinationType: Camera.DestinationType.FILE_URI,
+		  sourceType: Camera.PictureSourceType.CAMERA,
+		  allowEdit: true,
+		  encodingType: Camera.EncodingType.JPEG,
+		  mediaType: Camera.MediaType.PICTURE,
+		  targetWidth: 400,
+		  targetHeight: 400
+		};
+		console.log(options);
+		navigator.camera.getPicture(gotImage, failImage, options);
+	  }
 	
+	  function gotImage(uri) {
+		$scope.tempURL = uri;
+		console.log("tempURL:",$scope.tempURL);
+		// document.getElementById("imgCamera").src = uri;
+
+		// Das modale Fenster wieder anzeigen.
+		$scope.pupilModal.show();
+
+
+		// copyImage();
+
+	  }
+
+	  function failImage(err) {
+		console.warn(err);
+	  }
+
+
+	  function copyImage()  {
+
+		console.log("copyImage");
+		console.log("permFolder:",$scope.permFolder);
+		
+		//copy the temp image to a permanent location
+		let fileName = Date.now().toString() +  ".jpg";
+	
+		resolveLocalFileSystemURL(
+		  $scope.tempURL,
+		  entry => {
+			//we have a reference to the temp file now
+			console.log(entry);
+			console.log("copying", entry.name);
+			console.log(
+			  "copy",
+			  entry.name,
+			  "to",
+			  $scope.permFolder.nativeURL + fileName
+			);
+			//copy the temp file to app.permFolder
+			entry.copyTo(
+			  $scope.permFolder,
+			  fileName,
+			  function (permFile) {
+				//the file has been copied
+				//save file name in localstorage
+				let path = permFile.nativeURL;
+				localStorage.setItem($scope.KEY, path);
+				$scope.permFile = permFile;
+				console.log(permFile);
+				console.log("add", permFile.nativeURL, "to the 2nd image");
+				
+				// Speicher Pfad zum Bild
+				$scope.activeCourse.activePupil.image = permFile.nativeURL;
+		
+				// Inefficient, but save all the subjects
+				Courses.save($scope.courses);
+				
+				//delete the old image file in the app.permFolder
+				if ($scope.oldFile !== null) {
+				  $scope.oldFile.remove(
+					function ()  {
+					  console.log("successfully deleted old file");
+					  //save the current file as the old file
+					  $scope.oldFile = permFile;
+					},
+					function (err) {
+					  console.warn("Delete failure", err);
+					}
+				  );
+				}
+			  },
+			  function (fileErr){
+				console.warn("Copy error", fileErr);
+			  }
+			);
+		  },
+		  function (err) {
+			console.error(err);
+		  }
+		);
+	  }
 	
 
 
@@ -1321,6 +1462,11 @@ $scope.asFilterDatum= function() {
 	}
 
 	$scope.closeEditPupil = function(pupil) {	
+
+			// Kopiere neue Bilddatei um
+			console.log("Rufe copyImage auf");
+			copyImage();
+		
 		if (typeof pupil !== "undefined") {
 			if (typeof pupil.name !== "undefined") {
 				$scope.activeCourse.activePupil.name = pupil.name;
@@ -1329,12 +1475,14 @@ $scope.asFilterDatum= function() {
 				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
 				pupil.kommentar = '';
 			}
-			
+		
 			// pupil resetten, um keine Historiendaten anzuzeigen
 			delete pupil.name, pupil.kommentar;
 			
 			// Inefficient, but save all the subjects
 			Courses.save($scope.courses);
+
+			
 			
 		}
 				
