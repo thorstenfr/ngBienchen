@@ -4,6 +4,10 @@ angular.module('app.services', [])
     // var appname = "soteam";
     var appname = "bienchen";
     return {
+        isDevelop: function() {
+            // true if ionic serve - false on emulator or machine
+            return true;
+        },
 		all: function() {   
             var courseString = window.localStorage['courses'];
             if(courseString) {
