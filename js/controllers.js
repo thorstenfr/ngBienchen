@@ -806,8 +806,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  }
 
 
+	  // Hilfsfunktion: Kopiert tempURL nach permFolder	  
 	  function copyImage()  {
+		  console.log("copyImage -->");
 
+		if($scope.tempURL != "img/No_image_available-de.svg.png") {		
 		console.log("copyImage tempURL ", $scope.tempURL);
 		console.log("permFolder:",$scope.permFolder);
 		
@@ -839,8 +842,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				// Speicher Pfad zum Bild
 				$scope.activeCourse.activePupil.image = permFile.nativeURL;
 		
-				// Inefficient, but save all the subjects
-				Courses.save($scope.courses);
+				
 				
 				//delete the old image file in the app.permFolder
 				// removeFile();
@@ -866,7 +868,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			console.error(err);
 		  }
 		);
-		console.log("... copyImage");
+		} 
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
+
+		console.log("<-- copyImage");
 	  }
 	
 
@@ -1112,6 +1118,52 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	   }, 20000);
 	};
 
+
+	// Action Sheet "Foto aufnehmen"
+	$scope.showTakePic = function() {
+		$scope.showReorder=false;
+		
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+				   { text: 'Kamera' },
+				   { text: 'Fotogalerie' },
+				   { text: 'Avatar löschen' }				
+     		],
+     	// destructiveText: 'Delete',
+     	titleText: 'Profil-Avatar festlegen',
+     	cancelText: 'Abbrechen',
+     	cancel: function() {
+        	  // add cancel code..
+        	  $scope.orderByMe('');
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:
+				$scope.takePic(1);				
+		  		break;
+				
+			case 1:
+				$scope.takePic(0);				
+				break;
+			case 2:
+				$scope.tempURL = "img/No_image_available-de.svg.png";
+				   console.log("Soll Avatar löschen");
+				   break;
+			default: 
+				console.log("Nichts zu tun");
+
+			}
+			    
+			return true;
+		}
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
 
 
 	// Action Sheet "Sortierung"
@@ -1506,6 +1558,7 @@ $scope.asFilterDatum= function() {
 			// Kopiere neue Bilddatei um
 			console.log("Rufe copyImage auf");
 			copyImage();
+			console.log("zurück von copyImage");
 		
 		if (typeof pupil !== "undefined") {
 			if (typeof pupil.name !== "undefined") {
