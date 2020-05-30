@@ -2,7 +2,7 @@
 
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
-    	
+      <button ng-click="closeEditPupilEx()" class="button button-clear button-positive">Speichern</button>
       <h1 class="title">{{activeCourse.activePupil.name}}</h1>
       <button ng-click="closeModalPupil()" class="button button-clear button-positive">Abbruch</button>
     </ion-header-bar>
@@ -15,7 +15,7 @@
            <!-- <img ng-click="takePic(1)" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;" src={{tempURL}}>
 
             -->
-          <img ng-click="showTakePic()" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;" src={{tempURL}}>
+          <img ng-click="showTakePic()" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;" src={{tempURL}}>,
            
            <p>
               Der Schüler {{activeCourse.activePupil.name}} hat bisher {{activeCourse.activePupil.ratings.length}} Bienchen und {{activeCourse.activePupil.teufelchen.length}} Teufelchen
@@ -26,12 +26,12 @@
           </div>
 
      
-     <form ng-submit="closeEditPupil(pupil)">
+     <form ng-submit="closeEditPupil(activeCourse.activePupil)">
         <div class="list">
             <!-- Schülername -->
             <label   class="item item-avatar">   
               <img id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>              
-                <input type="text" placeholder={{consts.schuelerNameEingeben}} ng-model="pupil.name">
+                <input type="text" placeholder={{activeCourse.activePupil.name}} ng-model="activeCourse.activePupil.name">
             </label>
             
             <!-- Bild aufnehmen -->
@@ -47,7 +47,7 @@
             <!-- Notizen -->
             <label style="padding-left: 72px;" class="item item-icon-left">
               <i class="icon ion-document"></i>               
-             <input type="text" placeholder="Kommentar hinzufügen ..." ng-model="pupil.kommentar">
+             <input type="text" placeholder="Kommentar hinzufügen ..." ng-model="neuerKommentar">
          </label>
 
     
@@ -57,9 +57,29 @@
         </div>
 		
       </form>
+
+      <ul class="small striped-list">{{bienchen.length}} {{consts.bienchenDetails}}:
+
+        <li class="small" ng-repeat="x in activeCourse.activePupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} <i ng-click="deleteRating(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
+      </ul>
+      <ul class="small striped-list">{{teufelchen.length}} {{consts.teufelchenDetails}}:
+
+        <li class="small" ng-repeat="x in activeCourse.activePupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
+      </ul>
+      <ul class="small striped-list">{{zufaelle.length}} Zufallsauswahlen:
+
+        <li class="small" ng-repeat="x in pupil.zufaelle | datumFilter: vonDatum : bisDatum  | filter:q as zufaelle"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}
+        </li>
+      </ul>
+
       <h3>Kommentare</h3>
+      <label class="item item-input">
+        <textarea ng-model="neuerKommentar" placeholder="Comments"></textarea>
+      </label>
+      <input ng-model="neuerKommentar" type="text">
+      <button ng-click="addKommentar(activeCourse.activePupil, neuerKommentar)">Klick</button>
       <ul class="small striped-list">
-      	<li class="small" ng-repeat="k in activeCourse.activePupil.kommentare">{{k.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} : {{k.kommentar}} <i ng-click="deleteKommentar(activeCourse.activePupil, k)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i>
+      	<li class="small" ng-repeat="k in activeCourse.activePupil.kommentare| orderBy:'datum':true">{{k.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} : {{k.kommentar}} <i ng-click="deleteKommentar(activeCourse.activePupil, k)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i>
       	</li>
       
       </ul>

@@ -32,7 +32,7 @@ angular.module('app.services', [])
         },
         isRealdrive: function() {
             // false, falls im Browser
-            return true;
+            return false;
         },
 		newConfig: function() {
 			return {

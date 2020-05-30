@@ -35,7 +35,12 @@ angular.module('app.routes', [])
     url: '/tour',
     templateUrl: 'templates/app-config.html',
     controller: 'configCtrl'
-	})	
+  })
+  .state('profil', {
+    url: '/profil',
+    templateUrl: 'templates/profil.html',
+    controller: 'profilCtrl'
+	})		
   
 $urlRouterProvider.otherwise('/page1')
 

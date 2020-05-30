@@ -638,7 +638,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
-	$scope.isDevelop 
+	$scope.neuerKommentar = undefined;
 
 	$scope.tempURL = null;
 	$scope.permFolder = null;
@@ -1553,8 +1553,23 @@ $scope.asFilterDatum= function() {
 		$scope.pupilModal.hide();
 	}
 
+	$scope.closeEditPupilEx = function() {
+		
+		console.log("Starte closeEditPupil");
+		// Inefficient, but save all the subjects
+			Courses.save($scope.courses);
+
+			if (typeof $scope.neuerKommentar !== "undefined") {
+				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
+				pupil.kommentar = '';
+			}
+
+			$scope.pupilModal.hide();
+
+			console.log("... Ende closeEditPupil");
+	}
 	$scope.closeEditPupil = function(pupil) {	
-			console.log("closeEditPupil ... ");
+			console.log("closeEditPupil ",pupil.name);
 			// Kopiere neue Bilddatei um
 			console.log("Rufe copyImage auf");
 			copyImage();
@@ -2275,6 +2290,10 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 .controller("ModalController", function($scope){
 	$scope.showAlert = function(){ alert("I'm a modal window!") }
+})
+
+.controller("profilCtrl", function($scope){
+
 })
 
 
