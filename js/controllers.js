@@ -1556,15 +1556,15 @@ $scope.asFilterDatum= function() {
 	$scope.closeEditPupilEx = function() {
 		
 		console.log("Starte closeEditPupil");
+
 		// Inefficient, but save all the subjects
-			Courses.save($scope.courses);
+		Courses.save($scope.courses);
 
-			if (typeof $scope.neuerKommentar !== "undefined") {
-				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
-				pupil.kommentar = '';
-			}
-
-			$scope.pupilModal.hide();
+		console.log("Rufe copyImage auf");
+		copyImage();
+		console.log("zurück von copyImage");
+		
+			$scope.pupilModal.hide();		
 
 			console.log("... Ende closeEditPupil");
 	}
@@ -1580,8 +1580,8 @@ $scope.asFilterDatum= function() {
 				$scope.activeCourse.activePupil.name = pupil.name;
 			}
 			if (typeof pupil.kommentar !== "undefined") {
-				$scope.addKommentar($scope.activeCourse.activePupil, pupil.kommentar);
-				pupil.kommentar = '';
+				$scope.addKommentar($scope.activeCourse.activePupil, $scope.neuerKommentar);
+				$scope.neuerKommentar = '';
 			}
 		
 			// pupil resetten, um keine Historiendaten anzuzeigen
@@ -1966,7 +1966,10 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         });
        
        // Inefficient, but save all the subjects
-        Courses.save($scope.courses);
+		Courses.save($scope.courses);
+		
+		// Lösche Kommenta im Eingabefeld
+		$scope.neuerKommentar='';
 
     }
     

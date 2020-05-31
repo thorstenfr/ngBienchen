@@ -26,38 +26,17 @@
           </div>
 
      
-     <form ng-submit="closeEditPupil(activeCourse.activePupil)">
+   
         <div class="list">
             <!-- Schülername -->
             <label   class="item item-avatar">   
               <img id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>              
                 <input type="text" placeholder={{activeCourse.activePupil.name}} ng-model="activeCourse.activePupil.name">
-            </label>
-            
-            <!-- Bild aufnehmen -->
-            <label style="padding-left: 72px;" class="item item-icon-left">
-              <i class="icon ion-ios-camera-outline"></i>
-                     <button class="button button-clear button-positive" ng-click="takePic(1)">Bild aufnehmen</button>            
-            </label>
-             <!-- Bild auswählen -->
-             <label style="padding-left: 72px;" class="item item-icon-left">
-              <i class="icon ion-ios-photos-outline"></i>
-                     <button class="button button-clear button-positive" ng-click="takePic(0)">Bild auswählen</button>            
-            </label>           
-            <!-- Notizen -->
-            <label style="padding-left: 72px;" class="item item-icon-left">
-              <i class="icon ion-document"></i>               
-             <input type="text" placeholder="Kommentar hinzufügen ..." ng-model="neuerKommentar">
-         </label>
-
+            </label>         
     
-        </div>
-        <div class="padding">
-          <button type="submit" class="button button-block button-positive">Speichern</button>
-        </div>
+        </div>     
 		
-      </form>
-
+   
       <ul class="small striped-list">{{bienchen.length}} {{consts.bienchenDetails}}:
 
         <li class="small" ng-repeat="x in activeCourse.activePupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} <i ng-click="deleteRating(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
@@ -73,20 +52,22 @@
       </ul>
 
       <h3>Kommentare</h3>
-      <label class="item item-input">
-        <textarea ng-model="neuerKommentar" placeholder="Comments"></textarea>
-      </label>
-      <input ng-model="neuerKommentar" type="text">
-      <button ng-click="addKommentar(activeCourse.activePupil, neuerKommentar)">Klick</button>
+      <div class="list">
+
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input ng-model="neuerKommentar" type="text" placeholder="Neuer Kommentar">
+          </label>
+          <button class="button button-small" ng-click="addKommentar(activeCourse.activePupil, neuerKommentar)">
+            +
+          </button>
+        </div>      
+      </div>     
       <ul class="small striped-list">
       	<li class="small" ng-repeat="k in activeCourse.activePupil.kommentare| orderBy:'datum':true">{{k.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} : {{k.kommentar}} <i ng-click="deleteKommentar(activeCourse.activePupil, k)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i>
       	</li>
       
-      </ul>
-
-      <p>Photo</p>
-     
-      
+      </ul>     
 	  
     </ion-content>
 
