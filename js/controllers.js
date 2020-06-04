@@ -2033,6 +2033,13 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		Courses.save($scope.courses);
 	}
 	
+	$scope.settingsList = [
+		{ text: "Bienchen", checked: true },
+		{ text: "Teufelchen", checked: false },
+		{ text: "Zufalssauswahlen", checked: false },
+		{ text: "Kommentare", checked: false }
+
+	  ];
 	
 	
 
