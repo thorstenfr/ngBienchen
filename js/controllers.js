@@ -697,14 +697,21 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
          datum: new Date()
 	 };
 	
-
+	/**
+	 * Mache Änderungen Rückgängig
+	 */
 	$scope.closeModalPupil = function() {		
+		$scope.activeCourse.activePupil.name = $scope.tmpName;
+		$scope.activeCourse.activePupil.image = $scope.tempURL;
+
 		$scope.pupilModal.hide();
 	}
 	
 	
 	$scope.changePupil = function(pupil) {
 		$scope.activeCourse.activePupil = pupil;	
+		/* Speichere Name und Bildpfad, um Änderungen rückgängig machen zu können */
+		$scope.tmpName = pupil.name;
 		$scope.tempURL = pupil.image;
 	    $scope.pupilModal.show();
 
