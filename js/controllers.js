@@ -704,8 +704,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	
 	
 	$scope.changePupil = function(pupil) {
-		$scope.activeCourse.activePupil = pupil;
-		$scope.pupil = pupil;
+		$scope.activeCourse.activePupil = pupil;	
 		$scope.tempURL = pupil.image;
 	    $scope.pupilModal.show();
 
