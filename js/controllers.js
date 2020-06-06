@@ -104,6 +104,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.$on("$ionicView.loaded", function(event, data){
 	   		// handle event
 			console.log("loaded");
+
+			// Inefficient, but save all the subjects
+            Courses.save($scope.courses);
 				 
 				 
 			   // Prüfen, ob es Zeit für einen Kaffee wäre
@@ -731,21 +734,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	}
 
-	$scope.loadOldImage = function() {
-		let oldFilePath = $scope.activeCourse.activePupil.image;
-		if (oldFilePath) {
-			resolveLocalFileSystemURL(
-				oldFilePath,
-				function oldFileEntry() {
-					$scope.oldFileEntry = oldFileEntry;
-				},
-				function err() {
-					console.warn(err);
-				}
-			);
-		}
-	}
-
 	function getPermFolder()  {
 		let path = cordova.file.dataDirectory;
 
@@ -762,9 +750,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			  function (permDir)  {
 				$scope.permFolder = permDir;
 				console.log("Created or opened", permDir.nativeURL);
-
-				//check for an old image from last time app ran
-				$scope.loadOldImage();
+				
 			
 			  },
 			  function (err) {
@@ -1535,9 +1521,15 @@ $scope.asFilterDatum= function() {
 		console.log("zurück von copyImage");
 		$scope.pupilModal.hide();		
 
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
+		//code before the pause
+		setTimeout(function(){
+			//do what you need here
+			console.log("setTimeout: ",$scope.courses);
+			// Inefficient, but save all the subjects
+			Courses.save($scope.courses);
 
+		}, 2000);
+		
 		console.log("... Ende closeEditPupil");
 	}	
 	
