@@ -17,6 +17,7 @@ angular.module('app.services', [])
           return [];
         },
         save: function(courses) {
+            console.log("save aufgerufen: ",courses);
             window.localStorage['courses'] = angular.toJson(courses);
 			
         },

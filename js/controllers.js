@@ -672,8 +672,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	else {
 		$scope.soteam=false;
 	}
-	
-	
 
   $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
 	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
@@ -826,7 +824,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		console.log("permFolder:",$scope.permFolder);
 		
 		//copy the temp image to a permanent location
-		let fileName = "aaa" + Date.now().toString() +  ".jpg";
+		let fileName = Date.now().toString() +  ".jpg";
 	
 		resolveLocalFileSystemURL(
 		  $scope.tempURL,
@@ -882,9 +880,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		} 
 		else {
 			$scope.activeCourse.activePupil.image = "img/No_image_available-de.svg.png";
-		}
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
+		}	
 
 		console.log("<-- copyImage");
 	  }
@@ -1517,44 +1513,7 @@ $scope.asFilterDatum= function() {
 			mediaType: Camera.MediaType.PICTURE
 		}
 		return options;
-	}
-
-	$scope.takephoto = function(selection) {
-
-		// Das modale Fenster schließen.
-		$scope.pupilModal.hide();
-	
-		let opts = {
-			quality: 80,
-			allowEdit: true,
-			saveToPhotoAlbum: false,
-			destinationType: Camera.DestinationType.FILE_URI,
-			encodingType: Camera.EncodingType.JPG,
-			sourceType: selection,
-			mediaType: Camera.MediaType.PICTURE,
-			cameraDirection: Camera.Direction.FRONT,
-			targetWidth: 32,
-			targetHeight: 32
-		};
-		navigator.camera.getPicture(ftw, wtf, opts);
-	}
-	function ftw(imgURI) {
-		// Speicher Pfad zum Bild
-		$scope.activeCourse.activePupil.image = imgURI;
-		
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
-
-		// Das modale Fenster wieder anzeigen.
-		$scope.pupilModal.show();
-
-	}
-	function wtf(msg) {
-		// document.getElementById('msg').textContent = msg;
-		console.log("Problem beim Bild aufnehmen",msg);
-
-	}
-
+	}	
     // Create our modal
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
@@ -1567,52 +1526,20 @@ $scope.asFilterDatum= function() {
 		$scope.pupilModal.hide();
 	}
 
-	$scope.closeEditPupilEx = function() {
+	$scope.closeEditPupil = function() {
 		
-		console.log("Starte closeEditPupil");
-
-		// Inefficient, but save all the subjects
-		Courses.save($scope.courses);
+		console.log("Starte closeEditPupil");		
 
 		console.log("Rufe copyImage auf");
 		copyImage();
 		console.log("zurück von copyImage");
-		
-			$scope.pupilModal.hide();		
+		$scope.pupilModal.hide();		
 
-			console.log("... Ende closeEditPupil");
-	}
-	$scope.closeEditPupil = function(pupil) {	
-			console.log("closeEditPupil ",pupil.name);
-			// Kopiere neue Bilddatei um
-			console.log("Rufe copyImage auf");
-			copyImage();
-			console.log("zurück von copyImage");
-		
-		if (typeof pupil !== "undefined") {
-			if (typeof pupil.name !== "undefined") {
-				$scope.activeCourse.activePupil.name = pupil.name;
-			}
-			if (typeof pupil.kommentar !== "undefined") {
-				$scope.addKommentar($scope.activeCourse.activePupil, $scope.neuerKommentar);
-				$scope.neuerKommentar = '';
-			}
-		
-			// pupil resetten, um keine Historiendaten anzuzeigen
-			delete pupil.name, pupil.kommentar;
-			
-			// Inefficient, but save all the subjects
-			Courses.save($scope.courses);
+		// Inefficient, but save all the subjects
+		Courses.save($scope.courses);
 
-			console.log("... Ende closeEditPupil");
-			
-			
-		}
-				
-		$scope.pupilModal.hide();
-
-	}
-	
+		console.log("... Ende closeEditPupil");
+	}	
 	
 	 $scope.uploadFile = function(){
         var file = event.target.files[0];
