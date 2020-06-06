@@ -876,6 +876,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		  }
 		);
 		} 
+		else {
+			$scope.activeCourse.activePupil.image = "img/No_image_available-de.svg.png";
+		}
 		// Inefficient, but save all the subjects
 		Courses.save($scope.courses);
 
