@@ -10,6 +10,11 @@
     <!-- Modal content area -->
     <ion-content ng-controller="ModalController">
       <div  class="list card">
+        <div class="item item-avatar">
+          <img src="{{activeCourse.activePupil.image}}">
+          <h2>{{activeCourse.activePupil.name}}</h2>
+          <p>{{activeCourse.title}}</p>
+        </div>
             <div class="item item-body">     
 
            <!-- <img ng-click="takePic(1)" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;" src={{tempURL}}>
@@ -21,19 +26,33 @@
               gesammelt.</p>
               <p>Für {{activeCourse.activePupil.name}} sind {{activeCourse.activePupil.kommentare.length}} Kommentare hinterlegt.
             </p>
+            
+            <p>
+              <a href="#" class="subdued">{{activeCourse.activePupil.ratings.length}}  Bienchen</a>
+              <a href="#" class="subdued">{{activeCourse.activePupil.kommentare.length}} Kommentare</a>
+            </p>
+
             </div>
           </div>
 
-     
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Name</span>
+              <input type="text" ng-model="activeCourse.activePupil.name">
+            </label>
+            <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <input ng-model="neuerKommentar" type="text" placeholder="Neuer Kommentar">
+              </label>
+              <button class="button button-small" ng-click="addKommentar(activeCourse.activePupil, neuerKommentar)">
+                +
+              </button>
+            </div>      
+          </div>
    
-        <div class="list">
-            <!-- Schülername -->
-            <label   class="item item-avatar">   
-              <img id="photo" style="height: 32px; width: 32px" src={{activeCourse.activePupil.image}}>              
-                <input type="text" placeholder={{activeCourse.activePupil.name}} ng-model="activeCourse.activePupil.name">
-            </label>         
-    
-        </div>     
+       
+
+
         <div class="list">
         
           <div class="item item-divider"> 
