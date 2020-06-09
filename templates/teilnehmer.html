@@ -154,9 +154,10 @@
   		</div>
   		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
 
-	</form>
-	<br>	
-	<div ng-show="showNormal" ng-if="config.showBuchungsdatum" class="list">
+	</form>	
+	<br>
+	<!-- Buchungsdatum -->
+	<div ng-if="config.showBuchungsdatum" ng-show="config.showViewNormal || config.showViewKompakt" class="list">
 		<label class="item item-input">
 		<span style="margin-right: 10px;">Buchungsdatum:</span> 
 		<input type="date" id="buchungsDatum" name="input" ng-model="buchungsDatum.datum"
