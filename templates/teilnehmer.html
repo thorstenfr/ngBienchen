@@ -103,9 +103,9 @@
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
         <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
         <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
-			  </span>
-			  <span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
-			  </span>
+		</span>
+		 <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
+		 </span>
 
         </ion-item>
 
@@ -125,7 +125,7 @@
 					</ul>
 					<ul class="small striped-list">{{teufelchen.length}} {{consts.teufelchenDetails}}:
 
-						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
+						<li class="small" ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(pupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
 					</ul>
 					<ul class="small striped-list">{{zufaelle.length}} Zufallsauswahlen:
 
