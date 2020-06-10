@@ -9,10 +9,6 @@
   </ion-nav-buttons>
 
   <ion-content padding="true" class="has-header has-footer">
-	<h6>von: {{activeCourse.vonDatum }}</h6>  
-	<h6>bis: {{activeCourse.bisDatum }}</h6>
-
-
 
 	<!-- Bestenliste -->
 	<div   ng-if="config.showFilterBestlist==true" class="bn-filter">
@@ -68,7 +64,7 @@
 		  </div>
 		 <div class="col">
 		  <label class="item-input-wrapper">
-			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum">
+			    <input id="name_input" type="date" ng-model="activeCourse.bisDatum"">
 		  </label>
 		  </div>
 		  
@@ -88,10 +84,11 @@
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
 		<ion-option-button class="button-positive ion-edit" ui-sref="profil"></ion-option-button>
 	    <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
-		<span ng-repeat="x in pupil.ratings  | datumFilter: vonDatum : bisDatum | filter:q as bienchen">
+		<!-- Bienchen und Teufelchen zählen, mit Datumsfilter -->
+        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as bienchen">
 		</span>
-		<span ng-repeat="x in pupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen">
-		</span>
+		 <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum   | filter:q as teufelchen">
+		 </span>
 
         </ion-item>
 
@@ -101,10 +98,11 @@
       <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy | limitTo : activeCourse.myLimit" ng-click="addRating(pupil,0)" on-hold="addRating(pupil,1)"> <img src="{{pupil.image}}"> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}}<br><small style="color : grey;  font-style : italic;" ng-if="pupil.kommentare.length==0">Keine Kommentare vorhanden</small><small ng-repeat="k in pupil.kommentare| orderBy:'datum':true"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 	  	<ion-option-button class="button-assertive ion-trash-a" ng-click="deleteItem(pupil)"></ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
-        <ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
-        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen">
+		<ion-reorder-button class="ion-navicon" on-reorder="reorder(pupil, $fromIndex, $toIndex)"></ion-reorder-button>
+		<!-- Bienchen und Teufelchen zählen, mit Datumsfilter -->
+        <span ng-repeat="x in pupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as bienchen">
 		</span>
-		 <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum  | filter:q as teufelchen">
+		 <span ng-repeat="x in pupil.teufelchen | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum   | filter:q as teufelchen">
 		 </span>
 
         </ion-item>

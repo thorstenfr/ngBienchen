@@ -656,7 +656,17 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.permFile = null;
 	$scope.KEY = "OLDfileNAMEkey";
 
+
+	// Ermittle activeCourse
+	$scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
+	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
 	
+
+	// Erzeuge Date - Objekte für die als Text gespeicherten Daten
+	$scope.activeCourse.vonDatum = new Date($scope.activeCourse.vonDatum);
+	$scope.activeCourse.bisDatum = new Date($scope.activeCourse.bisDatum);
+
+
 
 	// Ermittle permFolder
 	if(Courses.isRealdrive()) {
@@ -685,9 +695,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.soteam=false;
 	}
 
-  $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
-	
 
  $scope.modalData = { "msg" : "Test!" };
 	$scope.showNormal = true;
@@ -1069,7 +1076,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		e.setMinutes(59);		
 		
 		
-	    $scope.activeCourse.vonDatum = new Date(d);
+		$scope.activeCourse.vonDatum= new Date(d);
 	    $scope.activeCourse.bisDatum = new Date(e);
 		
 		console.log("vonDatum : " + $scope.activeCourse.vonDatum);
