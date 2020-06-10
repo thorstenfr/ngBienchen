@@ -1298,7 +1298,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	
 
-	// Action Sheet "Sortierung"
+	// Action Sheet "Sortierung" bei Teilnehmer
 	$scope.showOrder = function() {
 		$scope.showReorder=false;
 		
@@ -1379,7 +1379,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  		case 0:
 				if($scope.config.showViewFilterFilter) {
 					$scope.config.showViewFilterFilter = false;
-					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
+					$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle"></div>Text';
 				 delete $scope.activeCourse.textsearch;
 				
 				}
@@ -1404,15 +1404,16 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			case 2:
 				if ($scope.config.showFilterBestlist) {
 					$scope.config.showFilterBestlist = false;
-					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
+					$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
 					delete $scope.myOrderBy;
 					delete $scope.activeCourse.myLimit;
 				
 				}
 				else {
 					$scope.config.showFilterBestlist=true;
-					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
-					$scope.myOrderBy='-bienchen';
+					$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
+					// $scope.myOrderBy='-bienchen';
+					$scope.orderByMe('-(ratings.length-teufelchen.length)')
 					
 			}
 				

@@ -1,5 +1,17 @@
 	<div class="modal" >
 
+<!--
+  FOTO aufnehmen / auswählen
+  (1) showTakePic() -> neuesFoto wird aufgenommen
+  (2) "Abbruch", neuesFoto wird gelöscht
+  (3) "Speichern"
+    a) neuesFoto wird nach persistentFoto kopiert
+    b) neuesFoto wird gelöscht
+    c) wenn pupil.image - Foto ungleich "kein Foto", dann pupil.image - Foto löschen
+    d) pupil.image - Pfad = persistentFoto 
+     
+-->
+
     <!-- Modal header bar -->
     <ion-header-bar class="bar-secondary">
       <button ng-click="closeEditPupil()" class="button button-clear button-positive">Speichern</button>
