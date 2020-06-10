@@ -35,7 +35,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 						ratings=ratings+pupil.teufelchen.length;
 					});
 			});
-			$scope.ratingsgesamt=ratings;
+		$scope.ratingsgesamt=ratings;
 		$scope.schuelergesamt = schueler;
 	}
 	
@@ -83,6 +83,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.ratingsWoche = woche;
 	$scope.ratingsMonat = monat;
 	$scope.ratingsJahr = jahr;
+	
 	}
 	
 	// Aktuelles Datum
@@ -658,14 +659,16 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 
 	// Ermittle activeCourse
-	$scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
-	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
+	$scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];	
 	
 
-	// Erzeuge Date - Objekte für die als Text gespeicherten Daten
-	$scope.activeCourse.vonDatum = new Date($scope.activeCourse.vonDatum);
-	$scope.activeCourse.bisDatum = new Date($scope.activeCourse.bisDatum);
-
+	// Erzeuge Date - Objekte für die als Text gespeicherten Daten	
+	if ($scope.activeCourse.vonDatum) {
+		$scope.activeCourse.vonDatum = new Date($scope.activeCourse.vonDatum);
+	}
+	if ($scope.activeCourse.bisDatum) {
+		$scope.activeCourse.bisDatum = new Date($scope.activeCourse.bisDatum);
+	}
 
 
 	// Ermittle permFolder
@@ -1429,8 +1432,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				
 			  	break;
 		}
-			// Speicher Konfiguration
+		// Speicher Konfiguration
 		Courses.saveConfig($scope.config);
+		
+		 // Inefficient, but save all the subjects
+		 Courses.save($scope.courses);
+
 		return true;
 		} 	
 	});
@@ -1757,8 +1764,8 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
         }
         
-        // Ratings komplett erhöhen
-        if ($scope.totalNumberOfRatings == 0) {
+        // Erfolgsnachricht, falls das das erste Rating war
+        if ($scope.ratingsgesamt == 0) {
 			$scope.showDone();
 		}
 		
