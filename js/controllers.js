@@ -268,6 +268,37 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
    		}
     }
 	
+	// Triggered on a button click, or some other target
+		 $scope.showAddCourse = function() {
+		   $scope.data = {}
+		
+		   // An elaborate, custom popup
+		   var myPopup = $ionicPopup.show({
+		     template: '<input type="text" ng-model="data.neuerKurs">',
+		     title: $scope.consts.popupTitle,
+		     subTitle: $scope.consts.subTitle,
+		     scope: $scope,
+		     buttons: [
+		       { text: 'Abbruch' },
+		       {
+		         text: '<b>Speichern</b>',
+		         type: 'button-positive',
+		         onTap: function(e) {
+				   
+				  createCourseEx($scope.data.neuerKurs);
+				   
+				     }
+		       },
+		     ]
+		   });
+		   myPopup.then(function(res) {
+		     console.log('Tapped!', res);
+		   });
+		   $timeout(function() {
+		      myPopup.close(); //close the popup after 3 seconds for some reason
+		   }, 30000);
+	   };
+	
 		var firstCourse = function() {
 			// 
 			// Noch keine Kurse, bei soteam Kurs automatisch anlegen
@@ -279,7 +310,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 					$scope.createCourse($scope.consts.courseName);
 				} 
 				else {
-					$scope.showAlert();
+					// $scope.showAlert();
+					$scope.showAddCourse();
 					$scope.noCourses=true;
 				}		
 			} else {
@@ -356,36 +388,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
     }
 	
-	// Triggered on a button click, or some other target
-		 $scope.showAddCourse = function() {
-		   $scope.data = {}
-		
-		   // An elaborate, custom popup
-		   var myPopup = $ionicPopup.show({
-		     template: '<input type="text" ng-model="data.neuerKurs">',
-		     title: $scope.consts.popupTitle,
-		     subTitle: $scope.consts.subTitle,
-		     scope: $scope,
-		     buttons: [
-		       { text: 'Abbruch' },
-		       {
-		         text: '<b>Speichern</b>',
-		         type: 'button-positive',
-		         onTap: function(e) {
-				   
-				  createCourseEx($scope.data.neuerKurs);
-				   
-				     }
-		       },
-		     ]
-		   });
-		   myPopup.then(function(res) {
-		     console.log('Tapped!', res);
-		   });
-		   $timeout(function() {
-		      myPopup.close(); //close the popup after 3 seconds for some reason
-		   }, 30000);
-	   };
+	
 	   
 	   
 	   // Filter zum Sortieren nach Name oder Bienchen
@@ -946,7 +949,46 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	   });
 	};
 	
-	
+		 // Triggered on a button click, or some other target
+		 $scope.showPopup = function() {
+		   $scope.data = {}
+		
+		   // An elaborate, custom popup
+		   var myPopup = $ionicPopup.show({
+		     template: '<input type="text" ng-model="data.neuerschueler">',
+		     title: $scope.consts.neuerSchuelerTitle,		     
+		     subTitle: $scope.consts.neuerSchuelerSubtitle,
+		     scope: $scope,
+		     buttons: [
+		       { text: 'Abbruch' },
+		       {
+		         text: '<b>Speichern</b>',
+		         type: 'button-dark',
+		         onTap: function(e) {
+					 /*
+		            if (!$scope.data.wifi) {
+		             //don't allow the user to close unless he enters wifi password
+					 } else {
+		             return $scope.data.wifi;
+		           }
+				   */
+				   
+				  
+				    createPupil($scope.data.neuerschueler);
+					 
+				   
+		         }
+		       },
+		     ]
+		   });
+		   myPopup.then(function(res) {
+		     console.log('Tapped!', res);
+		   });
+		   $timeout(function() {
+		      myPopup.close(); //close the popup after 10 seconds for some reason
+		   }, 100000);
+		};
+		
 
 
 	// 
@@ -954,7 +996,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	//
 	if($scope.activeCourse.pupils.length == 0) {
 		// An alert dialog
-		$scope.showAlert();
+		// $scope.showAlert();
+		$scope.showPopup();
 		$scope.nopupils=true;
 	} else {
 		$scope.nopupils=false;
@@ -1265,8 +1308,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-       			{ text: 'Nach Name' },
-				{ text: $scope.consts.nachBienchen }				
+       			{ text: $scope.consts.sortierenDerTeilnehmerNameText },
+				{ text: $scope.consts.sortierenDerTeilnehmerBienchenText }				
      		],
      	// destructiveText: 'Delete',
      	titleText: $scope.consts.sortierenDerTeilnehmer,
@@ -1280,19 +1323,27 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  		case 0:
 				mytoggle=!mytoggle;
 				if (mytoggle) {
+					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon ion-arrow-up-c"></div>Nach Name';
+					$scope.consts.sortierenDerTeilnehmerBienchenText = '<div class="icon  ion-arrow-up-c"></div><div class="icon  ion-arrow-down-c"></div>Nach Bienchen',
 					$scope.orderByMe('name');
 				}
 				else {
-					$scope.orderByMe('-name')
+					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon ion-arrow-down-c"></div>Nach Name';
+					$scope.consts.sortierenDerTeilnehmerBienchenText = '<div class="icon  ion-arrow-up-c"></div><div class="icon  ion-arrow-down-c"></div>Nach Bienchen';
+					$scope.orderByMe('-name');
 				}				
 		  		break;
 				
 			case 1:
 				mytoggle	=!mytoggle;
 				if (mytoggle) {
+					$scope.consts.sortierenDerTeilnehmerBienchenText = '<div class="icon  ion-arrow-up-c"></div>Nach Bienchen';
+					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon  ion-arrow-up-c"></div><div class="icon  ion-arrow-down-c"></div>Nach Name';
 					$scope.orderByMe('ratings.length-teufelchen.length');
 				}
 				else {
+					$scope.consts.sortierenDerTeilnehmerBienchenText = '<div class="icon  ion-arrow-down-c"></div>Nach Bienchen';
+					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon  ion-arrow-up-c"></div><div class="icon  ion-arrow-down-c"></div>Nach Name',
 					$scope.orderByMe('-(ratings.length-teufelchen.length)')
 				}	
 				
@@ -1789,46 +1840,7 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
     };
 	
-	 // Triggered on a button click, or some other target
-		 $scope.showPopup = function() {
-		   $scope.data = {}
-		
-		   // An elaborate, custom popup
-		   var myPopup = $ionicPopup.show({
-		     template: '<input type="text" ng-model="data.neuerschueler">',
-		     title: $scope.consts.neuerSchuelerTitle,		     
-		     subTitle: $scope.consts.neuerSchuelerSubtitle,
-		     scope: $scope,
-		     buttons: [
-		       { text: 'Abbruch' },
-		       {
-		         text: '<b>Speichern</b>',
-		         type: 'button-dark',
-		         onTap: function(e) {
-					 /*
-		            if (!$scope.data.wifi) {
-		             //don't allow the user to close unless he enters wifi password
-					 } else {
-		             return $scope.data.wifi;
-		           }
-				   */
-				   
-				  
-				    createPupil($scope.data.neuerschueler);
-					 
-				   
-		         }
-		       },
-		     ]
-		   });
-		   myPopup.then(function(res) {
-		     console.log('Tapped!', res);
-		   });
-		   $timeout(function() {
-		      myPopup.close(); //close the popup after 10 seconds for some reason
-		   }, 100000);
-		};
-		
+	
 	$scope.toggle = function (v) {
 		console.log("toogle in teilnehmerCtrl: " + v);
         $scope[v] = !$scope[v];
