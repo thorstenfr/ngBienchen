@@ -12,15 +12,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	if ($scope.config.length==0) {
 		$scope.config = Courses.newConfig();
 	}
-	
-	// Setze, ob Inline-Kursanlage input-feld angezeigt werden soll
-	if ($scope.courses.length==0) {
-		$scope.showCreateCourse=true;
-	}
-	else {
-		$scope.showCreateCourse=false;
-	}
-	
+		
 	$scope.firstRun = Courses.getFirstRun();
 	$scope.consts = Courses.getVariables();
 	$scope.azEinheit = Courses.getAzEinheit();
@@ -451,6 +443,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
      		buttons: [
           		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
 				{ text: '<div class="icon ion-pie-graph"></div>Export / Import' },
+				{ text: $scope.config.showCreateText},
 				{ text: '<div class="icon ion-help"></div> Tutorial'}
 			],
 	     	// destructiveText: 'Delete',
@@ -464,11 +457,22 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		  		case 0:
 					console.log("Pro-Version kaufen");
 				  	break;
+					
 				case 1:
 					$state.go('csv');
 					
 					break;
 				case 2:
+					if ($scope.showCreate) {
+						$scope.showCreate=false;
+						$scope.config.showCreateText = '<div class="icon ion-toggle"></div> Schnelleingabe';
+					}
+					else {
+						$scope.showCreate=true;
+						$scope.config.showCreateText = '<div class="icon ion-toggle-filled"></div> Schnelleingabe';
+					}
+					break;
+				case 3:
 					$state.go('tour');
 	
 					break;
@@ -681,12 +685,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
   $scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];
 	$scope.totalNumberOfRatings = Courses.getTotalNumberOfRatings();
-	if ($scope.activeCourse.pupils.length==0) {
-	$scope.showCreate=true;
-	}
-	else {
-		$scope.showCreate=false;
-		}
 	
 
  $scope.modalData = { "msg" : "Test!" };
