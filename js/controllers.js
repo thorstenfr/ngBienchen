@@ -1311,15 +1311,13 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 // Action Sheet "Filter"
 	$scope.showViewFilter = function() {
-        // Initales setzen der Werte 
-        $scope.config.showFilterBestlistText = $scope.consts.showFilterBestlistTextFalse;
-		
+        
         // Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
 			{ text: $scope.config.showViewFilterFilterText },
 			{ text: $scope.config.showViewFilterDatePeriodText },
-			{ text: $scope.config.showFilterBestlistText }
+			{ text: $scope.config.showViewFilterBestlistText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Filter',
@@ -1357,14 +1355,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			case 2:
 				if ($scope.config.showFilterBestlist) {
 					$scope.config.showFilterBestlist = false;
-					$scope.config.showFilterBestlistText = $scope.consts.showFilterBestlistTextFalse;
+					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
 					delete $scope.myOrderBy;
 					delete $scope.activeCourse.myLimit;
 				
 				}
 				else {
 					$scope.config.showFilterBestlist=true;
-					$scope.config.showFilterBestlistText = $scope.consts.showFilterBestlistTextTrue;
+					$scope.config.showFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
 					$scope.myOrderBy='-bienchen';
 					
 			}
