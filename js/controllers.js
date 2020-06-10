@@ -656,6 +656,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.permFile = null;
 	$scope.KEY = "OLDfileNAMEkey";
 
+	
+
 	// Ermittle permFolder
 	if(Courses.isRealdrive()) {
 		getPermFolder();
@@ -1126,6 +1128,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 					if ($scope.config.showBuchungsdatum) {
 						$scope.config.showBuchungsdatum=false;
 						$scope.config.showBuchungsdatumText = '<div class="icon ion-toggle"></div> Buchungsdatum setzen';
+						$scope.buchungsDatum.datum = new Date();
 					}
 					else {
 						$scope.config.showBuchungsdatum=true;
@@ -1728,10 +1731,12 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		}
 	
     // Rating hinzufügen
-    $scope.addRating = function(pupil) {
+    $scope.addRating = function(pupil,type) {
 
         // var d = new Date();
-		
+		// type : 0 = Bienchen
+		// type : 1 = Teufelchen
+
 		console.log("buc_datum: " + $scope.buchungsDatum.datum);
 		
 		var d = $scope.buchungsDatum.datum;
@@ -1749,30 +1754,24 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
         if ($scope.totalNumberOfRatings == 0) {
 			$scope.showDone();
 		}
-        console.log("Bienchen insgesamt: " + $scope.totalNumberOfRatings);
-        $scope.totalNumberOfRatings = $scope.totalNumberOfRatings + 1;
+		
+		if (type==1) {
+			pupil.teufelchen.push({
+				datum : now
+			});
+		}
+		else {
+			// Rating hinzufügen
+			pupil.ratings.push({
+				datum : now
+			});
+		}
+		
         
-
-        // Bienchen des Kurses erhöhen
-        if (isNaN($scope.activeCourse.bienchen)) {
-        	$scope.activeCourse.bienchen = 0;
-        }
-
-        $scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
-
-		// Rating hinzufügen
-        pupil.ratings.push({
-            datum : now
-        });
-        // Bienchen-Anzahl anpassen
-        pupil.bienchen = pupil.bienchen + 1;
-
-
 
         // Inefficient, but save all the subjects
         Courses.save($scope.courses);
-		Courses.setTotalNumberOfRatings($scope.totalNumberOfRatings);
-
+		
     }
 
     // Teufelchen hinzufügen
