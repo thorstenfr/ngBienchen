@@ -37,9 +37,10 @@ angular.module('app.services', [])
         },
 		newConfig: function() {
 			return {
-				
+				showInfoxbox : false,
+				infoboxText : '<div class="icon ion-toggle"></div>Infobox',
 				showTagesUebersicht : false,
-				tagesUebersichtText : '<div class="icon ion-toggle"></div>Tagesauswertung',
+				tagesUebersichtText : '<div class="icon ion-toggle"></div>Tagesauswertungen',
 				showUebersicht : false,
 				uebersichtText : '<div class="icon ion-toggle"></div>Gesamtauswertung',
 				showViewKompakt : false,

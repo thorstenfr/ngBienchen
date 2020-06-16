@@ -582,8 +582,9 @@ $scope.showPopupAz = function() {
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          { text: $scope.config.uebersichtText },
-				  { text: $scope.config.tagesUebersichtText }
+				{ text: $scope.config.infoboxText },
+          		{ text: $scope.config.uebersichtText },
+				{ text: $scope.config.tagesUebersichtText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Anzeige',
@@ -593,20 +594,31 @@ $scope.showPopupAz = function() {
         },
      	buttonClicked: function(index) {
      	   	switch (index) {
-	  		case 0:
+			case 0:
+				if ($scope.config.showInfobox) {
+					$scope.config.showInfobox = false;
+					$scope.config.infoboxText = '<div class="icon ion-toggle"></div>Infobox';					
+				}
+				else {				
+					$scope.config.showInfobox = true;					
+					$scope.config.infoboxText = '<div class="icon ion-toggle-filled"></div>Infobox';	
+			
+				}
+					break;
+		
+	  		case 1:
 				if ($scope.config.showUebersicht) {
 					$scope.config.showUebersicht = false;
 					$scope.config.uebersichtText = '<div class="icon ion-toggle"></div>Gesamtauswertung';					
 				}
 				else {
 					calcRatings();
-					$scope.config.showUebersicht = true;					
-					$scope.config.uebersichtText = "Gesamtauswertung verbergen";
+					$scope.config.showUebersicht = true;										
 					$scope.config.uebersichtText = '<div class="icon ion-toggle-filled"></div>Gesamtauswertung';	
 			
 				}
 	  		  	break;
-			case 1:
+			case 2:
 				if ($scope.config.showTagesUebersicht) {
 					$scope.config.showTagesUebersicht=false;
 					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle"></div>Tagesauswertung';
