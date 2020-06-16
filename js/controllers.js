@@ -1180,6 +1180,52 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	   }, 20000);
 	};
 
+	/**
+	 * Action Sheet "Teilnehmer mehr"
+	 */
+	$scope.showTeilnehmerMehr = function(pupil) {
+		$scope.showReorder=false;
+		
+
+		// Show the action sheet
+   		var hideSheet = $ionicActionSheet.show({
+     		buttons: [
+				   { text: 'Verschieben' },
+				   { text: 'Ändern' },
+				   { text: 'Löschen' }				
+     		],
+     	// destructiveText: 'Delete',
+     	titleText: 'Teilnehmer Aktionen',
+     	cancelText: 'Abbrechen',
+     	cancel: function() {
+        	  // add cancel code..
+        	  $scope.orderByMe('');
+        },
+     	buttonClicked: function(index) {
+     	   	switch (index) {
+	  		case 0:					
+		  		break;
+				
+			case 1:
+				$scope.changePupil(pupil);
+				break;
+			case 2:
+				$scope.deleteItem(pupil);
+				break;
+			default: 
+				console.log("Nichts zu tun");
+
+			}
+			    
+			return true;
+		}
+	});
+   // For example's sake, hide the sheet after two seconds
+   $timeout(function() {
+    	 hideSheet();
+   }, 20000);
+};
+
 
 	// Action Sheet "Foto aufnehmen"
 	$scope.showTakePic = function() {
@@ -1704,8 +1750,8 @@ $scope.asFilterDatum= function() {
 // A confirm dialog
 $scope.showPupilDeleteConfirm = function(pupil) {
 	var confirmPopup = $ionicPopup.confirm({
-		title: $scope.consts.schueler + ' ' + pupil.name + ' ' + $scope.consts.hatBewertungen,
-		template: 'Sind Sie sicher, dass Sie ' + $scope.consts.denSchueler
+		title: pupil.name + ' löschen',
+		template: pupil.name + ' unwiderruflich löschen!'
 	});
 	confirmPopup.then(function(res) {
 		if(res) {	         
