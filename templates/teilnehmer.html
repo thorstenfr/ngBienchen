@@ -8,10 +8,9 @@
 
   </ion-nav-buttons>
 
-  <ion-content padding="true" class="has-header has-footer">
-
+  <ion-content padding="true" class="has-header has-footer">	  
 	<!-- Bestenliste -->
-	<div   ng-if="config.showFilterBestlist==true" class="bn-filter">
+	<div ng-click="setOrderByBienchen()" ng-if="config.showFilterBestlist==true" class="bn-filter">
 		<div class="row bar bar-header item-input-inset">
 			<div class="col">
 				<input type="radio" ng-model="activeCourse.myLimit" ng-value="3"> Top 3</input>

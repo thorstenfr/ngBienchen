@@ -1039,7 +1039,11 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	}
 	
 	
-	
+	/* Setze Sortierung auf Bienchen */
+	$scope.setOrderByBienchen = function() {		
+		$scope.orderByMe('-(ratings.length-teufelchen.length)')
+	}
+
 
 	
 	
@@ -1388,13 +1392,21 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
         	  $scope.orderByMe('');
         },
      	buttonClicked: function(index) {
-     	   	switch (index) {
+			 /* Deaktiviere Bestenliste, da Sortierung ausgewählt wurde */
+			$scope.config.showFilterBestlist=false;
+			console.log("config.showFilterBestlist",$scope.config.showFilterBestlist);
+			
+			// Speicher Konfiguration
+			Courses.saveConfig($scope.config);	
+			
+			switch (index) {
 	  		case 0:
 				mytoggle=!mytoggle;
 				if (mytoggle) {
 					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon ion-arrow-up-c"></div>Nach Name';
 					$scope.consts.sortierenDerTeilnehmerBienchenText = '<div class="icon  ion-arrow-up-c"></div><div class="icon  ion-arrow-down-c"></div>Nach Bienchen',
 					$scope.orderByMe('name');
+					
 				}
 				else {
 					$scope.consts.sortierenDerTeilnehmerNameText = '<div class="icon ion-arrow-down-c"></div>Nach Name';
@@ -1431,7 +1443,18 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 // Action Sheet "Filter"
 	$scope.showViewFilter = function() {
-        
+		
+		/* Setze toggles */
+		console.log("config.showFilterBestlist",$scope.config.showFilterBestlist);
+		if($scope.config.showFilterBestlist==true) {
+			$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
+		}
+		else {
+			$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
+		}
+		
+
+
         // Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
