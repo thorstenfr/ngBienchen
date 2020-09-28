@@ -8,3 +8,5 @@ APP zur Verwaltung von Schülerleistungen.
 - ionic cordova build ios
 
 
+Mögliche Buildfehler 
+ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
