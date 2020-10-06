@@ -36,7 +36,7 @@
         <i ng-if="soteam==false" class="icon ion-ios-people-outline"></i>
         <i ng-if="soteam" class="icon ion-ios-paper-outline"></i>
         
-        {{course.title}} <br />vvv<small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+        {{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
 					{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
         <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
         </small> </span>

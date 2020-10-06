@@ -24,24 +24,33 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		$scope.soteam=false;
 	}
 	calcPupils = function() {
-		console.log("calcRating-->");
+		console.log("calcPupils-->");
 		var schueler = 0;
 		var ratings=0;
-		var kurse = $scope.courses
+		var kurse = $scope.courses;
 		$scope.courses.forEach(function(course) {
-			schueler = schueler + course.pupils.length;
+				
+			// Kursbienchen deklarieren und intitialisieren
+			$scope.courses[$scope.courses.indexOf(course)].bienchen = 0;
+
 			// Iterate durch Ratings
 			course.pupils.forEach(function(pupil) {
+				
+				// Kursbienchen erhöhen
+				$scope.courses[$scope.courses.indexOf(course)].bienchen = $scope.courses[$scope.courses.indexOf(course)].bienchen + pupil.ratings.length - pupil.teufelchen.length;
 					ratings=ratings+pupil.ratings.length;
-						ratings=ratings+pupil.teufelchen.length;
+					ratings=ratings+pupil.teufelchen.length;
 					});
 			});
 		$scope.ratingsgesamt=ratings;
 		$scope.schuelergesamt = schueler;
-		console.log("<-- calcRating: ratings");
+		console.log("<-- calcPupils: ratings");
 	}
 	
 	calcRatings = function() {	
+
+		console.log("calcRatings-->");
+
 		var heute = 0;
 		var woche = 0;
 		var monat = 0;
@@ -85,6 +94,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.ratingsWoche = woche;
 	$scope.ratingsMonat = monat;
 	$scope.ratingsJahr = jahr;
+
+	console.log("<-- calcRatings");
 	
 	}
 	
@@ -103,8 +114,20 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			// Inefficient, but save all the subjects
             Courses.save($scope.courses);
 				 
-				 
-			   // Prüfen, ob es Zeit für einen Kaffee wäre
+			// Schüler berechnen
+			calcPupils();
+
+			/* Wertungen für Tag, Monat Jahr werden nur berechnet, wenn Gesamtauswertung 
+			* oder Tagesauswertung aktiviert sind
+			* calcRating() muss auch aufgerufen werden, wenn showUebersicht oder 
+			* showTagesübersicht aktiviert wird.
+			*/ 
+			if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht) {
+				calcRatings();
+
+			}
+			
+			// Prüfen, ob es Zeit für einen Kaffee wäre
 			var nr = Courses.getTotalNumberOfRatings();
 			if (nr>300) 
 			{
@@ -112,16 +135,6 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 				$scope.buyPro();
 			}
 	});	
-	$scope.$on('$ionicView.beforeEnter', function(){
-		if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht || $scope.config.showInfobox) {		
-			calcRatings();
-			calcPupils();
-		}
-	
-	});
-	
-
-
 		
 	if($scope.firstRun=='0') {
 	   	Courses.setFirstRun(d);
@@ -617,9 +630,10 @@ $scope.showPopupAz = function() {
 					$scope.config.showUebersicht = false;
 					$scope.config.uebersichtText = '<div class="icon ion-toggle"></div>Gesamtauswertung';					
 				}
-				else {
-					calcRatings();
-					$scope.config.showUebersicht = true;										
+				else {		
+					// Berechne die Wertungen für Tag, Monat, Jahr
+					calcRatings();							
+					$scope.config.showUebersicht = true;
 					$scope.config.uebersichtText = '<div class="icon ion-toggle-filled"></div>Gesamtauswertung';	
 			
 				}
@@ -630,8 +644,9 @@ $scope.showPopupAz = function() {
 					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle"></div>Tagesauswertung';
 					
 				}
-				else {
-					calcRatings();
+				else {	
+					// Berechne die Wertungen für Tag, Monat, Jahr
+					calcRatings();				
 					$scope.config.showTagesUebersicht=true;
 					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle-filled"></div>Tagesauswertung';
 				}
