@@ -24,6 +24,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		$scope.soteam=false;
 	}
 	calcPupils = function() {
+		console.log("calcRating-->");
 		var schueler = 0;
 		var ratings=0;
 		var kurse = $scope.courses
@@ -37,6 +38,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			});
 		$scope.ratingsgesamt=ratings;
 		$scope.schuelergesamt = schueler;
+		console.log("<-- calcRating: ratings");
 	}
 	
 	calcRatings = function() {	
@@ -111,7 +113,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			}
 	});	
 	$scope.$on('$ionicView.beforeEnter', function(){
-		if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht) {		
+		if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht || $scope.config.showInfobox) {		
 			calcRatings();
 			calcPupils();
 		}
@@ -134,7 +136,12 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	
 	var delCourse = function(course) {
 	        $scope.courses.splice($scope.courses.indexOf(course), 1);
-            
+			
+			/* Berechne Ratings und Pupils nach dem Löschen, da sich die 
+			 * Anzahl hat eventuell verändert hat */ 
+			calcPupils();
+			calcRatings();  
+
 			// Inefficient, but save all the subjects
             Courses.save($scope.courses);
             
@@ -151,9 +158,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
        template: 'Sind Sie sicher, dass Sie den Kurs löschen wollen?'
      });
      confirmPopup.then(function(res) {
-       if(res) {	         
-			delCourse(course);
-			
+       if(res) {	  		       
+			delCourse(course);			
        } else {
          console.log('You are not sure');
 		 
