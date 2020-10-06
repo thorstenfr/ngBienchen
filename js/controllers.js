@@ -29,6 +29,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		var ratings=0;
 		var kurse = $scope.courses;
 		$scope.courses.forEach(function(course) {
+			schueler = schueler + course.pupils.length;
 				
 			// Kursbienchen deklarieren und intitialisieren
 			$scope.courses[$scope.courses.indexOf(course)].bienchen = 0;
