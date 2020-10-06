@@ -38,7 +38,7 @@
         
         {{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
 					{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
-        <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.bienchen}} 
+        <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
         </small> </span>
 		
         <ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>

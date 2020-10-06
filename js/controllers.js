@@ -40,6 +40,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 				$scope.courses[$scope.courses.indexOf(course)].bienchen = $scope.courses[$scope.courses.indexOf(course)].bienchen + pupil.ratings.length - pupil.teufelchen.length;
 					ratings=ratings+pupil.ratings.length;
 					ratings=ratings+pupil.teufelchen.length;
+					/* Setze Bienchen für den aktuellen Schüler */
+					$scope.courses[$scope.courses.indexOf(course)].pupils[$scope.courses[$scope.courses.indexOf(course)].pupils.indexOf(pupil)].bienchen = pupil.ratings.length - pupil.teufelchen.length;
 					});
 			});
 		$scope.ratingsgesamt=ratings;
