@@ -8,3 +8,8 @@ APP zur Verwaltung von Schülerleistungen.
 - ionic cordova build ios
 
 
+Mögliche Buildfehler:
+- ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
+
+Deployment auf Device:
+- https://support.apple.com/de-de/HT204460
