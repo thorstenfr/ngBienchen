@@ -7,6 +7,8 @@ APP zur Verwaltung von Schülerleistungen.
 - das rep nach www clonen
 - ionic cordova build ios
 
+Cordova Plugins hinzufügen:
+- cordova plugin add cordova-plugin-camera
 
 Mögliche Buildfehler:
 - ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
