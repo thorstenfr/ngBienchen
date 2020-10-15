@@ -10,6 +10,7 @@ APP zur Verwaltung von Schülerleistungen.
 Cordova Plugins hinzufügen:
 - cordova plugin add cordova-plugin-camera
 - cordova plugin add cordova-plugin-file
+- cordova plugin add eeschiavo-cordova-plugin-clipboard
 
 Mögliche Buildfehler:
 - ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
