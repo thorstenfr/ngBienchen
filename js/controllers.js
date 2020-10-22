@@ -187,7 +187,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
  // An alert dialog
  $scope.showAlertVersion = function() {
 	var alertPopup = $ionicPopup.alert({
-	  title: 'Don\'t eat that!',
+	  title: 'Über Bienchen App!',
 	  templateUrl: 'templates/version.txt'
 	});
 	alertPopup.then(function(res) {
@@ -476,7 +476,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          		{ text: '<div class="icon ion-happy-outline"></div>Über Bienchen' },
+          		{ text: '<div class="icon ion-information-circled"></div>Über Bienchen' },
 				{ text: '<div class="icon ion-pie-graph"></div>Export / Import' },
 				{ text: $scope.config.showCreateText},
 				{ text: '<div class="icon ion-help"></div> Tutorial'}
@@ -491,11 +491,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	     	   	switch (index) {
 		  		case 0:
 					$scope.showAlertVersion();	
-				  console.log("Pro-Version kaufen");
-
-
-				  	break;
-					
+				   	break;					
 				case 1:
 					$state.go('csv');
 					
