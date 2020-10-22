@@ -183,6 +183,18 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
      });
    };
 
+   // Info-Dialog für Bienchen - Version
+ // An alert dialog
+ $scope.showAlertVersion = function() {
+	var alertPopup = $ionicPopup.alert({
+	  title: 'Don\'t eat that!',
+	  templateUrl: 'templates/version.txt'
+	});
+	alertPopup.then(function(res) {
+	  console.log('Thank you for not eating my delicious ice cream cone');
+	});
+  };
+
    
 	
 
@@ -464,7 +476,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-          		{ text: '<div class="icon ion-happy-outline"></div>Pro-Version kaufen' },
+          		{ text: '<div class="icon ion-happy-outline"></div>Über Bienchen' },
 				{ text: '<div class="icon ion-pie-graph"></div>Export / Import' },
 				{ text: $scope.config.showCreateText},
 				{ text: '<div class="icon ion-help"></div> Tutorial'}
@@ -478,7 +490,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	     	buttonClicked: function(index) {
 	     	   	switch (index) {
 		  		case 0:
-					console.log("Pro-Version kaufen");
+					$scope.showAlertVersion();	
+				  console.log("Pro-Version kaufen");
+
+
 				  	break;
 					
 				case 1:
@@ -585,6 +600,9 @@ $scope.showPopupAz = function() {
      myPopup.close(); //close the popup after 3 seconds for some reason
   }, 30000);
  };
+
+ 
+ 
 
 
  // Info-Dialog für Arbeitseinheiten Bienchen
@@ -837,7 +855,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  }
 	
 	  function gotImage(uri) {
-		$scope.tempURL = uri;
+		// $scope.tempURL = uri;
+		$scope.tempURL = window.Ionic.normalizeURL(uri);
 		console.log("tempURL:",$scope.tempURL);		
 
 		// Das modale Fenster wieder anzeigen.
