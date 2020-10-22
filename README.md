@@ -14,6 +14,7 @@ Cordova Plugins hinzufügen:
 
 Mögliche Buildfehler:
 - ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
+- Gupl-Reference-Error: https://timonweb.com/javascript/how-to-fix-referenceerror-primordials-is-not-defined-error/
 
 Deployment auf Device:
 - https://support.apple.com/de-de/HT204460
