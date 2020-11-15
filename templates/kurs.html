@@ -3,25 +3,29 @@
   <ion-nav-buttons side="right" class="has-header has-footer">
     <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
-  <ion-content padding="true" class="has-header has-footer" >
+  <ion-content padding="false" class="has-header has-footer" >
 
-	<div ng-if="config.showInfobox" class="infobox">{{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen </div>
+	<div ng-show="config.showViewNormal | config.showViewDetail" class="card">
+		<div class="item item-text-wrap" style="text-align: center;">
+			{{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen
+		</div>
+	 </div>
 
-			<div ng-if="config.showUebersicht==true" class="row header">
+			<div ng-if="config.showViewDetail==true" class="row header">
 					<div ng-if="soteam" class="col">Teamer</div>
           <div style="text-align: center;" class="col">Heute</div>
           <div style="text-align: center;" class="col">Woche</div>
           <div style="text-align: center;" class="col">Monat</div>
           <div style="text-align: center;" class="col">Jahr</div>          
         </div>
-			<div ng-if="config.showUebersicht==true" class="row">
-				<div ng-if="soteam" class="col">Du</div>
+			<div ng-if="config.showViewDetail==true" class="row">
+				
 					<div  style="text-align: center;"  class="col">{{ratingsHeute / azEinheit | number:2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit | number:2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
 			</div>
-		<div ng-if="config.showTagesUebersicht==true" class="card">
+		<div ng-if="config.showViewDetail==true" class="card">
 			<div class="item item-text-wrap">
 				<i ng-click="soteam ? showPopupAz() : showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
 			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
@@ -29,25 +33,6 @@
 			</div>
 		</div>
 		
-	
-		<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
-	<ion-item class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
-	      
-        <i ng-if="soteam==false" class="icon ion-ios-people-outline"></i>
-        <i ng-if="soteam" class="icon ion-ios-paper-outline"></i>
-        
-        {{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
-					{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
-        <small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
-        </small> </span>
-		
-        <ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
-        <ion-option-button  class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
-        <ion-delete-button class="ion-minus-circled"></ion-delete-button>
-        <ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
-      </ion-item>
-    </ion-list>
-    <div class="spacer" style="width: 300px; height: 14px;"></div>
 
 	<form ng-if="showCreate" name="form.coursesForm" role="form" ng-submit="createCourse(course)">
     <div class="list list-inset">
@@ -59,6 +44,40 @@
   		<input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;">
   		
 	</form>  
+
+	<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth"></ion-list>
+	
+		<!--  Normale Ansicht -->	 
+		<ion-item   ng-show="config.showViewNormal | config.showViewDetail" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
+			<i ng-if="config.showViewNormal" class="icon ion-ios-people-outline"></i>
+			
+			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+						{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
+			<small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
+			</small> </span>
+			
+			<ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
+			<ion-option-button  class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
+			<ion-delete-button class="ion-minus-circled"></ion-delete-button>
+			<ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
+		  </ion-item>
+		
+		<!--  Kompakte Ansicht -->	 
+		<ion-item   ng-if="config.showViewKompakt" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
+			
+			
+			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+						{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
+			<small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
+			</small> </span>
+			
+			<ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
+			<ion-option-button  class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
+			<ion-delete-button class="ion-minus-circled"></ion-delete-button>
+			<ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
+		  </ion-item>
+		
+		</ion-list>
    
    </ion-content>
    

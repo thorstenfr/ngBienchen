@@ -145,7 +145,7 @@ angular.module('app.services', [])
                     popupTitle : 'Neuer Kurs',
 		            subTitle: 'Mehrere Kurse durch <b>Kommata</b> getrennt anlegen.',             
                     isSoteam : false,
-                    titlePageOne : 'Kurs',
+                    titlePageOne : 'Kurse',
                     placeholder : 'Neuen Kurs hinzufügen',
 					welcome : 'Willkommen bei Bienchen!',
 					welcomeText : 'Erfassen Sie als erstes Ihre Kurse. Sie können später über "+ Neu" weitere hinzufügen.',

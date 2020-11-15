@@ -125,7 +125,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			* calcRating() muss auch aufgerufen werden, wenn showUebersicht oder 
 			* showTagesübersicht aktiviert wird.
 			*/ 
-			if ($scope.config.showUebersicht || $scope.config.showTagesUebersicht) {
+			if ($scope.config.showViewDetail) {
 				calcRatings();
 
 			}
@@ -618,9 +618,10 @@ $scope.showPopupAz = function() {
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-				{ text: $scope.config.infoboxText },
-          		{ text: $scope.config.uebersichtText },
-				{ text: $scope.config.tagesUebersichtText }
+			{ text: $scope.config.showViewKompaktText },
+			{ text: $scope.config.showViewNormalText },
+			{ text: $scope.config.showViewUebersichtText },
+			{ text: $scope.config.showViewDetailText }
 			],
      	// destructiveText: 'Delete',
      	titleText: 'Anzeige',
@@ -630,52 +631,65 @@ $scope.showPopupAz = function() {
         },
      	buttonClicked: function(index) {
      	   	switch (index) {
-			case 0:
-				if ($scope.config.showInfobox) {
-					$scope.config.showInfobox = false;
-					$scope.config.infoboxText = '<div class="icon ion-toggle"></div>Infobox';					
-				}
-				else {				
-					$scope.config.showInfobox = true;					
-					$scope.config.infoboxText = '<div class="icon ion-toggle-filled"></div>Infobox';	
-			
-				}
-					break;
-		
-	  		case 1:
-				if ($scope.config.showUebersicht) {
-					$scope.config.showUebersicht = false;
-					$scope.config.uebersichtText = '<div class="icon ion-toggle"></div>Gesamtauswertung';					
-				}
-				else {		
-					// Berechne die Wertungen für Tag, Monat, Jahr
-					calcRatings();							
-					$scope.config.showUebersicht = true;
-					$scope.config.uebersichtText = '<div class="icon ion-toggle-filled"></div>Gesamtauswertung';	
-			
-				}
-	  		  	break;
-			case 2:
-				if ($scope.config.showTagesUebersicht) {
-					$scope.config.showTagesUebersicht=false;
-					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle"></div>Tagesauswertung';
-					
-				}
-				else {	
-					// Berechne die Wertungen für Tag, Monat, Jahr
-					calcRatings();				
-					$scope.config.showTagesUebersicht=true;
-					$scope.config.tagesUebersichtText = '<div class="icon ion-toggle-filled"></div>Tagesauswertung';
-				}
+	  		case 0:
+				$scope.config.showViewKompakt = true;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle-filled"></div>Kompakt';
 				
-				break;
-			
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
+			  	break;
+			case 1:
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = true;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle-filled"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
+			  	break;
+			case 2:
+				
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = true;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle-filled"></div>Übersicht';
+				
+				$scope.config.showViewDetail = false;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle"></div>Detail';
+			  	break;
+			case 3:
+				
+				$scope.config.showViewKompakt = false;
+				$scope.config.showViewKompaktText = '<div class="icon ion-toggle"></div>Kompakt';
+				
+	  			$scope.config.showViewNormal = false;
+				$scope.config.showViewNormalText = '<div class="icon ion-toggle"></div>Normal';
+	  			
+				$scope.config.showViewUebersicht = false;
+	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
+				
+				$scope.config.showViewDetail = true;
+				$scope.config.showViewDetailText = '<div class="icon ion-toggle-filled"></div>Detail';
+			  	break;
 		}
-		
-		// Speicher Konfiguration
+			// Speicher Konfiguration
 		Courses.saveConfig($scope.config);
 		return true;
-		}
+		} 	
 	});
    // For example's sake, hide the sheet after two seconds
    $timeout(function() {
