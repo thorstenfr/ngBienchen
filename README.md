@@ -12,6 +12,10 @@ Cordova Plugins hinzufügen:
 - cordova plugin add cordova-plugin-file
 - cordova plugin add eeschiavo-cordova-plugin-clipboard
 
+Für Icons und Spash-Screen
+- www/gimp icon.png und splash.png in resources erzeugen
+- ionic cordova resources
+
 Mögliche Buildfehler:
 - ionic cordova build ios -- --buildFlag="-UseModernBuildSystem=0"
 - Gupl-Reference-Error: https://timonweb.com/javascript/how-to-fix-referenceerror-primordials-is-not-defined-error/
