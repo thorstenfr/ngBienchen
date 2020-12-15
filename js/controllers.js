@@ -734,12 +734,13 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.activeCourse.bisDatum = new Date($scope.activeCourse.bisDatum);
 	}
 
-
+	console.log("Courses.isRealdrive()", Courses.isRealdrive());
 	// Ermittle permFolder
 	if(Courses.isRealdrive()) {
+		console.log("isReady --> ");
 		getPermFolder();
 		var model = device.model;
-		console.log("model:",model);
+		console.log("model/permFolder:",model, $scope.permFolder);
 	}
 
 	$scope.erledigteAnzeigen=false;
@@ -826,9 +827,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			  { create: true },
 			  function (permDir)  {
 				$scope.permFolder = permDir;
-				console.log("Created or opened", permDir.nativeURL);
-				
-			
+				console.log("Created or opened", permDir.nativeURL);			
 			  },
 			  function (err) {
 				console.warn("failed to create or open permanent image dir");
@@ -865,8 +864,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  }
 	
 	  function gotImage(uri) {
-		// $scope.tempURL = uri;
-		$scope.tempURL = window.Ionic.normalizeURL(uri);
+		$scope.tempURL = uri;
+		// $scope.tempURL = window.Ionic.normalizeURL(uri);
 		console.log("tempURL:",$scope.tempURL);		
 
 		// Das modale Fenster wieder anzeigen.
@@ -882,6 +881,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  // Hilfsfunktion: Kopiert tempURL nach permFolder	  
 	  function copyImage()  {
 		  console.log("copyImage -->");
+		  
+		 // Ermittle Verzeichnis
+		permFolder = getPermFolder();
 
 		if($scope.tempURL != "img/No_image_available-de.svg.png") {		
 		console.log("copyImage tempURL ", $scope.tempURL);
@@ -894,6 +896,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		  $scope.tempURL,
 		  entry => {
 			//we have a reference to the temp file now
+			console.log("Enter...")
 			console.log(entry);
 			console.log("copying", entry.name);
 			console.log(
