@@ -713,6 +713,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
+	$scope.consts = Courses.getVariables();
 	$scope.neuerKommentar = undefined;
 
 	$scope.tempURL = null;
@@ -734,9 +735,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.activeCourse.bisDatum = new Date($scope.activeCourse.bisDatum);
 	}
 
-	console.log("Courses.isRealdrive()", Courses.isRealdrive());
 	// Ermittle permFolder
-	if(Courses.isRealdrive()) {
+	if($scope.consts.isRealdrive) {
 		console.log("isReady --> ");
 		getPermFolder();
 		var model = device.model;

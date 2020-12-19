@@ -3,6 +3,7 @@ angular.module('app.services', [])
 .factory('Courses', [function(){
     // var appname = "soteam";
     var appname = "bienchen";
+    let isRealDrive = false; // wenn Bienchen im Browser läuft
     return {
         isDevelop: function() {
             // true if ionic serve - false on emulator or machine
@@ -30,10 +31,6 @@ angular.module('app.services', [])
 		},
 		saveConfig: function(configs) {
 			window.localStorage['bn-config'] = angular.toJson(configs);
-        },
-        isRealdrive: function() {
-            // false, falls im Browser
-            return true;
         },
 		newConfig: function() {
 			return {
