@@ -34,7 +34,7 @@
             -->
           <img ng-click="showTakePic()" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;" src={{tempURL}}>
           <p>
-             {{activeCourse.activePupil.name}} hat bisher {{activeCourse.activePupil.ratings.length}} Bienchen und {{activeCourse.activePupil.teufelchen.length}} Teufelchen
+             <a class="subdued" ng-click="showTakePic()">{{activeCourse.activePupil.name}}</a> ist in der Klasse {{activeCourse.title}} hat bisher {{activeCourse.activePupil.ratings.length}} Bienchen und {{activeCourse.activePupil.teufelchen.length}} Teufelchen
               gesammelt.</p>
               <p>Für {{activeCourse.activePupil.name}} sind {{activeCourse.activePupil.kommentare.length}} Kommentare hinterlegt.
             </p>

@@ -787,6 +787,10 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.pupilModal.hide();
 	}
 	
+	$scope.movePupil = function(pupil) {
+		console.log("-> movePupil()");
+		$scope.movePupilModal.show();
+	}
 	
 	$scope.changePupil = function(pupil) {
 		console.log("changePupil: ", $scope.tempURL);
@@ -1250,9 +1254,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		// Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-				   { text: 'Verschieben' },
-				   { text: 'Ändern' },
-				   { text: 'Löschen' }				
+				   { text: '<div class="icon ion-android-contact"></div>Details' },
+				   { text: '<div class="icon ion-arrow-move"></div>Verschieben' },
+				   { text: '<div class="icon ion-trash-a"></div>Löschen'}			
      		],
      	// destructiveText: 'Delete',
      	titleText: 'Teilnehmer Aktionen',
@@ -1263,7 +1267,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
         },
      	buttonClicked: function(index) {
      	   	switch (index) {
-	  		case 0:					
+			  case 0:	
+				$scope.movePupil(pupil);
 		  		break;
 				
 			case 1:
@@ -1702,13 +1707,27 @@ $scope.asFilterDatum= function() {
 		}
 		return options;
 	}	
-    // Create our modal
+    
+	
+	
+	 // Modales Fenster verschieben 
+	 $ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
+	 {
+		 $scope.pupilModal = modal;
+		 }, {
+			 scope: $scope
+	   });
+	
+	   // Modales Fenster ändern von Schülern
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
     	$scope.pupilModal = modal;
     	}, {
     		scope: $scope
-  	});
+	  });
+	  
+
+
 
 	$scope.closeNewPupil = function() {	
 		$scope.pupilModal.hide();
