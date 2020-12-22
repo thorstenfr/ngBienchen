@@ -1,0 +1,13 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-dark">
+    <h1 class="title">{{activeCourse.activePupil.name}}</h1>
+    <button class="button button-clear" ng-click="hideModal()">Close</button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <div class="item" collection-repeat="x in activeCourse.activePupil.ratings">
+        {{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

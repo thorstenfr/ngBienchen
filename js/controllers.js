@@ -792,6 +792,20 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.movePupilModal.show();
 	}
 	
+	/* Klick auf Details */	
+	$scope.detailPupil = function(pupil) {
+		console.log("detailPupil: ", $scope.tempURL);
+		$scope.activeCourse.activePupil = pupil;	
+		/* Speichere Name und Bildpfad, um Änderungen rückgängig machen zu können */
+		$scope.tmpName = pupil.name;
+		$scope.tempURL = pupil.image;
+		$scope.undoURL = pupil.image;
+		console.log("changePupil ($scope.undoURL): ", $scope.undoURL);
+		$scope.detailModal.show();
+
+	}
+
+	/* Klick auf Ändern */	
 	$scope.changePupil = function(pupil) {
 		console.log("changePupil: ", $scope.tempURL);
 		$scope.activeCourse.activePupil = pupil;	
@@ -1268,7 +1282,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 			  case 0:	
-				$scope.movePupil(pupil);
+				$scope.detailPupil(pupil);
 		  		break;
 				
 			case 1:
@@ -1709,15 +1723,16 @@ $scope.asFilterDatum= function() {
 	}	
     
 	
+
 	
-	 // Modales Fenster verschieben 
-	 $ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
-	 {
-		 $scope.pupilModal = modal;
-		 }, {
-			 scope: $scope
-	   });
-	
+	/* Modales Fenster zum Anzeigen der Schülerdetails */
+	$ionicModal.fromTemplateUrl('templates/modal-detail-pupil.html', function(modal)
+	{
+    	$scope.detailModal = modal;
+    	}, {
+    		scope: $scope
+	  });
+
 	   // Modales Fenster ändern von Schülern
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
 	{
@@ -1737,9 +1752,13 @@ $scope.asFilterDatum= function() {
 		
 		console.log("Starte closeEditPupil");		
 
-		console.log("Rufe copyImage auf");
-		copyImage();
-		console.log("zurück von copyImage");
+		/* Bild wird nur kopiert auf echtem Device */
+		if($scope.consts.isRealdrive) {
+			console.log("Rufe copyImage auf");
+			copyImage();
+			console.log("zurück von copyImage");
+		}
+	
 		$scope.pupilModal.hide();		
 
 		//code before the pause
@@ -1870,7 +1889,12 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	Courses.save($scope.courses);
 	};
 
-
+	// Schülername ändern 
+	$scope.make = function(e) {
+		// ...  your function code
+		alert("Hello");
+        e.preventDefault();   // use this to NOT go to href site
+    }
 
 
 	// Rating entfernen
@@ -2152,7 +2176,9 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 	  ];
 	
-	
+	  $scope.onDoubleTap = function() {
+		  alert("on-double-tap");
+	  }
 
 
 }])

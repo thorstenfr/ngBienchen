@@ -3,7 +3,7 @@ angular.module('app.services', [])
 .factory('Courses', [function(){
     // var appname = "soteam";
     var appname = "bienchen";
-    let isRealDrive = true; // wenn Bienchen im Browser läuft
+    let isRealDrive = false; // wenn Bienchen im Browser läuft
     return {
         isDevelop: function() {
             // true if ionic serve - false on emulator or machine
