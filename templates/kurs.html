@@ -12,7 +12,7 @@
 	 </div>
 
 			<div ng-if="config.showViewDetail==true" class="row header">
-					<div ng-if="soteam" class="col">Teamer</div>
+				
           <div style="text-align: center;" class="col">Heute</div>
           <div style="text-align: center;" class="col">Woche</div>
           <div style="text-align: center;" class="col">Monat</div>
@@ -25,10 +25,10 @@
 					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
 					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
 			</div>
-		<div ng-if="config.showViewDetail==true" class="card">
+		<div ng-if="config.showViewDetail" class="card">
 			<div class="item item-text-wrap">
 				<i ng-click="soteam ? showPopupAz() : showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
-			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
+			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. Das erste Bienchen wurde am {{oldest | date :  "dd.MM.y (HH:mm:ss)" }}, das letzte am {{newest | date :  "dd.MM.y (HH:mm:ss)"}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
 				
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 	<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth"></ion-list>
 	
 		<!--  Normale Ansicht -->	 
-		<ion-item   ng-show="config.showViewNormal" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
+		<ion-item   ng-show="config.showViewNormal || config.showViewDetail" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
 			<i ng-if="config.showViewNormal" class="icon ion-ios-people-outline"></i>
 			
 			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 

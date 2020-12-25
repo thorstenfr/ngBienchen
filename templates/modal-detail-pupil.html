@@ -5,8 +5,8 @@
   </ion-header-bar>
   <ion-content>
     <div class="list">
-      <div class="item" collection-repeat="x in activeCourse.activePupil.ratings">
-        {{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}
+      <div class="item" ng-repeat="x6 in activeCourse.activePupil.ratings">
+        {{ x6.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}
       </div>
     </div>
   </ion-content>

@@ -58,6 +58,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		var woche = 0;
 		var monat = 0;
 		var jahr = 0;
+		var newest = new Date();
+		var oldest = new Date();
+
 
 		// Iteriere durch Struktur.
 		angular.forEach($scope.courses,function(value,key){
@@ -71,6 +74,14 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 													// Ratings von heute
 													var d = new Date(v5);
 													var now = new Date();
+													if (newest - d < 0) {
+														console.log("Neues newest: " + newest);
+														newest = d;
+													}
+													if (oldest -d > 0) {
+														console.log("Neues oldest: " + oldest);
+														oldest = d;
+													}
 													if ((d.getDate()==now.getDate()) && (d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
 														heute = heute + 1;
 													}													
@@ -97,6 +108,9 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	$scope.ratingsWoche = woche;
 	$scope.ratingsMonat = monat;
 	$scope.ratingsJahr = jahr;
+	$scope.newest = newest;
+	$scope.oldest = oldest;
+
 
 	console.log("<-- calcRatings");
 	
@@ -683,6 +697,8 @@ $scope.showPopupAz = function() {
 	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
 				
 				$scope.config.showViewDetail = true;
+				// Bei Wechsel auf Detailanzeige müssen die Detailinformationen geladen werden
+				calcRatings();
 				$scope.config.showViewDetailText = '<div class="icon ion-toggle-filled"></div>Detail';
 			  	break;
 		}
@@ -1084,6 +1100,37 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		      myPopup.close(); //close the popup after 10 seconds for some reason
 		   }, 100000);
 		};
+
+
+		 /* Schülername ändern */
+		 $scope.showPopupChangeName = function(pupil) {
+			$scope.data = {}
+		 
+			// An elaborate, custom popup
+			var myPopup = $ionicPopup.show({
+			  template: '<input type="text" ng-model="data.neuerschueler">',
+			  title: pupil.name,		     
+			  subTitle: "Umbennenen",
+			  scope: $scope,
+			  buttons: [
+				{ text: 'Abbruch' },
+				{
+				  text: '<b>Speichern</b>',
+				  type: 'button-dark',
+				  onTap: function(e) {				   
+					 console.log("Umbenennen:", $scope.data.neuerschueler);	
+					 $scope.activeCourse.activePupil.name = $scope.data.neuerschueler;				
+				  }
+				},
+			  ]
+			});
+			myPopup.then(function(res) {
+			  console.log('Tapped!', res);
+			});
+			$timeout(function() {
+			   myPopup.close(); //close the popup after 10 seconds for some reason
+			}, 100000);
+		 };
 		
 
 
@@ -1892,8 +1939,8 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	// Schülername ändern 
 	$scope.make = function(e) {
 		// ...  your function code
-		alert("Hello");
-        e.preventDefault();   // use this to NOT go to href site
+		// e.preventDefault();   // use this to NOT go to href site
+		$scope.showPopupChangeName();
     }
 
 
