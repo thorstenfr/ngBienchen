@@ -722,14 +722,15 @@ $scope.showPopupAz = function() {
 
 
 
-.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$cordovaCamera', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $state, uiFieldState) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $cordovaCamera, $state, uiFieldState) {
 
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
 	$scope.consts = Courses.getVariables();
+	$scope.isRealDrive = Courses.isRealDrive();
 	$scope.neuerKommentar = undefined;
 
 	$scope.tempURL = null;
@@ -752,7 +753,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	}
 
 	// Ermittle permFolder
-	if($scope.consts.isRealdrive) {
+	if($scope.isRealDrive) {
 		console.log("isReady --> ");
 		getPermFolder();
 		var model = device.model;
@@ -772,6 +773,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 
 	$scope.consts = Courses.getVariables();
+	console.log("$scope.consts", $scope.consts);
 	if ($scope.consts.appname=='soteam') {
 		$scope.soteam=true;
 	}
@@ -823,7 +825,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	/* Klick auf Ändern */	
 	$scope.changePupil = function(pupil) {
-		console.log("changePupil: ", $scope.tempURL);
+		console.log("changePupil: ", pupil.name);
 		$scope.activeCourse.activePupil = pupil;	
 		/* Speichere Name und Bildpfad, um Änderungen rückgängig machen zu können */
 		$scope.tmpName = pupil.name;
@@ -875,6 +877,17 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  }
 
 
+	  $cordovaCamera.getPicture().then(
+		function (data) {
+		  console.log('Took a picture!', data);
+		},
+		function (err) {
+		  console.log('Error occurred while taking a picture', err);
+		}
+	  );
+
+	
+
 	   $scope.takePic = function(selection) {
 		
 		// Das modale Fenster schließen.
@@ -894,9 +907,39 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			cameraDirection: Camera.Direction.FRONT
 		};
 		console.log(options);
-		navigator.camera.getPicture(gotImage, failImage, options);
+		// navigator.camera.getPicture(gotImage, failImage, options);
+
+		/* ionic native */
+		$cordovaCamera.getPicture().then(
+			function (data) {
+			  console.log('Took a picture!', data);
+			  $scope.tempURL = data;
+			  console.log(' $scope.tempURL',  $scope.tempURL);
+
+			  // Das modale Fenster wieder anzeigen.
+			$scope.pupilModal.show();
+			},
+			function (err) {
+			  console.log('Error occurred while taking a picture', err);
+			}
+		  );
+
+
+		/* Probieren wir es mal mitngCordova 
+		$cordovaCamera.getPicture(options).then(function(uri) {
+			//Do something
+			$scope.tempURL = uri;
+		// $scope.tempURL = window.Ionic.normalizeURL(uri);
+		console.log("tempURL:",$scope.tempURL);		
+
+		// Das modale Fenster wieder anzeigen.
+		$scope.pupilModal.show();	
+		}, function(error) {
+			//Do something
+			console.warn(error);
+		}); */
 	  }
-	
+	/*
 	  function gotImage(uri) {
 		$scope.tempURL = uri;
 		// $scope.tempURL = window.Ionic.normalizeURL(uri);
@@ -910,6 +953,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  function failImage(err) {
 		console.warn(err);
 	  }
+
+	  */
 
 
 	  // Hilfsfunktion: Kopiert tempURL nach permFolder	  
@@ -1800,7 +1845,8 @@ $scope.asFilterDatum= function() {
 		console.log("Starte closeEditPupil");		
 
 		/* Bild wird nur kopiert auf echtem Device */
-		if($scope.consts.isRealdrive) {
+		console.log("isRealdrive: ", $scope.isRealDrive);
+		if($scope.isRealDrive) {
 			console.log("Rufe copyImage auf");
 			copyImage();
 			console.log("zurück von copyImage");
