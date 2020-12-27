@@ -876,16 +876,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		);
 	  }
 
-
-	  $cordovaCamera.getPicture().then(
-		function (data) {
-		  console.log('Took a picture!', data);
-		},
-		function (err) {
-		  console.log('Error occurred while taking a picture', err);
-		}
-	  );
-
 	
 
 	   $scope.takePic = function(selection) {
