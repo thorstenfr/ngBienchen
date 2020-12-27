@@ -9,6 +9,9 @@ APP zur Verwaltung von Schülerleistungen.
 - icon.png und splash.png nach resource kopieren und Ressourcen erzeugen (ionic cordova resources)
 - ionic cordova build ios
 
+Ionic Native (für Cordova-Plugins)
+- siehe: https://github.com/ionic-team/ionic-native
+
 Cordova Plugins hinzufügen:
 - cordova plugin add cordova-plugin-camera
 - cordova plugin add cordova-plugin-file
