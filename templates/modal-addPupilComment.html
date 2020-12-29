@@ -1,0 +1,27 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-secondary">
+    <button ng-click="saveAddPupilCommentModal()" class="button button-clear button-positive">Speichern</button>
+    <h1 class="title">Neuer Kommentar für {{activeCourse.activePupil.name}}</h1>
+    <button ng-click="cancelAddPupilCommentModal()" class="button button-clear button-positive">Abbruch</button>
+  </ion-header-bar>
+
+ 
+  <ion-content class="padding">
+
+
+      <div class="list">
+        <label class="item item-input">
+          <textarea ng-model="activeCourse.activePupil.newcomment" placeholder="Notieren Sie hier Ihren Kommentar"></textarea>
+        </label>
+      </div>
+
+      <h3>{{comment}}</h3>
+      <button class="button button-full button-positive" ng-click="saveAddPupilCommentModal()">Create</button>
+      
+
+     
+  </ion-content>
+</ion-modal-view>
+  
+    

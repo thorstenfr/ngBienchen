@@ -829,6 +829,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 
 	}
 
+	/* Kommentar zu Schüler hinzufügen */
+	$scope.addPupilComment = function(pupil) {
+		console.log("addPupilComment: ", pupil.name);
+		$scope.activeCourse.activePupil = pupil;	
+	    $scope.addPupilCommentModal.show();
+
+	}
+
 	/* Klick auf Ändern */	
 	$scope.changePupil = function(pupil) {
 		console.log("changePupil: ", pupil.name);
@@ -1338,6 +1346,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
 				   { text: '<div class="icon ion-android-contact"></div>Details' },
+				   { text: '<div class="icon ion-android.contact"></div>Kommentar'},
 				   { text: '<div class="icon ion-arrow-move"></div>Verschieben' },
 				   { text: '<div class="icon ion-trash-a"></div>Löschen'}			
      		],
@@ -1352,12 +1361,15 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	   	switch (index) {
 			  case 0:	
 				$scope.detailPupil(pupil);
-		  		break;
+				  break;
+				case 1:	
+				  $scope.addPupilComment(pupil);
+					break;
 				
-			case 1:
+			case 2:
 				$scope.changePupil(pupil);
 				break;
-			case 2:
+			case 3:
 				$scope.deleteItem(pupil);
 				break;
 			default: 
@@ -1801,6 +1813,37 @@ $scope.asFilterDatum= function() {
     	}, {
     		scope: $scope
 	  });
+
+
+	  /* Modales Fenster für Kommentarfunktion */
+	  $ionicModal.fromTemplateUrl('templates/modal-addpupilcomment.html', function(modal)
+	{
+		
+    	$scope.addPupilCommentModal = modal;
+    	}, {
+    		scope: $scope
+	  });
+	  $scope.saveAddPupilCommentModal = function() {
+		
+		console.log("$scope.activeCourse.activePupil.newcomment)", $scope.activeCourse.activePupil.newcomment);
+		// Schließe das modale Fenster
+		$scope.addPupilCommentModal.hide();
+
+			// Kommentar hinzufügen
+			$scope.addKommentar($scope.activeCourse.activePupil,$scope.activeCourse.activePupil.newcomment);
+
+			// Array löschen
+			$scope.activeCourse.activePupil.newcomment  = "";
+			
+
+	  }
+	  $scope.cancelAddPupilCommentModal = function() {
+		 
+		// Schließe das modale Fenster
+		$scope.addPupilCommentModal.hide();
+
+
+	  }
 
 	   // Modales Fenster ändern von Schülern
 	$ionicModal.fromTemplateUrl('templates/modal-pupil.html', function(modal)
