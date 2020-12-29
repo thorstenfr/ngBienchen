@@ -2023,12 +2023,14 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 			pupil.teufelchen.push({
 				datum : now
 			});
+			$scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
 		}
 		else {
 			// Rating hinzufügen
 			pupil.ratings.push({
 				datum : now
 			});
+			$scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
 		}
 		
         
