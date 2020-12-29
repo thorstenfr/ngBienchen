@@ -480,8 +480,14 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		};
 		
 		$scope.showReor = function() {
-			$scope.orderByMe('');			
-			$scope.toggle('showReorder');
+			$scope.orderByMe('');	
+			if ($scope.showReorder) {
+				$scope.showReorder = false;
+			}	
+			else {
+				$scope.showReorder = true;
+			}
+			// $scope.toggle('showReorder');
 		};
 		
 		// Action Sheet "Mehr"

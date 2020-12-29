@@ -1,7 +1,7 @@
 
 <ion-view hide-back-button="true" title={{consts.titlePageOne}} cache-view="false" id="page1" style="background-color:#F7F7F7">
   <ion-nav-buttons side="right" class="has-header has-footer">
-    <button  class="button button-icon icon ion-drag" ng-click="showReor()"></button>
+    <button class="button button-icon icon ion-drag" ng-click="showReor()"></button>
   </ion-nav-buttons>
   <ion-content padding="false" class="has-header has-footer" >
 
@@ -45,10 +45,12 @@
   		
 	</form>  
 
-	<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth"></ion-list>
+
+	<ion-list  id="kurs-list1" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
+
 	
 		<!--  Normale Ansicht -->	 
-		<ion-item   ng-show="config.showViewNormal || config.showViewDetail" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
+		<ion-item  show-reorder="showReorder" ng-show="config.showViewNormal || config.showViewDetail" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">aaa
 			<i ng-if="config.showViewNormal" class="icon ion-ios-people-outline"></i>
 			
 			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 

@@ -5,7 +5,7 @@ angular.module('app.services', [])
     var appname = "bienchen";
     return {
         isRealDrive: function() {
-            return true;
+            return false;
         },
         isDevelop: function() {
             // true if ionic serve - false on emulator or machine
