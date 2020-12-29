@@ -722,10 +722,10 @@ $scope.showPopupAz = function() {
 
 
 
-.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', '$cordovaCamera', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', 'CameraFac', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, $cordovaCamera, $state, uiFieldState) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, CameraFac, $state, uiFieldState) {
 
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
@@ -876,76 +876,57 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		);
 	  }
 
-	
+	  $scope.takePictureTP = function (options) {
+		var options = {
+		   quality : 75,
+		   targetWidth: 200,
+		   targetHeight: 200,
+		   sourceType: 1
+		};
+  
+		Camera.getPicture(options).then(function(imageData) {
+		   $scope.picture = imageData;;
+		}, function(err) {
+		   console.log(err);
+		});
+	 };
 
+
+	
+	  /* Funktion zum Aufnehmen des Bildes bzw. Fotogalerie */
 	   $scope.takePic = function(selection) {
 		
-		// Das modale Fenster schließen.
-		$scope.pupilModal.hide();
+			console.log("--> takePic()");
 
-		// Sichere aktuelles Bild als oldfile
-		$scope.oldFile = $scope.activeCourse.activePupil.image;
+			// Das modale Fenster schließen.
+			$scope.pupilModal.hide();
 
-		let options = {
-			quality: 50,
-			allowEdit: true,
-			saveToPhotoAlbum: false,
-			destinationType: Camera.DestinationType.FILE_URI,
-			encodingType: Camera.EncodingType.JPG,		
-			sourceType: selection,
-			mediaType: Camera.MediaType.PICTURE,
-			cameraDirection: Camera.Direction.FRONT
-		};
-		console.log(options);
-		// navigator.camera.getPicture(gotImage, failImage, options);
+			// Sichere aktuelles Bild als oldfile
+			$scope.oldFile = $scope.activeCourse.activePupil.image;
 
-		/* ionic native */
-		$cordovaCamera.getPicture().then(
-			function (data) {
-			  console.log('Took a picture!', data);
-			  $scope.tempURL = data;
-			  console.log(' $scope.tempURL',  $scope.tempURL);
+			var options = {
+				quality : 75,
+				allowEdit: false, /* true tut nicht */
+				saveToPhotoAlbum: false,
+				destinationType: Camera.DestinationType.FILE_URI,
+				sourceType: selection,
+				correctOrientation: true
+			};
 
-			  // Das modale Fenster wieder anzeigen.
-			$scope.pupilModal.show();
-			},
-			function (err) {
-			  console.log('Error occurred while taking a picture', err);
-			}
-		  );
+			console.log(options);
+			
+			// Camera-Factoy / Service wie bei https://www.tutorialspoint.com/ionic/ionic_camera.htm beschrieben
+			CameraFac.getPicture(options).then(function(imageData) {
+				$scope.tempURL = imageData;
+				console.log("tempURL:",$scope.tempURL);
 
+				// Das modale Fenster wieder anzeigen
+				$scope.pupilModal.show();
 
-		/* Probieren wir es mal mitngCordova 
-		$cordovaCamera.getPicture(options).then(function(uri) {
-			//Do something
-			$scope.tempURL = uri;
-		// $scope.tempURL = window.Ionic.normalizeURL(uri);
-		console.log("tempURL:",$scope.tempURL);		
-
-		// Das modale Fenster wieder anzeigen.
-		$scope.pupilModal.show();	
-		}, function(error) {
-			//Do something
-			console.warn(error);
-		}); */
-	  }
-	/*
-	  function gotImage(uri) {
-		$scope.tempURL = uri;
-		// $scope.tempURL = window.Ionic.normalizeURL(uri);
-		console.log("tempURL:",$scope.tempURL);		
-
-		// Das modale Fenster wieder anzeigen.
-		$scope.pupilModal.show();	
-
-	  }
-
-	  function failImage(err) {
-		console.warn(err);
-	  }
-
-	  */
-
+			}, function(err) {
+				console.log(err);
+			});
+		}
 
 	  // Hilfsfunktion: Kopiert tempURL nach permFolder	  
 	  function copyImage()  {
