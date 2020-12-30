@@ -5,9 +5,9 @@ APP zur Verwaltung von Schülerleistungen.
 - ionic Projekt erstellen (ionic start ngBienchen blank --type ionic1)
 - www - Ordner des neu erstellten Projekts löschen (rm -r www)
 - das rep nach www clonen
-- config.xml ins Projektverzeichnis kopieren
-- icon.png und splash.png nach resource kopieren und Ressourcen erzeugen (ionic cordova resources)
 - ionic cordova build ios
+- config.xml ins Projektverzeichnis kopieren
+- icon.png und splash.png nach resource kopieren und Ressourcen erzeugen (ionic cordova resources)- 
 
 Ionic Native (für Cordova-Plugins)
 - siehe: https://github.com/ionic-team/ionic-native
