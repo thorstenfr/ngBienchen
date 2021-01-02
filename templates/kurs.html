@@ -51,10 +51,10 @@
 
 	
 		<!--  Normale Ansicht -->	 
-		<ion-item  show-reorder="showReorder" ng-show="config.showViewNormal || config.showViewDetail" class="item-icon-left" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
-			<i class="icon ion-ios-people-outline"></i>
+		<ion-item  show-reorder="showReorder"   ng-class="config.showViewNormal ? 'item-icon-left' : ''" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
+			<i ng-show="config.showViewNormal" class="icon ion-ios-people-outline"></i>
 			
-			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
+			{{course.title}}<br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
 						{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
 			<small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
 			</small> </span>
@@ -65,20 +65,6 @@
 			<ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
 		  </ion-item>
 		
-		<!--  Kompakte Ansicht -->	 
-		<ion-item   ng-show="config.showViewKompakt" id="kurs-list-item1" ui-sref="teilnehmer" ng-repeat="course in courses |  orderBy : myOrderBy" ng-click="selectCourse(course, $index)">
-			
-			
-			{{course.title}} <br /><small ng-if="course.bienchen">{{consts.schueler}}: {{course.pupils.length}} 
-						{{consts.bienchen}}: {{course.bienchen}} Mittel: {{course.bienchen/course.pupils.length | number: 0}} </small><br />
-			<small ng-repeat="pupil in course.pupils | orderBy : '-bienchen' | limitTo : 3"> {{pupil.name}}: {{pupil.ratings.length - pupil.teufelchen.length}} 
-			</small> </span>
-			
-			<ion-option-button  class="button-assertive ion-trash-a" ng-click="deleteCourse(course)"></ion-option-button>
-			<ion-option-button  class="button-positive ion-edit" ng-click="changeCourse(course)"></ion-option-button>
-			<ion-delete-button class="ion-minus-circled"></ion-delete-button>
-			<ion-reorder-button class="ion-navicon" on-reorder="reorder(course, $fromIndex, $toIndex)"></ion-reorder-button>
-		  </ion-item>
 		
 		</ion-list>
    
