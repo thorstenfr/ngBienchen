@@ -1,0 +1,9 @@
+<ion-popover-view>
+        <ion-content>
+            <strong>{{ratingsgesamt}}</strong>/<strong>{{schuelergesamt}}</strong>/<strong>{{courses.length}}</strong>: 
+            {{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen.
+                <br><br>
+               
+                Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. Das erste Bienchen wurde am {{oldest | date :  "dd.MM.y (HH:mm:ss)" }}, das letzte am {{newest | date :  "dd.MM.y (HH:mm:ss)"}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
+        </ion-content>
+      </ion-popover-view>

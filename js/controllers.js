@@ -1,9 +1,9 @@
 angular.module('app.controllers', ['ionic'])
 
-.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', '$ionicModal',  '$timeout', '$ionicPopup', '$ionicActionSheet','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('kursCtrl', ['$scope', '$stateParams', 'Courses', '$ionicModal',  '$timeout', '$ionicPopup', '$ionicPopover', '$ionicActionSheet','$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicActionSheet,$state) {
+function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $ionicPopover, $ionicActionSheet,$state) {
 	
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
@@ -719,6 +719,17 @@ $scope.showPopupAz = function() {
    }, 20000);
 };
 
+/* Info - Popover */
+$scope.animation = 'am-fade'
+
+  $ionicPopover.fromTemplateUrl('templates/popover.html', {
+    scope: $scope,
+    animation: $scope.animation
+  }).then(function(popover) {
+	calcRatings();
+    $scope.popover123 = popover;
+  });
+  
 
 	
  	

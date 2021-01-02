@@ -1,10 +1,15 @@
 
-<ion-view hide-back-button="true" title={{consts.titlePageOne}} cache-view="false" id="page1" style="background-color:#F7F7F7">
-  <ion-nav-buttons side="right" class="has-header has-footer">
-    <button class="button button-icon icon ion-drag" ng-click="showReor()"></button>
-  </ion-nav-buttons>
-  <ion-content padding="false" class="has-header has-footer" >
+<ion-view hide-back-button="true" title="{{consts.titlePageOne}}" cache-view="false" id="page1" style="background-color:#F7F7F7">
+	<ion-nav-buttons side="left" class="has-header has-footer">
+		<i style="padding-top: 11%;" ng-click="popover123.show($event)" style="cursor: context-menu;" ng-click="showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"> {{ratingsgesamt}}/{{schuelergesamt}}/{{courses.length}}</i>
+	</ion-nav-buttons>
 
+	<ion-nav-buttons side="right" class="has-header has-footer">
+		<button side="right" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
+	</ion-nav-buttons>
+
+  <ion-content padding="false" class="has-header has-footer" >
+	
 	<div ng-show="config.showViewNormal" class="card">
 		<div class="item item-text-wrap" style="text-align: center;">
 			{{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen
