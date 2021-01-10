@@ -1,10 +1,10 @@
 
 <ion-view hide-back-button="true" title="{{consts.titlePageOne}}" cache-view="false" id="page1" style="background-color:#F7F7F7">
 	<ion-nav-buttons side="left" class="has-header has-footer">
-		<i style="padding-top: 11%;" ng-click="popover123.show($event)" style="cursor: context-menu;" ng-click="showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"> {{ratingsgesamt}}/{{schuelergesamt}}/{{courses.length}}</i>
+		<button side="right" class="button button-icon icon ion-android-settings" ng-click="showMore()"></button>
 	</ion-nav-buttons>
-
 	<ion-nav-buttons side="right" class="has-header has-footer">
+		<button side="right" class="button button-icon icon ion-information-circled" ng-click="popover123.show($event)"></button>
 		<button side="right" class="button button-icon icon ion-drag" ng-click="showReor()"></button>
 	</ion-nav-buttons>
 

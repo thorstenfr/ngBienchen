@@ -1,9 +1,64 @@
 <ion-popover-view>
         <ion-content>
-            <strong>{{ratingsgesamt}}</strong>/<strong>{{schuelergesamt}}</strong>/<strong>{{courses.length}}</strong>: 
-            {{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen.
-                <br><br>
+          
+                <div class="list">
+
+                  
+                  <div class="item item-divider">
+                    Übersicht
+                  </div>
+                  <div class="item">
+                    Wertungen
+                   <span class="item-note">{{ratingsgesamt}}</span>
+                  </div>
+                  <div class="item">
+                    Teilnehmer
+                     <span class="item-note">{{schuelergesamt}}</span>
+                  </div>
+                  <div class="item">
+                    Kurse
+                    <span class="item-note">{{courses.length}}</span>
+                  </div>
+                  <div class="item item-divider">
+                    Wertungen
+                  </div>
+                  <div class="item">
+                    Die erste Wertung
+                   <span class="item-note">{{oldest | date :  "dd.MM.y (HH:mm:ss)" }}</span>
+                  </div>
+                  <div class="item">
+                    Die letzte Wertung
+                  <span class="item-note">{{newest | date :  "dd.MM.y (HH:mm:ss)" }}</span>
+                  </div>
+                  <div class="item item-divider">
+                    Statistik (Wertungen)
+                  </div>
+                  <div class="item">
+                    Heute
+                    <span class="badge badge-assertive">{{ratingsHeute / azEinheit | number:0}}</span>
+                  </div>
+                  <div class="item">
+                    Diese Woche
+                    <span class="badge badge-assertive">{{ratingsWoche / azEinheit | number:0}}</span>
+                  </div>
+                  <div class="item">
+                    Dieser Monat
+                    <span class="badge badge-assertive">{{ratingsMonat / azEinheit | number:0}}</span>
+                  </div>
+                  <div class="item">
+                    Dieses Jahr
+                    <span class="badge badge-assertive">{{ratingsJahr / azEinheit | number:0}}</span>
+                  </div>
+                  <div class="item item-divider">
+                    Allgemein
+                  </div>
+                  <div class="item">
+                    Über
+                    <span class="item-note">{{bienchenversion}} ({{bienchenbuild}})</span>
+                  </div>
+                  
+                
+                </div>
                
-                Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. Das erste Bienchen wurde am {{oldest | date :  "dd.MM.y (HH:mm:ss)" }}, das letzte am {{newest | date :  "dd.MM.y (HH:mm:ss)"}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
         </ion-content>
       </ion-popover-view>
