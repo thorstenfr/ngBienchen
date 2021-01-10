@@ -1,7 +1,6 @@
 angular.module('app.services', [])
 
 .factory('Courses', [function(){
-    // var appname = "soteam";
     var appname = "bienchen";
     return {
         isRealDrive: function() {

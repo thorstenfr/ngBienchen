@@ -10,34 +10,6 @@
 
   <ion-content padding="false" class="has-header has-footer" >
 	
-	<div ng-show="config.showViewNormal" class="card">
-		<div class="item item-text-wrap" style="text-align: center;">
-			{{ratingsgesamt}} Wertungen von {{schuelergesamt}} Schüler in {{courses.length}} Kursen
-		</div>
-	 </div>
-
-			<div ng-if="config.showViewDetail==true" class="row header">
-				
-          <div style="text-align: center;" class="col">Heute</div>
-          <div style="text-align: center;" class="col">Woche</div>
-          <div style="text-align: center;" class="col">Monat</div>
-          <div style="text-align: center;" class="col">Jahr</div>          
-        </div>
-			<div ng-if="config.showViewDetail==true" class="row">
-				
-					<div  style="text-align: center;"  class="col">{{ratingsHeute / azEinheit | number:2}}</div>
-					<div style="text-align: center;" class="col">{{ratingsWoche / azEinheit | number:2}}</div>
-					<div style="text-align: center;" class="col">{{ratingsMonat / azEinheit | number : 2}}</div>
-					<div style="text-align: center;" class="col">{{ratingsJahr / azEinheit | number : 2}}</div>
-			</div>
-		
-		<div ng-if="config.showViewDetail" class="card">
-			<div class="item item-text-wrap">
-				<i ng-click="soteam ? showPopupAz() : showAlertAz()" style="margin-right : 10px;" class="icon ion-information-circled"></i>
-			Du hast <strong>heute</strong>  {{ratingsHeute}} {{consts.ratings}} erfasst. Das erste Bienchen wurde am {{oldest | date :  "dd.MM.y (HH:mm:ss)" }}, das letzte am {{newest | date :  "dd.MM.y (HH:mm:ss)"}} erfasst. <span ng-if="soteam">Das sind <strong>{{ratingsHeute / azEinheit | number : 2}} Stunden</strong>.</span>
-				
-			</div>
-		</div>
 		
 
 	<form ng-if="showCreate" name="form.coursesForm" role="form" ng-submit="createCourse(course)">
