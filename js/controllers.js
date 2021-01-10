@@ -58,7 +58,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 		var woche = 0;
 		var monat = 0;
 		var jahr = 0;
-		var newest = new Date();
+		var newest = new Date(0);
 		var oldest = new Date();
 
 
@@ -74,12 +74,16 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 													// Ratings von heute
 													var d = new Date(v5);
 													var now = new Date();
-													if (newest - d < 0) {
+													
+													if (d.getTime() > newest.getTime()) {
+														
 														console.log("Neues newest: " + newest);
 														newest = d;
 													}
-													if (oldest -d > 0) {
-														console.log("Neues oldest: " + oldest);
+													if (d.getTime() < oldest.getTime()  ) {
+														console.log("d.getTime()",d.getTime(),"/oldest.getTime()",oldest.getTime());
+														
+														console.log("Neues oldest: " + d);
 														oldest = d;
 													}
 													if ((d.getDate()==now.getDate()) && (d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
