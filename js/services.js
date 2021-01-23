@@ -71,7 +71,8 @@ angular.module('app.services', [])
                 mittel : 0,
                 maxBienchenName : '',
                 subjects: [],
-                pupils: []
+                pupils: [],
+                wertungen : 0
             };
             
         },

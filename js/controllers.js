@@ -37,6 +37,8 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			// Iterate durch Ratings
 			course.pupils.forEach(function(pupil) {
 				
+				// Kurs-Ratings, Bienchen und Teufelchen 
+				$scope.courses[$scope.courses.indexOf(course)].bienchen = $scope.courses[$scope.courses.indexOf(course)].wertungen + pupil.ratings.length + pupil.teufelchen.length;
 				// Kursbienchen erhöhen
 				$scope.courses[$scope.courses.indexOf(course)].bienchen = $scope.courses[$scope.courses.indexOf(course)].bienchen + pupil.ratings.length - pupil.teufelchen.length;
 					ratings=ratings+pupil.ratings.length;
@@ -726,12 +728,12 @@ $scope.showPopupAz = function() {
 /* Info - Popover */
 $scope.animation = 'am-fade'
 
-  $ionicPopover.fromTemplateUrl('templates/popover.html', {
+  $ionicPopover.fromTemplateUrl('templates/popoverCourses.html', {
     scope: $scope,
     animation: $scope.animation
   }).then(function(popover) {
 	calcRatings();
-    $scope.popover123 = popover;
+    $scope.popoverInformationCourses = popover;
   });
   
 
@@ -743,10 +745,10 @@ $scope.animation = 'am-fade'
 
 
 
-.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicModal', 'CameraFac', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('teilnehmerCtrl', ['$scope', '$stateParams', 'Courses', '$ionicActionSheet', '$timeout', '$ionicPopup', '$ionicPopover',  '$ionicModal', 'CameraFac', '$state',   // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicModal, CameraFac, $state, uiFieldState) {
+function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopup, $ionicPopover, $ionicModal, CameraFac, $state, uiFieldState) {
 
 	$scope.courses =  Courses.all();
 	$scope.config = Courses.loadConfig();
@@ -814,6 +816,18 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  $scope.buchungsDatum = {
          datum: new Date()
 	 };
+
+	 /* Info - Popover */
+	$scope.animation = 'am-fade'
+
+	$ionicPopover.fromTemplateUrl('templates/popoverPupils.html', {
+	scope: $scope,
+	animation: $scope.animation
+	}).then(function(popover) {
+	calcRatings();
+	calcPupils();
+	$scope.popoverInformationPupils = popover;
+	});
 	
 	/**
 	 * Mache Änderungen Rückgängig
@@ -1960,7 +1974,8 @@ $scope.asFilterDatum= function() {
 	            teufelchen : [],
 				image : "img/No_image_available-de.svg.png",
 				kommentare : [],
-				zufaelle : []
+				zufaelle : [],
+				wertungen : 0
 	        });
 			
 		  
@@ -2081,14 +2096,14 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 			pupil.teufelchen.push({
 				datum : now
 			});
-			$scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
+			$scope.activeCourse.wertungen = $scope.activeCourse.wertungen + 1;
 		}
 		else {
 			// Rating hinzufügen
 			pupil.ratings.push({
 				datum : now
 			});
-			$scope.activeCourse.bienchen = $scope.activeCourse.bienchen + 1;
+			$scope.activeCourse.wertungen = $scope.activeCourse.wertungen + 1;
 		}
 		
         
@@ -2407,11 +2422,15 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 
 
 	}
-    
+	
+	
+	
+
 	// Kopiert Daten inZwischenablage
 	$scope.addToClipboard = function() {
 		var text = angular.toJson($scope.courses);
 		cordova.plugins.clipboard.copy(text);
+		
 	
 	}
     
