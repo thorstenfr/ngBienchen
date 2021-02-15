@@ -187,6 +187,80 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	}
 	
 
+		// An alert dialog
+		showAlert = function(text) {
+			var alertPopup = $ionicPopup.alert({
+			  title: 'Löschen',
+			  template: text
+			});
+		 
+			alertPopup.then(function(res) {		
+			  $state.go('kurs');
+			});
+		  };
+
+
+/* Anfang Confirm-Dialog */
+ // Triggered on a button click, or some other target
+ $scope.showConfirmDeleteCourse = function(course) {
+
+
+	$scope.data = {}
+	var delkey = course.title;
+	
+ 
+	// An elaborate, custom popup
+	var myPopup = $ionicPopup.show({
+	  template: '<input type="text" ng-model="data.wifi">',
+	  title: 'Kurs löschen',
+	  subTitle: '<b>Achtung</b>: Kurs unwideruflich löschen, dieser Schritt kann nicht rückgängig gemacht werden. <br><br>Schreiben Sie: <b>' + delkey + ' </b>wenn Sie sicher sind, dass Sie die Daten löschen wollen!</b>',
+	  scope: $scope,
+	  buttons: [
+		{ text: 'Abbruch' },
+		{
+		  text: '<b>Löschen</b>',
+		  type: 'button-assertive',
+		  onTap: function(e) {
+			if (!$scope.data.wifi) {
+			  //don't allow the user to close unless he enters wifi password
+			  e.preventDefault();
+			} else {
+			  return $scope.data.wifi;
+			}
+		  }
+		},
+	  ]
+	});
+	myPopup.then(function(res) {
+	  console.log('Tapped!', res);
+	  if(res) {
+		try {		
+			if (res==delkey) {
+				delCourse(course);	
+				Courses.save($scope.courses);
+				showAlert('Kurs ' + course.title + " gelöscht.");
+			}	
+			else {
+				showAlert("Sie haben <b>" + res + "</b> geschrieben und nicht <b>" + delkey + "</b><br> Kurs " + delkey+ " wird <b>nicht</b> gelöscht.");
+			}
+			
+		} catch (e) {
+			alert(e);				
+		}
+	
+	} else {
+		console.log('You are not sure');
+	}
+	});
+	$timeout(function() {
+	   myPopup.close(); //close the popup after 3 seconds for some reason
+	}, 50000);
+   };
+  
+/* Ende Confirm-Dialog */
+
+
+
 	// A confirm dialog
    $scope.showConfirm = function(course) {
      var confirmPopup = $ionicPopup.confirm({
@@ -410,7 +484,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 
         // Sicherheitsabfrage, falls Schüler vorhanden sind
         if($scope.courses[$scope.courses.indexOf(course)].pupils.length !== 0) {
-			$scope.showConfirm(course);
+			$scope.showConfirmDeleteCourse(course);
         }
         else {
 			// Lösche Kurs
@@ -2554,7 +2628,7 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	var myPopup = $ionicPopup.show({
 	  template: '<input type="text" ng-model="data.wifi">',
 	  title: 'Daten importieren',
-	  subTitle: '<b>Achtung</b>: Alle Daten werden überschrieben! <br>Schreiben Sie: <b>' + delkey + ' </b>wenn Sie sicher sind, dass Sie die Daten überschreiben wollen!</b>',
+	  subTitle: '<b>Achtung</b>: Alle bestehenden Daten (Kurse, Teilnehmer, Bienchen) werden werden unwiderruflich <b>gelöscht!</b> Dieser Schritt kann nicht rückgängig gemacht werden!<br><br>Schreiben Sie: <b>' + delkey + ' </b>wenn Sie sicher sind, dass Sie die Daten überschreiben wollen!</b>',
 	  scope: $scope,
 	  buttons: [
 		{ text: 'Abbruch' },
