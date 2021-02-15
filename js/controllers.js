@@ -2601,33 +2601,6 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 /* Ende Confirm-Dialog */
 
 
-		// A confirm dialog
-	$scope.showConfirmImportEx = function() {
-
-			 // Hide overlay when done
-			 LoaderService.hide();
-		
-		var confirmPopup = $ionicPopup.confirm({
-		title: 'Folgende Daten importieren',
-		template: $scope.notice.text
-		});
-	
-		confirmPopup.then(function(res) {
-		if(res) {
-			try {			
-				$scope.courses = angular.fromJson($scope.notice.text);
-				Courses.save($scope.courses);
-				showAlert();
-			} catch (e) {
-				$scope.showAlertJsonError(e);				
-			}
-		
-		} else {
-			console.log('You are not sure');
-		}
-		});
-	};
-
 	// An alert dialog
 	showAlert = function(text) {
 		var alertPopup = $ionicPopup.alert({
@@ -2639,11 +2612,6 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		  $state.go('kurs');
 		});
 	  };
-	
-		
-		
-	
-	
 	
 	
 }])
