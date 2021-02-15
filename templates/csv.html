@@ -10,10 +10,10 @@
 <!-- Export -->
 	<div ng-if="aktion=='export'">
 		<h4>In welchem Format wollen Sie die Daten exportieren?</h4>
-	    	<ion-list>
-	        <ion-radio ng-model="exportformat" ng-value="'csv'">CSV</ion-radio>
-	        <ion-radio ng-model="exportformat" ng-value="'json'">JSON</ion-radio>
-	    </ion-list>
+	    	<ion-list >
+				<ion-radio ng-model="exportformat" ng-value="'csv'">CSV</ion-radio>
+				<ion-radio ng-model="exportformat" ng-value="'json'">JSON</ion-radio>
+	    	</ion-list>
 	   
 	    <br>
 		
@@ -52,11 +52,15 @@
 	<label class="item item-input">
 		<textarea rows="10" ng-model="notice.text" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
 	  </label>
-
-	
-		<button ng-click="importJsonFromTextarea()" class="button button-block button-assertive">
+	  <br>
+	  <div class="button-bar">
+		<button class="button" ng-click="pasteClipboard()">Einfügen</button>
+		<button class="button" ng-click="clearTextArea()">Löschen</button>
+		<button ng-click="importJsonFromTextarea()" class="button  button-assertive">
 			Daten importieren
 		  </button>
+	</div>	 
+		
 	    
     </div>
     

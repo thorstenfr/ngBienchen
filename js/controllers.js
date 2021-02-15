@@ -2430,6 +2430,13 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	$scope.addToClipboard = function() {
 		var text = angular.toJson($scope.courses);
 		cordova.plugins.clipboard.copy(text);
+		var alertPopup = $ionicPopup.alert({
+			title: 'Zwischenablage',
+			template: text
+		  });
+		  alertPopup.then(function(res) {
+			console.log('Text in Zwischenablage kopiert.');
+		  });
 		
 	
 	}
@@ -2483,8 +2490,29 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
      
     $scope.jsonExport = function() {
         console.log("Json export");
-    }
+	}
 	
+	$scope.clearTextArea = function() {
+		$scope.notice.text = "";
+	}
+	$scope.pasteClipboard = function() {
+		cordova.plugins.clipboard.paste(function (text) { 
+		var alertPopup = $ionicPopup.alert({
+			title: 'Zwischenablage',
+			template: text
+			});
+		
+			alertPopup.then(function(res) {
+			console.log('Thank you for not eating my delicious ice cream cone');
+			$scope.notice.text = text;
+			});
+		
+		
+			
+		});
+
+
+	}
     $scope.importJsonFromTextarea = function() {  
 		// Hide overlay when done
 		LoaderService.show();
@@ -2512,8 +2540,69 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 		});
 	  };
 
+/* Anfang Confirm-Dialog */
+ // Triggered on a button click, or some other target
+ $scope.showConfirmImport = function() {
+
+	// Hide overlay when done
+	LoaderService.hide();
+
+	$scope.data = {}
+	var delkey = "Lösche!";
+ 
+	// An elaborate, custom popup
+	var myPopup = $ionicPopup.show({
+	  template: '<input type="text" ng-model="data.wifi">',
+	  title: 'Daten importieren',
+	  subTitle: '<b>Achtung</b>: Alle Daten werden überschrieben! <br>Schreiben Sie: <b>' + delkey + ' </b>wenn Sie sicher sind, dass Sie die Daten überschreiben wollen!</b>',
+	  scope: $scope,
+	  buttons: [
+		{ text: 'Abbruch' },
+		{
+		  text: '<b>Speichern</b>',
+		  type: 'button-assertive',
+		  onTap: function(e) {
+			if (!$scope.data.wifi) {
+			  //don't allow the user to close unless he enters wifi password
+			  e.preventDefault();
+			} else {
+			  return $scope.data.wifi;
+			}
+		  }
+		},
+	  ]
+	});
+	myPopup.then(function(res) {
+	  console.log('Tapped!', res);
+	  if(res) {
+		try {		
+			if (res==delkey) {
+				$scope.courses = angular.fromJson($scope.notice.text);
+				Courses.save($scope.courses);
+				showAlert('Daten erfolgreich importiert.');
+			}	
+			else {
+				showAlert("Sie haben <b>" + res + "</b> geschrieben und nicht <b>" + delkey + "</b><br> Daten werden <b>nicht</b> importiert");
+			}
+			
+		} catch (e) {
+			$scope.showAlertJsonError(e);				
+		}
+	
+	} else {
+		console.log('You are not sure');
+	}
+	});
+	$timeout(function() {
+	   myPopup.close(); //close the popup after 3 seconds for some reason
+	}, 50000);
+   };
+  
+/* Ende Confirm-Dialog */
+
+
 		// A confirm dialog
-	$scope.showConfirmImport = function() {
+	$scope.showConfirmImportEx = function() {
 
 			 // Hide overlay when done
 			 LoaderService.hide();
@@ -2540,10 +2629,10 @@ $scope.activeCourse.bienchen = $scope.activeCourse.bienchen - pupil.bienchen;
 	};
 
 	// An alert dialog
-	showAlert = function() {
+	showAlert = function(text) {
 		var alertPopup = $ionicPopup.alert({
 		  title: 'Import',
-		  template: 'Daten erfolgreich importiert.'
+		  template: text
 		});
 	 
 		alertPopup.then(function(res) {		
