@@ -42,37 +42,25 @@
 </div>
 
   <!-- Datumfilter -->
-  <div class="list">
-
-	<label class="item item-input item-select">
-	  <div class="input-label">
-		Datumsfilter
-	  </div>
-	  <select  ng-change="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, set_monat)" ng-model="activeCourse.dat_wahl">
-		<option  ng-value="'Tag'">Tag</option>
-		<option  ng-value="'Woche'" selected>Woche</option>
-		<option ng-value="'Woche'">Monat</option>
-	  </select>
-	</label>
-  
-  </div>
   <div ng-if="config.showViewFilterDatePeriod==true">
-		<div class="row bar item-input-inset">
-			<div class="col">
-				<label class="item-input-wrapper">
-					<input  id="von_input" type="date" ng-model="activeCourse.vonDatum" >
-				</label>
-			</div>
-			<div class="col">
-				<label class="item-input-wrapper">
-					<input id="name_input" type="date" ng-model="activeCourse.bisDatum">
-				</label>
-			</div>
+	<div class="card">
+		<div class="item item-input-inset">
+			<label class="item-input-wrapper">
+				<input  id="von_input" type="date" ng-model="activeCourse.vonDatum" >
+			</label>
+		  -
+			<label class="item-input-wrapper">
+			  <input type="date" placeholder="bis">
+			</label>
 		  </div>
-	</div>
-	
-  
-  
+		<div class="button-bar">
+			<a class="button">Heute</a>
+			<a class="button">Woche</a>
+			<a class="button">Monat</a>
+		  </div>
+	  </div>
+	  </div>
+
  	        
   
    <ion-list  id="teilnehmer-list5" show-delete="showDelete" show-reorder="showReorder" class="manual-list-fullwidth">
