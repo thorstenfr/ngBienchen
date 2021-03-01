@@ -19,7 +19,8 @@ Cordova Plugins hinzufügen:
 
 Für Icons und Spash-Screen
 - www/gimp icon.png und splash.png in resources erzeugen
-- ionic cordova resources
+- ionic cordova resources / bzw cordova-res android --skip-config --copy
+- Unter Android: https://www.youtube.com/watch?v=QOsDG5RSQ-Q&feature=youtu.be&ab_channel=RockyLon
 
 # Mögliche Buildfehler:
 Android:
