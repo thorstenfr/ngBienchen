@@ -44,6 +44,12 @@
   <!-- Datumfilter -->
   <div ng-if="config.showViewFilterDatePeriod==true">
 	<div class="card">
+		<div class="button-bar  ">
+			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Tag')" >Heute</a>
+			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Woche')">Woche</a>
+			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Monat')">Monat</a>
+		</div>
+		
 		<div class="item item-input-inset">
 			<label class="item-input-wrapper">
 				<input  id="von_input" type="date" ng-model="activeCourse.vonDatum" >
@@ -54,11 +60,7 @@
 			</label>
 		  </div>
 		  
-		<div class="button-bar">
-			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Tag')" >Heute</a>
-			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Woche')">Woche</a>
-			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Monat')">Monat</a>
-		  </div>
+		
 	  </div>
 	  </div>
 
