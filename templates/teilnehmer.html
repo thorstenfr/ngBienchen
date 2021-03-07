@@ -40,7 +40,7 @@
     Löschen
   </button>
 </div>
-
+  
   <!-- Datumfilter -->
   <div ng-if="config.showViewFilterDatePeriod==true">
 	<div class="card">
@@ -50,13 +50,14 @@
 			</label>
 		  -
 			<label class="item-input-wrapper">
-			  <input type="date" placeholder="bis">
+				<input  id="bis_input" type="date" ng-model="activeCourse.bisDatum"    >
 			</label>
 		  </div>
+		  
 		<div class="button-bar">
-			<a class="button">Heute</a>
-			<a class="button">Woche</a>
-			<a class="button">Monat</a>
+			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Tag')" >Heute</a>
+			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Woche')">Woche</a>
+			<a class="button" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Monat')">Monat</a>
 		  </div>
 	  </div>
 	  </div>

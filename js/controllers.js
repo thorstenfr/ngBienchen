@@ -1308,8 +1308,14 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
     $scope.setNewDatumFilter = function(von,bis,set_monat) {
     	$scope.datumfilter = true;
     	console.log("dat_wahl : " +$scope.activeCourse.dat_wahl);
-		console.log("von : " +von);
-		
+		console.log("von : " +von);	
+		console.log("set_monat : " +set_monat);
+
+		if(set_monat) {
+			console.log("set_monat gesetzt auf ", set_monat);
+			$scope.activeCourse.dat_wahl = set_monat;
+		}
+
 		var heute = new Date(); // aktuelles Datum und aktuelle Zeit	
 		
 		switch($scope.activeCourse.dat_wahl) {

@@ -55,9 +55,12 @@
 			  Daten importieren
 			</button>
 	  </div>	
-	  <br><hr> 
+	  <br>
 	  <div>
-		<p>{{notice.text}}</p>
+		<label class="item item-input">
+			<textarea rows="10" ng-model="notice.text" placeholder="Kopieren Sie hier die zu importierenden Daten hin (JSON-Format)..."></textarea>
+		  </label>
+		
 	</div>	    
     </div>
     
