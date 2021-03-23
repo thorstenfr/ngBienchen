@@ -836,7 +836,20 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.permFile = null;
 	$scope.KEY = "OLDfileNAMEkey";
 
+	/*
+	 ** Initialisierungen
+	 */
+	if($scope.config.showViewFilterDatePeriod==true) {
+		$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
+		$scope.datumFilterClassTag ="button button-small button-positive";
+		$scope.datumFilterClassWoche ="button button-small button-positive";
+		$scope.datumFilterClassMonat ="button button-small button-positive";
+	}
+	else {
+		$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
+	}
 
+	
 	// Ermittle activeCourse
 	$scope.activeCourse = $scope.courses[Courses.getLastActiveIndex()];	
 	
@@ -1325,18 +1338,28 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		        var von = jahr + "-" + monat + "-01";
 		        var bis = jahr + "-" + monat + "-" + daysInMonth(monat,jahr);
 		        var d = new Date(von);
-		        var e = new Date(bis);
+				var e = new Date(bis);
+				$scope.datumFilterClassTag ="button button-small button-positive";
+				$scope.datumFilterClassWoche ="button button-small button-positive";
+				$scope.datumFilterClassMonat ="button button-small button-positive active";
 		
 		        
 				break;
 			case 'Woche':
 				var d = addDays(heute, heute.getDay(), false);
 				var e = addDays(d, 7, true);
+				$scope.datumFilterClassTag ="button button-small button-positive";
+				$scope.datumFilterClassWoche ="button button-small button-positive active";
+				$scope.datumFilterClassMonat ="button button-small button-positive";
+			
 				
 				break;
 			case 'Tag':
 				var d = new Date();
 				var e = new Date();
+				$scope.datumFilterClassTag ="button button-small button-positive active";
+				$scope.datumFilterClassWoche ="button button-small button-positive";
+				$scope.datumFilterClassMonat ="button button-small button-positive";
 								
 				break;
 			case 'Datum':
@@ -1710,20 +1733,26 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	$scope.showViewFilter = function() {
 		
 		/* Setze toggles */
-		console.log("config.showFilterBestlist",$scope.config.showFilterBestlist);
 		if($scope.config.showFilterBestlist==true) {
 			$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle-filled"></div>Bestenliste';
 		}
 		else {
 			$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle"></div>Bestenliste';
 		}
+		if($scope.config.showViewFilterFilter==true) {
+			$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
+		}
+		else {
+			$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
+		}
+		
 		
 
 
         // Show the action sheet
    		var hideSheet = $ionicActionSheet.show({
      		buttons: [
-			{ text: $scope.config.showViewFilterFilterText },
+			{ text: $scope.config.showViewFilterFilterText},
 			{ text: $scope.config.showViewFilterDatePeriodText },
 			{ text: $scope.config.showViewFilterBestlistText }
 			],
@@ -1736,15 +1765,15 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
      	buttonClicked: function(index) {
      	   	switch (index) {
 	  		case 0:
-				if($scope.config.showViewFilterFilter) {
+				if($scope.config.showViewFilterFilter==true) {
 					$scope.config.showViewFilterFilter = false;
-					$scope.config.showViewFilterBestlistText = '<div class="icon ion-toggle"></div>Text';
-				 delete $scope.activeCourse.textsearch;
+					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text1';
+					delete $scope.activeCourse.textsearch;
 				
 				}
 				else {
 					$scope.config.showViewFilterFilter = true;
-					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text';
+					$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle-filled"></div>Text2';
 				
 				}				
 	  			break;
@@ -1758,6 +1787,9 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 				else {
 					$scope.config.showViewFilterDatePeriod=true;
 					$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
+					$scope.datumFilterClassTag ="button button-small button-positive";
+					$scope.datumFilterClassWoche ="button button-small button-positive";
+					$scope.datumFilterClassMonat ="button button-small button-positive";
 				}
 				break;
 			case 2:

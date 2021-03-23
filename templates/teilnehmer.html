@@ -9,26 +9,23 @@
   </ion-nav-buttons>
 
   <ion-content padding="true" class="has-header has-footer">	  
-	<!-- Bestenliste -->
-	<div ng-click="setOrderByBienchen()" ng-if="config.showFilterBestlist==true" class="bn-filter">
-		<div class="row bar bar-header item-input-inset">
-			<div class="col">
-				<input type="radio" ng-model="activeCourse.myLimit" ng-value="3"> Top 3</input>
-			</div>
-			<div class="col">
-				<input  type="radio" ng-model="activeCourse.myLimit" ng-value="5"> Top 5</input>
-			</div>
-			<div class="col">
-				<input  type="radio" ng-model="activeCourse.myLimit" ng-value="10"> Top 10</input>
-			</div>
-			<div class="col">
-		  <label class="item-input-wrapper">Top: 
-			 <input  id="von_input" type="number" ng-model="activeCourse.myLimit">
-		  </label>
-		  </div>
-	   </div>
-    </div>
-
+<!-- Bestenliste -->
+<div ng-if="config.showFilterBestlist==true">
+	<div class="card">
+		<div class="button-bar  ">
+			<a ng-class="datumFilterClassTag"   ng-click="activeCourse.myLimit=3"
+			ng-class="datumFilterClassWoche" >Top 3</a>
+			<a ng-class="datumFilterClassWoche"  ng-click="activeCourse.myLimit=5">Top 5</a>
+			<a ng-class="datumFilterClassMonat"  ng-click="activeCourse.myLimit=10">Top 10</a>
+		</div>
+		
+		<div class="item item-input-inset">
+			<label class="item-input-wrapper">Top: 
+				<input  id="von_input" type="number" ng-model="activeCourse.myLimit">
+			 </label>
+		  </div>	
+	  </div>
+	</div>
 
   <!-- Textfilter -->
   <div ng-if="config.showViewFilterFilter===true" class="bar bar-header item-input-inset bn-filter">
@@ -45,9 +42,9 @@
   <div ng-if="config.showViewFilterDatePeriod==true">
 	<div class="card">
 		<div class="button-bar  ">
-			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Tag')" >Heute</a>
-			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Woche')">Woche</a>
-			<a class="button button-small button-positive" ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Monat')">Monat</a>
+			<a ng-class="datumFilterClassTag"  ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Tag')" >Heute</a>
+			<a ng-class="datumFilterClassWoche"  ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Woche')">Woche</a>
+			<a ng-class="datumFilterClassMonat"  ng-click="setNewDatumFilter(activeCourse.vonDatum, activeCourse.bisDatum, 'Monat')">Monat</a>
 		</div>
 		
 		<div class="item item-input-inset">
@@ -58,11 +55,9 @@
 			<label class="item-input-wrapper">
 				<input  id="bis_input" type="date" ng-model="activeCourse.bisDatum"    >
 			</label>
-		  </div>
-		  
-		
+		  </div>	
 	  </div>
-	  </div>
+	</div>
 
  	        
   
