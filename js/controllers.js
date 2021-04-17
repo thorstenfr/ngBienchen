@@ -841,9 +841,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	 */
 	if($scope.config.showViewFilterDatePeriod==true) {
 		$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
+		
+		/* Datumfilter Buttons */
 		$scope.datumFilterClassTag ="button button-small button-positive";
 		$scope.datumFilterClassWoche ="button button-small button-positive";
 		$scope.datumFilterClassMonat ="button button-small button-positive";
+		
 	}
 	else {
 		$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
@@ -1729,8 +1732,37 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 };
 
 
+/* Auf Button Top3 geklickt */
+$scope.clickFilterBestlist = function(x) {
+	$scope.activeCourse.myLimit=x; 
+	$scope.orderByMe('-(ratings.length-teufelchen.length)');
+	switch(x) {
+		case 3: 
+			$scope.topFilterClass3 ="button button-small button-positive active";
+			$scope.topFilterClass5 ="button button-small button-positive";
+			$scope.topFilterClass10 ="button button-small button-positive";
+		break;
+		case 5:
+			$scope.topFilterClass3 ="button button-small button-positive";
+			$scope.topFilterClass5 ="button button-small button-positive active";
+			$scope.topFilterClass10 ="button button-small button-positive";
+		break;
+		case 10:
+			$scope.topFilterClass3 ="button button-small button-positive";
+			$scope.topFilterClass5 ="button button-small button-positive";
+			$scope.topFilterClass10 ="button button-small button-positive active";
+		break;
+
+	}
+}
+
 // Action Sheet "Filter"
 	$scope.showViewFilter = function() {
+
+		/* Besteliste Buttons */
+		$scope.topFilterClass3 ="button button-small button-positive";
+		$scope.topFilterClass5 ="button button-small button-positive";
+		$scope.topFilterClass10 ="button button-small button-positive";
 		
 		/* Setze toggles */
 		if($scope.config.showFilterBestlist==true) {
@@ -1746,7 +1778,7 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 			$scope.config.showViewFilterFilterText = '<div class="icon ion-toggle"></div>Text';
 		}
 		
-		
+
 
 
         // Show the action sheet
@@ -1826,10 +1858,6 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 };
 
 
-
-
-
-
 $scope.asFilterDatum= function() {
 
 	// Show the action sheet
@@ -1874,6 +1902,7 @@ $scope.asFilterDatum= function() {
 
 	// Filter zum Sortieren nach Name oder Bienchen
 	$scope.orderByMe = function(x) {
+		console.log("orderByMe aufgerufen");
 	        $scope.myOrderBy = x;
 	    };
 

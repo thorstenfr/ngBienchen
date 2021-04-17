@@ -13,10 +13,9 @@
 <div ng-if="config.showFilterBestlist==true">
 	<div class="card">
 		<div class="button-bar  ">
-			<a ng-class="datumFilterClassTag"   ng-click="activeCourse.myLimit=3"
-			ng-class="datumFilterClassWoche" >Top 3</a>
-			<a ng-class="datumFilterClassWoche"  ng-click="activeCourse.myLimit=5">Top 5</a>
-			<a ng-class="datumFilterClassMonat"  ng-click="activeCourse.myLimit=10">Top 10</a>
+			<a ng-class="topFilterClass3"   ng-click="clickFilterBestlist(3)">Top 3</a>
+			<a ng-class="topFilterClass5"  ng-click="clickFilterBestlist(5)">Top 5</a>
+			<a ng-class="topFilterClass10"  ng-click="clickFilterBestlist(10)">Top 10</a>
 		</div>
 		
 		<div class="item item-input-inset">
