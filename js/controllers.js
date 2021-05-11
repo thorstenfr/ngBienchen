@@ -77,15 +77,10 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 													var d = new Date(v5);
 													var now = new Date();
 													
-													if (d.getTime() > newest.getTime()) {
-														
-														console.log("Neues newest: " + newest);
+													if (d.getTime() > newest.getTime()) {																				
 														newest = d;
 													}
-													if (d.getTime() < oldest.getTime()  ) {
-														console.log("d.getTime()",d.getTime(),"/oldest.getTime()",oldest.getTime());
-														
-														console.log("Neues oldest: " + d);
+													if (d.getTime() < oldest.getTime()  ) {												
 														oldest = d;
 													}
 													if ((d.getDate()==now.getDate()) && (d.getMonth()==now.getMonth()) && (d.getFullYear()==now.getFullYear())) {
