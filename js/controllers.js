@@ -49,7 +49,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			});
 		$scope.ratingsgesamt=ratings;
 		$scope.schuelergesamt = schueler;
-		console.log("<-- calcPupils: ratings");
+		console.log("<-- calcPupils");
 	}
 	
 	calcRatings = function() {	
@@ -141,6 +141,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 			* showTagesübersicht aktiviert wird.
 			*/ 
 			if ($scope.config.showViewDetail) {
+				console.log("$scope.config.showViewDetail");
 				calcRatings();
 
 			}
@@ -166,6 +167,7 @@ function ($scope, $stateParams, Courses, $ionicModal,  $timeout, $ionicPopup, $i
 	var mytoggle = true;
 	
 	var delCourse = function(course) {
+		console.log("delCourse");
 	        $scope.courses.splice($scope.courses.indexOf(course), 1);
 			
 			/* Berechne Ratings und Pupils nach dem Löschen, da sich die 
@@ -778,7 +780,7 @@ $scope.showPopupAz = function() {
 	  			$scope.config.showViewUebersichtText = '<div class="icon ion-toggle"></div>Übersicht';
 				
 				$scope.config.showViewDetail = true;
-				// Bei Wechsel auf Detailanzeige müssen die Detailinformationen geladen werden
+				// Bei Wechsel auf Detailanzeige müssen die Detailinformationen geladen werden				
 				calcRatings();
 				$scope.config.showViewDetailText = '<div class="icon ion-toggle-filled"></div>Detail';
 			  	break;
@@ -909,19 +911,42 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	  $scope.buchungsDatum = {
          datum: new Date()
 	 };
-
-	 /* Info - Popover */
-	$scope.animation = 'am-fade'
-
-	$ionicPopover.fromTemplateUrl('templates/popoverPupils.html', {
-	scope: $scope,
-	animation: $scope.animation
-	}).then(function(popover) {
-	calcRatings();
-	calcPupils();
-	$scope.popoverInformationPupils = popover;
-	});
 	
+	 /*
+	  * Info_popover - neue Version 
+	  */
+	 $ionicPopover.fromTemplateUrl('templates/popoverPupils.html', {
+		scope: $scope
+	 }).then(function(popover) {		 
+		$scope.popover = popover;
+	 });
+  
+	 $scope.openPopover = function($event) {
+		calcRatings();
+		calcPupils();
+		$scope.popover.show($event);
+	 };
+  
+	 $scope.closePopover = function() {
+		$scope.popover.hide();
+	 };
+  
+	 //Cleanup the popover when we're done with it!
+	 $scope.$on('$destroy', function() {
+		$scope.popover.remove();
+	 });
+  
+	 // Execute action on hide popover
+	 $scope.$on('popover.hidden', function() {
+		// Execute action
+	 });
+  
+	 // Execute action on remove popover
+	 $scope.$on('popover.removed', function() {
+		// Execute action
+	 });
+	
+
 	/**
 	 * Mache Änderungen Rückgängig
 	 */
