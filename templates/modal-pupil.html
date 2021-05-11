@@ -78,14 +78,14 @@
         <h4>Bienchen ({{bienchen.length}}) </h4>
             <ul class="small striped-list">
 
-              <li class="small" ng-repeat="x in activeCourse.activePupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} <i ng-click="deleteRating(activeCourse.activePupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
+              <li class="small" ng-repeat="x in activeCourse.activePupil.ratings  | datumFilter: activeCourse.vonDatum : activeCourse.bisDatum |  orderBy:'-datum' | filter:q as bienchen" >{{ x.datum | date:'EEE, yyyy-MM-dd (HH:mm:ss)'}} <i ng-click="deleteRating(activeCourse.activePupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
             </ul>
        </div>
        <div  ng-if="settingsList[1].checked">
             <h4>Teufelchen</h4>
             <ul class="small striped-list">{{teufelchen.length}} {{consts.teufelchenDetails}}:
 
-              <li class="small" ng-repeat="x in activeCourse.activePupil.teufelchen | datumFilter: vonDatum : bisDatum  | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(activeCourse.activePupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
+              <li class="small" ng-repeat="x in activeCourse.activePupil.teufelchen | datumFilter: vonDatum : bisDatum  | orderBy:'-datum' | filter:q as teufelchen"> {{ x.datum |  date:'EEE, yyyy-MM-dd (HH:mm:ss)'}}<i ng-click="deleteTeufelchen(activeCourse.activePupil, x)" style="margin-left : 10px;" class="icon ion-ios-trash-outline"></i></li>
             </ul>
        </div>
      <div  ng-if="settingsList[2].checked">
