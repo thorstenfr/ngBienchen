@@ -839,6 +839,12 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 	/*
 	 ** Initialisierungen
 	 */
+		
+	 /* Bestenlistefilter */
+	 $scope.topFilterClass3  = "button button-small button-positive";
+	 $scope.topFilterClass5  = "button button-small button-positive";
+	 $scope.topFilterClass10  = "button button-small button-positive";
+
 	if($scope.config.showViewFilterDatePeriod==true) {
 		$scope.config.showViewFilterDatePeriodText = '<div class="icon ion-toggle-filled"></div>Datum';
 		
@@ -846,6 +852,8 @@ function ($scope, $stateParams, Courses, $ionicActionSheet, $timeout, $ionicPopu
 		$scope.datumFilterClassTag ="button button-small button-positive";
 		$scope.datumFilterClassWoche ="button button-small button-positive";
 		$scope.datumFilterClassMonat ="button button-small button-positive";
+
+	
 		
 	}
 	else {
