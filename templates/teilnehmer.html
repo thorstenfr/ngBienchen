@@ -81,11 +81,7 @@
 			* Normale Ansicht
 		-->	
 
-		<div ng-show="config.showViewNormal" class="card">
-			<div class="item item-text-wrap" style="text-align: center;">
-				{{activeCourse.wertungen}} Wertungen von {{activeCourse.pupils.length}} Schüler, Mittel: {{activeCourse.wertungen/activeCourse.pupils.length | number: 0}}
-			</div>
-		 </div>
+		
       <ion-item  class="item item-avatar" ng-show="pupil.erledigt==false" ng-if="config.showViewNormal" id="teilnehmer-list-item5" ng-repeat="pupil in activeCourse.pupils | filter : activeCourse.textsearch |  orderBy:myOrderBy | limitTo : activeCourse.myLimit" ng-click="addRating(pupil,0)" on-hold="addRating(pupil,1)"> <img src="{{pupil.image}}"> <i ng-if="soteam" class="icon ion-android-checkbox-outline-blank" ng-click="toggleTaskErledigt(pupil)"></i> {{pupil.name}}<br><small style="color : grey;  font-style : italic;" ng-if="pupil.kommentare.length==0">Keine Kommentare vorhanden</small><small ng-repeat="k in pupil.kommentare| orderBy:'datum':true"> {{k.kommentar}}</small> <span class="badge badge-positive"> {{bienchen.length-teufelchen.length}} </span>
 		  <ion-option-button class="button-energized ion-more" ng-click="showTeilnehmerMehr(pupil)"></ion-option-button>
 		  <ion-option-button class="button-positive ion-edit" ng-click="changePupil(pupil)"></ion-option-button>
