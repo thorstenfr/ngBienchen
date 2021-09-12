@@ -7,7 +7,10 @@ APP zur Verwaltung von Schülerleistungen.
 - das rep nach www clonen
 - ionic cordova build ios
 - config.xml ins Projektverzeichnis kopieren
-- icon.png und splash.png nach resource kopieren und Ressourcen erzeugen (ionic cordova resources) 
+- npm install -g cordova-res // Resourcen Plugin installieren
+- resources - Verzeichnis erstellen  
+- icon.png und splash.png nach resource kopieren und Ressourcen erzeugen (cordova-res ios --skip-config --copy) 
+- ionic cap run ios
 
 Ionic Native (für Cordova-Plugins)
 - siehe: https://github.com/ionic-team/ionic-native
